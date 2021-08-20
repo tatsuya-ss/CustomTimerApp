@@ -21,6 +21,8 @@
 		75DC7B5C26CFD9E100A142BF /* CustomTimer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B5B26CFD9E100A142BF /* CustomTimer.storyboard */; };
 		75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */; };
 		75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */; };
+		75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */; };
+		75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B6326CFDA9900A142BF /* Setting.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		75DC7B5B26CFD9E100A142BF /* CustomTimer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CustomTimer.storyboard; sourceTree = "<group>"; };
 		75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTimerViewController.swift; sourceTree = "<group>"; };
 		75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartTimer.storyboard; sourceTree = "<group>"; };
+		75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		75DC7B6326CFDA9900A142BF /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 				75DC7B5526CFD92200A142BF /* TimerViewController.swift */,
 				75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */,
 				75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */,
+				75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +179,7 @@
 				75DC7B5726CFD93900A142BF /* Timer.storyboard */,
 				75DC7B5B26CFD9E100A142BF /* CustomTimer.storyboard */,
 				75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */,
+				75DC7B6326CFDA9900A142BF /* Setting.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -283,6 +289,7 @@
 			files = (
 				75DC7B5826CFD93900A142BF /* Timer.storyboard in Resources */,
 				7570114A26CCFCCC00716E93 /* LaunchScreen.storyboard in Resources */,
+				75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */,
 				7570114726CCFCCC00716E93 /* Assets.xcassets in Resources */,
 				75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */,
 				75DC7B5C26CFD9E100A142BF /* CustomTimer.storyboard in Resources */,
@@ -316,6 +323,7 @@
 				7570113E26CCFCC200716E93 /* AppDelegate.swift in Sources */,
 				75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
+				75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */,
 				7570114026CCFCC200716E93 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
