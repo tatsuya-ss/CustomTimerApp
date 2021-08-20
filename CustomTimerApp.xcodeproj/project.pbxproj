@@ -99,6 +99,9 @@
 		7570113C26CCFCC200716E93 /* CustomTimerApp */ = {
 			isa = PBXGroup;
 			children = (
+				75DC7B5326CFD75C00A142BF /* Models */,
+				75DC7B5226CFD75200A142BF /* Views */,
+				75DC7B5126CFD72D00A142BF /* Controllers */,
 				7570113D26CCFCC200716E93 /* AppDelegate.swift */,
 				7570113F26CCFCC200716E93 /* SceneDelegate.swift */,
 				7570114126CCFCC200716E93 /* ViewController.swift */,
@@ -126,6 +129,27 @@
 				7570116126CCFCCD00716E93 /* Info.plist */,
 			);
 			path = CustomTimerAppUITests;
+			sourceTree = "<group>";
+		};
+		75DC7B5126CFD72D00A142BF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		75DC7B5226CFD75200A142BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		75DC7B5326CFD75C00A142BF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
