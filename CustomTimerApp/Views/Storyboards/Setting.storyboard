@@ -8,20 +8,60 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Setting View Controller-->
+        <!--設定-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="SettingViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bzD-hY-OuG">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="bzD-hY-OuG" secondAttribute="bottom" id="1nh-lg-02B"/>
+                            <constraint firstItem="bzD-hY-OuG" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="GMu-At-6mM"/>
+                            <constraint firstItem="bzD-hY-OuG" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="LwH-98-9bP"/>
+                            <constraint firstItem="bzD-hY-OuG" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="en9-vR-hxH"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="設定" id="y3z-YQ-7HC">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Wnw-CI-pHp">
+                            <connections>
+                                <action selector="stopButtonTapped:" destination="Y6W-OH-hqX" id="VWP-Y1-ERG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="settingTableView" destination="bzD-hY-OuG" id="eoC-oF-dTT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-101" y="89"/>
+            <point key="canvasLocation" x="808.69565217391312" y="88.392857142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="g1X-BP-j4e">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="j6D-lR-oII" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fbb-dG-Zgx">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="kuB-nj-4lG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7w4-Fm-fLm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-101.44927536231884" y="88.392857142857139"/>
         </scene>
     </scenes>
     <resources>
