@@ -21,6 +21,7 @@ class CustomTimerViewController: UIViewController {
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
     }
     @IBAction private func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
