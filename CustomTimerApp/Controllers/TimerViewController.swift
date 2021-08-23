@@ -17,9 +17,13 @@ class TimerViewController: UIViewController {
     }
     
     @IBAction func addTimerButtonTapped(_ sender: Any) {
+        let customTimerNavVC = CustomTimerViewController.instantiate()
+        present(customTimerNavVC, animated: true, completion: nil)
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
+        let settingNavVC = SettingViewController.instantiate()
+        present(settingNavVC, animated: true, completion: nil)
     }
     
 }

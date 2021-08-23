@@ -21,5 +21,16 @@ class CustomTimerViewController: UIViewController {
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
     }
     @IBAction private func cancelButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension CustomTimerViewController {
+    static func instantiate() -> UINavigationController {
+        guard let navigationVC = UIStoryboard(name: "CustomTimer", bundle: nil)
+                .instantiateInitialViewController() as? UINavigationController
+        else { fatalError("Viewがありません") }
+        
+        return navigationVC
     }
 }

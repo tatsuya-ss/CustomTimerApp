@@ -17,6 +17,18 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction private func stopButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension SettingViewController {
+    static func instantiate() -> UINavigationController {
+        guard let navigationVC = UIStoryboard(name: "Setting", bundle: nil)
+                .instantiateInitialViewController() as? UINavigationController
+        else { fatalError("Viewがありません") }
+        
+        return navigationVC
+    }
+
 }
