@@ -22,6 +22,8 @@ class TimerViewController: UIViewController {
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
+        let settingNavVC = SettingViewController.instantiate()
+        present(settingNavVC, animated: true, completion: nil)
     }
     
 }
