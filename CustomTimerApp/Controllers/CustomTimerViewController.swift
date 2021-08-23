@@ -23,3 +23,13 @@ class CustomTimerViewController: UIViewController {
     @IBAction private func cancelButtonTapped(_ sender: Any) {
     }
 }
+
+extension CustomTimerViewController {
+    static func instantiate() -> UINavigationController {
+        guard let navigationVC = UIStoryboard(name: "CustomTimer", bundle: nil)
+                .instantiateInitialViewController() as? UINavigationController
+        else { fatalError("Viewがありません") }
+        
+        return navigationVC
+    }
+}
