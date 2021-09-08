@@ -7,11 +7,21 @@
 
 import UIKit
 
-class TimerCollectionViewCell: UICollectionViewCell {
+final class TimerCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet private weak var contentsImageView: UIImageView!
+    @IBOutlet private weak var timerNameLabel: UILabel!
+    
+    static var identifier: String { String(describing: self) }
+    static var nib: UINib { UINib(nibName: String(describing: self), bundle: nil) }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+    }
+    
+    func configure(timerName: String) {
+        timerNameLabel.text = timerName
     }
 
 }
