@@ -13,6 +13,9 @@
 		7570114A26CCFCCC00716E93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7570114826CCFCCC00716E93 /* LaunchScreen.storyboard */; };
 		7570115526CCFCCD00716E93 /* CustomTimerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570115426CCFCCD00716E93 /* CustomTimerAppTests.swift */; };
 		7570116026CCFCCD00716E93 /* CustomTimerAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570115F26CCFCCD00716E93 /* CustomTimerAppUITests.swift */; };
+		75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */; };
+		75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */; };
+		75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */; };
 		75DC7B5626CFD92200A142BF /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B5526CFD92200A142BF /* TimerViewController.swift */; };
 		75DC7B5826CFD93900A142BF /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B5726CFD93900A142BF /* Timer.storyboard */; };
 		75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */; };
@@ -53,6 +56,9 @@
 		7570115B26CCFCCD00716E93 /* CustomTimerAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomTimerAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7570115F26CCFCCD00716E93 /* CustomTimerAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerAppUITests.swift; sourceTree = "<group>"; };
 		7570116126CCFCCD00716E93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCollectionViewCell.swift; sourceTree = "<group>"; };
+		75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerCollectionViewCell.xib; sourceTree = "<group>"; };
+		75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerComponent.swift; sourceTree = "<group>"; };
 		75DC7B5526CFD92200A142BF /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		75DC7B5726CFD93900A142BF /* Timer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
 		75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +147,15 @@
 			path = CustomTimerAppUITests;
 			sourceTree = "<group>";
 		};
+		75888FB026E859A300F1A545 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */,
+				75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */,
+			);
+			path = Xibs;
+			sourceTree = "<group>";
+		};
 		75DC7B5126CFD72D00A142BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				75DC7B5426CFD8A400A142BF /* Storyboards */,
+				75888FB026E859A300F1A545 /* Xibs */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +179,7 @@
 		75DC7B5326CFD75C00A142BF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -286,6 +303,7 @@
 				75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */,
 				7570114726CCFCCC00716E93 /* Assets.xcassets in Resources */,
 				75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */,
+				75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */,
 				75DC7B5C26CFD9E100A142BF /* CustomTimer.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +333,8 @@
 				7570113E26CCFCC200716E93 /* AppDelegate.swift in Sources */,
 				75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
+				75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */,
+				75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */,
 				75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */,
 				7570114026CCFCC200716E93 /* SceneDelegate.swift in Sources */,
 			);

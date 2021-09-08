@@ -60,7 +60,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="timerCollectionView" destination="QGA-zg-Fy6" id="Siq-5J-oti"/>
+                        <outlet property="collectionView" destination="QGA-zg-Fy6" id="Siq-5J-oti"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
