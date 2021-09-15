@@ -17,12 +17,17 @@ final class CustomTimerCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         photoImageView.image = nil
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = 10
     }
     
     func configure(image: UIImage) {

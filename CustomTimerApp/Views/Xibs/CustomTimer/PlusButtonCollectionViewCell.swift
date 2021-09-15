@@ -26,7 +26,11 @@ final class PlusButtonCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = layer.frame.height / 2
+        layer.cornerRadius = 10
+    }
+
+    func configure(image: UIImage) {
+        plusImageView.image = image
     }
 
 }
