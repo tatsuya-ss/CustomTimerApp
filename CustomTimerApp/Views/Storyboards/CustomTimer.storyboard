@@ -12,7 +12,7 @@
         <!--タイマー作成-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="CustomTimerViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomTimerViewController" id="Y6W-OH-hqX" customClass="CustomTimerViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,8 +75,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="TimerContentsCollectionView" destination="L0F-FX-XCY" id="uNP-rg-FQ1"/>
                         <outlet property="timePickerView" destination="Spg-px-5tO" id="EQw-UP-JG6"/>
+                        <outlet property="timerContentsCollectionView" destination="L0F-FX-XCY" id="uNP-rg-FQ1"/>
                         <outlet property="timerNameTextField" destination="q3k-rS-yVn" id="4Qd-xe-P46"/>
                     </connections>
                 </viewController>
