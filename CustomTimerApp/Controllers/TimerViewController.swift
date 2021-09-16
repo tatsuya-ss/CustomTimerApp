@@ -27,13 +27,15 @@ final class TimerViewController: UIViewController {
     }
     
     @IBAction func addTimerButtonTapped(_ sender: Any) {
-        let customTimerNavVC = CustomTimerViewController.instantiate()
-        present(customTimerNavVC, animated: true, completion: nil)
+        let customTimerVC = CustomTimerViewController.instantiate()
+        let navVC = UINavigationController(rootViewController: customTimerVC)
+        present(navVC, animated: true, completion: nil)
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
-        let settingNavVC = SettingViewController.instantiate()
-        present(settingNavVC, animated: true, completion: nil)
+        let settingVC = SettingViewController.instantiate()
+        let navVC = UINavigationController(rootViewController: settingVC)
+        present(navVC, animated: true, completion: nil)
     }
     
     private func displayAllTimer(animated: Bool = true) {

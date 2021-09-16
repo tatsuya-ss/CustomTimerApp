@@ -23,14 +23,3 @@ class StartTimerViewController: UIViewController {
     }
     
 }
-
-extension StartTimerViewController {
-    static func instantiate() -> UINavigationController {
-        guard let navigationVC = UIStoryboard(name: "StartTimer", bundle: nil)
-                .instantiateInitialViewController() as? UINavigationController
-        else { fatalError("Viewがありません") }
-        
-        return navigationVC
-    }
-
-}

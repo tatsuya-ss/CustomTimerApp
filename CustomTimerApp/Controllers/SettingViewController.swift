@@ -21,14 +21,3 @@ class SettingViewController: UIViewController {
     }
     
 }
-
-extension SettingViewController {
-    static func instantiate() -> UINavigationController {
-        guard let navigationVC = UIStoryboard(name: "Setting", bundle: nil)
-                .instantiateInitialViewController() as? UINavigationController
-        else { fatalError("Viewがありません") }
-        
-        return navigationVC
-    }
-
-}
