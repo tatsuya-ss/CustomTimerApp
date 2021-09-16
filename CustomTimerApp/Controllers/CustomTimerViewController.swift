@@ -53,19 +53,30 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBAction func plusButtonDidTapped(_ sender: Any) {
-        insertCell()
+        
+        DispatchQueue.main.async {
+            self.deselectCell()
+            DispatchQueue.main.async {
+                self.insertCell()
+            }
+        }
+        
+    }
+    
+    private func deselectCell() {
+        selectedIndexPath = []
+        collectionView.reloadData()
     }
     
     private func insertCell() {
         timerInfomations.append(TimeInfomation(time: 0))
         let insertIndexPath = IndexPath(item: timerInfomations.count - 1,
                                         section: 0)
+        selectedIndexPath = insertIndexPath
         collectionView.insertItems(at: [insertIndexPath])
-        DispatchQueue.main.async {
-            self.collectionView.scrollToItem(at: insertIndexPath,
-                                             at: .right,
-                                             animated: true)
-        }
+        self.collectionView.scrollToItem(at: insertIndexPath,
+                                         at: .right,
+                                         animated: true)
     }
     
     private func setupCollectionView() {
