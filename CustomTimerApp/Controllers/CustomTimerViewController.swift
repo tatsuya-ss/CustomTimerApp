@@ -19,14 +19,10 @@ extension TimeInfomation {
                                                          TimeInfomation(time: 2, photo: nil, text: "テストi"),
                                                          TimeInfomation(time: 1, photo: nil, text: "テストj"),
                                                          TimeInfomation(time: 0, photo: nil, text: "テストk")]
-    static var testNoTimes: [TimeInfomation] = []
+    static var testNoTimes: [TimeInfomation] = [TimeInfomation(time: 0)]
 }
 
 final class CustomTimerViewController: UIViewController {
-    
-    enum Section: Int, CaseIterable {
-        case main
-    }
     
     @IBOutlet private weak var timerNameTextField: UITextField!
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -34,13 +30,19 @@ final class CustomTimerViewController: UIViewController {
     @IBOutlet weak var plusButton: UIButton!
     
     private var timerInfomations: [TimeInfomation] = TimeInfomation.testNoTimes
+    private var selectedIndexPath: IndexPath = [0, 0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupPlusButton()
         setupCollectionView()
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.layer.cornerRadius = 20
+        plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
     }
     
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
@@ -66,20 +68,27 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
-    private func setupPlusButton() {
-        plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
-    }
-    
     private func setupCollectionView() {
         collectionView.collectionViewLayout = CustomTimerCollectionViewFlowLayout()
+        
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CustomTimerCollectionViewCell.nib,
                                 forCellWithReuseIdentifier: CustomTimerCollectionViewCell.identifier)
     }
+    
+}
 
+// MARK: - UICollectionViewDelegate
+extension CustomTimerViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        collectionView.reloadData()
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -94,18 +103,13 @@ extension CustomTimerViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CustomTimerCollectionViewCell.identifier,
-                for: indexPath) as? CustomTimerCollectionViewCell else { fatalError("セルが見つかりません") }
+                for: indexPath) as? CustomTimerCollectionViewCell
+        else { fatalError("セルが見つかりません") }
         cell.configure(image: UIImage(systemName: "timer")!)
+        indexPath == selectedIndexPath
+            ? cell.selectedCell()
+            : cell.unselectedCell()
         return cell
-        
     }
     
-    
-}
-// MARK: - UICollectionViewDelegate
-extension CustomTimerViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
-    }
 }

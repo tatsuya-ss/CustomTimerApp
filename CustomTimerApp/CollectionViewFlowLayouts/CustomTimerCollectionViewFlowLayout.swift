@@ -16,9 +16,10 @@ final class CustomTimerCollectionViewFlowLayout: UICollectionViewFlowLayout {
         let availableWidth = cv.bounds.inset(by: cv.layoutMargins).size.width
         let cellWidth = (availableWidth / 3).rounded(.down)
                 
-        let cellHeight = cv.layer.frame.height
+        let cellHeight = cv.layer.frame.height * 0.9
         
         self.itemSize = CGSize(width: cellWidth, height: cellHeight)
+        sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
 }

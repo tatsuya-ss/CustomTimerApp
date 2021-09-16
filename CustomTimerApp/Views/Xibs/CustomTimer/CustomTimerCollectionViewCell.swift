@@ -29,9 +29,25 @@ final class CustomTimerCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         layer.cornerRadius = 10
     }
-    
+        
     func configure(image: UIImage) {
         photoImageView.image = image
+    }
+    
+    func selectedCell() {
+        layer.masksToBounds = false
+        layer.shadowOffset = CGSize(width: -4.0,
+                                    height: 4.0)
+        layer.shadowOpacity = 1.0
+        layer.shadowRadius = 5
+    }
+    
+    func unselectedCell() {
+        layer.masksToBounds = false
+        layer.shadowOffset = CGSize(width: 0.0,
+                                    height: 0)
+        layer.shadowOpacity = 0
+        layer.shadowRadius = 0
     }
     
 }
