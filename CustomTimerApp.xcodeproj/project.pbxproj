@@ -19,8 +19,6 @@
 		75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */; };
 		75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */; };
 		75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */; };
-		75D28ECF26F1D7A8000718DF /* PlusButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D28ECD26F1D7A8000718DF /* PlusButtonCollectionViewCell.swift */; };
-		75D28ED026F1D7A8000718DF /* PlusButtonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75D28ECE26F1D7A8000718DF /* PlusButtonCollectionViewCell.xib */; };
 		75DC7B5626CFD92200A142BF /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B5526CFD92200A142BF /* TimerViewController.swift */; };
 		75DC7B5826CFD93900A142BF /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B5726CFD93900A142BF /* Timer.storyboard */; };
 		75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */; };
@@ -67,8 +65,6 @@
 		75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCollectionViewCell.swift; sourceTree = "<group>"; };
 		75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerCollectionViewCell.xib; sourceTree = "<group>"; };
 		75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerComponent.swift; sourceTree = "<group>"; };
-		75D28ECD26F1D7A8000718DF /* PlusButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButtonCollectionViewCell.swift; sourceTree = "<group>"; };
-		75D28ECE26F1D7A8000718DF /* PlusButtonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlusButtonCollectionViewCell.xib; sourceTree = "<group>"; };
 		75DC7B5526CFD92200A142BF /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		75DC7B5726CFD93900A142BF /* Timer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
 		75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerViewController.swift; sourceTree = "<group>"; };
@@ -117,8 +113,6 @@
 			children = (
 				754C290E26F037000050252E /* CustomTimerCollectionViewCell.swift */,
 				754C290F26F037000050252E /* CustomTimerCollectionViewCell.xib */,
-				75D28ECD26F1D7A8000718DF /* PlusButtonCollectionViewCell.swift */,
-				75D28ECE26F1D7A8000718DF /* PlusButtonCollectionViewCell.xib */,
 			);
 			path = CustomTimer;
 			sourceTree = "<group>";
@@ -333,7 +327,6 @@
 				7570114A26CCFCCC00716E93 /* LaunchScreen.storyboard in Resources */,
 				75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */,
 				7570114726CCFCCC00716E93 /* Assets.xcassets in Resources */,
-				75D28ED026F1D7A8000718DF /* PlusButtonCollectionViewCell.xib in Resources */,
 				75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */,
 				75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */,
 				75DC7B5C26CFD9E100A142BF /* CustomTimer.storyboard in Resources */,
@@ -367,7 +360,6 @@
 				75DC7B5626CFD92200A142BF /* TimerViewController.swift in Sources */,
 				7570113E26CCFCC200716E93 /* AppDelegate.swift in Sources */,
 				75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */,
-				75D28ECF26F1D7A8000718DF /* PlusButtonCollectionViewCell.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
 				75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */,
 				75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */,
