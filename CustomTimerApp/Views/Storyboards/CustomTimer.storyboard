@@ -21,9 +21,9 @@
                                 <rect key="frame" x="20" y="361" width="374" height="216"/>
                             </pickerView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="L0F-FX-XCY">
-                                <rect key="frame" x="20" y="162" width="374" height="179"/>
+                                <rect key="frame" x="20" y="162" width="324" height="179"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b21-rO-gPL">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b21-rO-gPL">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -31,7 +31,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bX0-NI-BL0">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <rect key="frame" x="0.0" y="25.5" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hcA-rM-wma">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
@@ -45,21 +45,36 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iX1-Q4-V47">
+                                <rect key="frame" x="364" y="236.5" width="30" height="30"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="iX1-Q4-V47" secondAttribute="height" multiplier="1:1" id="PO8-Zn-8Vg"/>
+                                </constraints>
+                                <state key="normal" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="plusButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Spu-l5-N0j"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="L0F-FX-XCY" firstAttribute="top" secondItem="q3k-rS-yVn" secondAttribute="bottom" constant="20" id="12d-fL-xzt"/>
                             <constraint firstItem="Spg-px-5tO" firstAttribute="top" secondItem="L0F-FX-XCY" secondAttribute="bottom" constant="20" id="3KG-ds-lrg"/>
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="IUP-S3-543"/>
                             <constraint firstItem="Spg-px-5tO" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="JGQ-rw-tl0"/>
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="L8C-wr-X3p"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="iX1-Q4-V47" secondAttribute="trailing" constant="20" id="P6i-X9-4gQ"/>
                             <constraint firstItem="L0F-FX-XCY" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="b7l-SK-3ZQ"/>
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="fi5-JH-gfV"/>
+                            <constraint firstItem="iX1-Q4-V47" firstAttribute="leading" secondItem="L0F-FX-XCY" secondAttribute="trailing" constant="20" id="ixw-ea-ggF"/>
                             <constraint firstItem="L0F-FX-XCY" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.2" id="jhS-wA-1bP"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="L0F-FX-XCY" secondAttribute="trailing" constant="20" id="kZb-bB-Tbd"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="L0F-FX-XCY" secondAttribute="trailing" constant="70" id="kZb-bB-Tbd"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="q3k-rS-yVn" secondAttribute="trailing" constant="40" id="lvy-qE-9EB"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Spg-px-5tO" secondAttribute="trailing" constant="20" id="lzT-Dg-v8v"/>
+                            <constraint firstItem="iX1-Q4-V47" firstAttribute="centerY" secondItem="L0F-FX-XCY" secondAttribute="centerY" id="yIy-fw-5Zi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="タイマー作成" id="19S-AE-IZx">
@@ -75,8 +90,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="L0F-FX-XCY" id="uNP-rg-FQ1"/>
+                        <outlet property="plusButton" destination="iX1-Q4-V47" id="0TQ-Yh-AH5"/>
                         <outlet property="timePickerView" destination="Spg-px-5tO" id="EQw-UP-JG6"/>
-                        <outlet property="timerContentsCollectionView" destination="L0F-FX-XCY" id="uNP-rg-FQ1"/>
                         <outlet property="timerNameTextField" destination="q3k-rS-yVn" id="4Qd-xe-P46"/>
                     </connections>
                 </viewController>
@@ -104,6 +120,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

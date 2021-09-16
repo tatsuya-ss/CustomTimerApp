@@ -12,7 +12,13 @@ extension TimeInfomation {
                                                          TimeInfomation(time: 9, photo: nil, text: "テストb"),
                                                          TimeInfomation(time: 8, photo: nil, text: "テストc"),
                                                          TimeInfomation(time: 7, photo: nil, text: "テストd"),
-                                                         TimeInfomation(time: 6, photo: nil, text: "テストe")]
+                                                         TimeInfomation(time: 6, photo: nil, text: "テストe"),
+                                                         TimeInfomation(time: 5, photo: nil, text: "テストf"),
+                                                         TimeInfomation(time: 4, photo: nil, text: "テストg"),
+                                                         TimeInfomation(time: 3, photo: nil, text: "テストh"),
+                                                         TimeInfomation(time: 2, photo: nil, text: "テストi"),
+                                                         TimeInfomation(time: 1, photo: nil, text: "テストj"),
+                                                         TimeInfomation(time: 0, photo: nil, text: "テストk")]
     static var testNoTimes: [TimeInfomation] = []
 }
 
@@ -23,17 +29,17 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBOutlet private weak var timerNameTextField: UITextField!
-    @IBOutlet private weak var timerContentsCollectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var timePickerView: UIPickerView!
+    @IBOutlet weak var plusButton: UIButton!
     
     private var timerInfomations: [TimeInfomation] = TimeInfomation.testNoTimes
-    private var dataSource: UICollectionViewDiffableDataSource<Section,TimeInfomation>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureHierarchy()
-        configureDataSource()
+        setupPlusButton()
+        setupCollectionView()
         
     }
     
@@ -44,78 +50,62 @@ final class CustomTimerViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-}
-extension CustomTimerViewController: UICollectionViewDelegate {
+    @IBAction func plusButtonDidTapped(_ sender: Any) {
+        insertCell()
+    }
     
+    private func insertCell() {
+        timerInfomations.append(TimeInfomation(time: 0))
+        let insertIndexPath = IndexPath(item: timerInfomations.count - 1,
+                                        section: 0)
+        collectionView.insertItems(at: [insertIndexPath])
+        DispatchQueue.main.async {
+            self.collectionView.scrollToItem(at: insertIndexPath,
+                                             at: .right,
+                                             animated: true)
+        }
+    }
+    
+    private func setupPlusButton() {
+        plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
+    }
+    
+    private func setupCollectionView() {
+        collectionView.collectionViewLayout = CustomTimerCollectionViewFlowLayout()
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .systemBackground
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CustomTimerCollectionViewCell.nib,
+                                forCellWithReuseIdentifier: CustomTimerCollectionViewCell.identifier)
+    }
+
 }
 
-extension CustomTimerViewController {
+// MARK: - UICollectionViewDataSource
+extension CustomTimerViewController: UICollectionViewDataSource {
     
-    private func configureHierarchy() {
-        timerContentsCollectionView.collectionViewLayout = createLayout()
-        timerContentsCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        timerContentsCollectionView.backgroundColor = .systemBackground
-        timerContentsCollectionView.delegate = self
-        timerContentsCollectionView.register(CustomTimerCollectionViewCell.nib,
-                                             forCellWithReuseIdentifier: CustomTimerCollectionViewCell.identifier)
-        timerContentsCollectionView.register(PlusButtonCollectionViewCell.nib,
-                                             forCellWithReuseIdentifier: PlusButtonCollectionViewCell.identifier)
-        timerContentsCollectionView.isScrollEnabled = false
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        timerInfomations.count
     }
     
-    private func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, TimeInfomation>(
-            collectionView: timerContentsCollectionView,
-            cellProvider: { collectionView, indexPath, timeInfomationItem in
-                if indexPath.item == self.timerInfomations.count {
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: PlusButtonCollectionViewCell.identifier, for: indexPath
-                    ) as? PlusButtonCollectionViewCell else { fatalError("セルが見つかりません") }
-                    cell.configure(image: UIImage(systemName: "plus")!)
-                    return cell
-                }
-                
-                guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: CustomTimerCollectionViewCell.identifier,
-                        for: indexPath) as? CustomTimerCollectionViewCell else { fatalError("セルが見つかりません") }
-                cell.configure(image: UIImage(systemName: "timer")!)
-                return cell
-            })
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CustomTimerCollectionViewCell.identifier,
+                for: indexPath) as? CustomTimerCollectionViewCell else { fatalError("セルが見つかりません") }
+        cell.configure(image: UIImage(systemName: "timer")!)
+        return cell
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, TimeInfomation>()
-        Section.allCases.forEach {
-            snapshot.appendSections([$0])
-            switch $0 {
-            case .main:
-                snapshot.appendItems(timerInfomations)
-                snapshot.appendItems([TimeInfomation(time: 0, photo: nil, text: nil)])
-            }
-        }
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
-    
-    private func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3),
-                                               heightDimension: .fractionalHeight(1.0))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize,
-                                                     subitem: item,
-                                                     count: 1)
-        group.contentInsets = NSDirectionalEdgeInsets(top: 5,
-                                                      leading: 5,
-                                                      bottom: 5,
-                                                      trailing: 5)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
     }
     
     
+}
+// MARK: - UICollectionViewDelegate
+extension CustomTimerViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+    }
 }
