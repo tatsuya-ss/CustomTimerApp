@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -41,7 +42,7 @@
                                 </cells>
                             </collectionView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="タイマーの名前" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q3k-rS-yVn">
-                                <rect key="frame" x="40" y="108" width="334" height="34"/>
+                                <rect key="frame" x="20" y="108" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -56,6 +57,15 @@
                                     <action selector="plusButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Spu-l5-N0j"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CNp-70-BQt">
+                                <rect key="frame" x="168.5" y="597" width="77" height="30"/>
+                                <state key="normal" title="写真を選択">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectPhotoButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9iP-Sa-Lil"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -63,17 +73,19 @@
                         <constraints>
                             <constraint firstItem="L0F-FX-XCY" firstAttribute="top" secondItem="q3k-rS-yVn" secondAttribute="bottom" constant="20" id="12d-fL-xzt"/>
                             <constraint firstItem="Spg-px-5tO" firstAttribute="top" secondItem="L0F-FX-XCY" secondAttribute="bottom" constant="20" id="3KG-ds-lrg"/>
+                            <constraint firstItem="Spg-px-5tO" firstAttribute="leading" secondItem="q3k-rS-yVn" secondAttribute="leading" id="8ub-JC-IqG"/>
+                            <constraint firstItem="CNp-70-BQt" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="8zd-uB-pyb"/>
+                            <constraint firstItem="CNp-70-BQt" firstAttribute="top" secondItem="Spg-px-5tO" secondAttribute="bottom" constant="20" id="Ajd-0j-5zY"/>
+                            <constraint firstItem="L0F-FX-XCY" firstAttribute="leading" secondItem="q3k-rS-yVn" secondAttribute="leading" id="Bek-Ma-wmq"/>
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="IUP-S3-543"/>
-                            <constraint firstItem="Spg-px-5tO" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="JGQ-rw-tl0"/>
-                            <constraint firstItem="q3k-rS-yVn" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="L8C-wr-X3p"/>
+                            <constraint firstItem="q3k-rS-yVn" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="L8C-wr-X3p"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="iX1-Q4-V47" secondAttribute="trailing" constant="20" id="P6i-X9-4gQ"/>
                             <constraint firstItem="L0F-FX-XCY" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="b7l-SK-3ZQ"/>
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="fi5-JH-gfV"/>
                             <constraint firstItem="iX1-Q4-V47" firstAttribute="leading" secondItem="L0F-FX-XCY" secondAttribute="trailing" constant="20" id="ixw-ea-ggF"/>
                             <constraint firstItem="L0F-FX-XCY" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.2" id="jhS-wA-1bP"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="L0F-FX-XCY" secondAttribute="trailing" constant="70" id="kZb-bB-Tbd"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="q3k-rS-yVn" secondAttribute="trailing" constant="40" id="lvy-qE-9EB"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Spg-px-5tO" secondAttribute="trailing" constant="20" id="lzT-Dg-v8v"/>
+                            <constraint firstItem="Spg-px-5tO" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="qqu-zc-hKS"/>
                             <constraint firstItem="iX1-Q4-V47" firstAttribute="centerY" secondItem="L0F-FX-XCY" secondAttribute="centerY" id="yIy-fw-5Zi"/>
                         </constraints>
                     </view>
@@ -121,6 +133,9 @@
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
