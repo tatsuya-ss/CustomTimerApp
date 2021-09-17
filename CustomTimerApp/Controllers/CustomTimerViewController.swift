@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 extension TimeInfomation {
     static var testTimerInfomations: [TimeInfomation] = [TimeInfomation(time: 10, photo: nil, text: "テストa"),
@@ -63,6 +64,57 @@ final class CustomTimerViewController: UIViewController {
         
     }
     
+    @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
+        getPhotosAuthorization()
+    }
+    
+    private func getPhotosAuthorization() {
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
+            guard let self = self else { return }
+            switch status {
+            case .authorized:
+                DispatchQueue.main.async {
+                    self.showImagePickerController()
+                }
+            case .denied:
+                DispatchQueue.main.async {
+                    self.showPhotosAuthorizationDeniedAlert()
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    private func showPhotosAuthorizationDeniedAlert() {
+        let alert = UIAlertController(title: "写真へのアクセスを許可しますか？",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "設定画面へ",
+                                           style: .default) { _ in
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingsURL,
+                                      options: [:],
+                                      completionHandler: nil)
+        }
+        let closeAction = UIAlertAction(title: "キャンセル",
+                                        style: .cancel,
+                                        handler: nil)
+        [settingsAction, closeAction]
+            .forEach { alert.addAction($0) }
+        present(alert,
+                animated: true,
+                completion: nil)
+    }
+    
+    private func showImagePickerController() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController,
+                animated: true,
+                completion: nil)
+    }
+    
     private func deselectCell() {
         selectedIndexPath = []
         collectionView.reloadData()
@@ -79,16 +131,11 @@ final class CustomTimerViewController: UIViewController {
                                          animated: true)
     }
     
-    private func setupCollectionView() {
-        collectionView.collectionViewLayout = CustomTimerCollectionViewFlowLayout()
-        
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(CustomTimerCollectionViewCell.nib,
-                                forCellWithReuseIdentifier: CustomTimerCollectionViewCell.identifier)
-    }
-    
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension CustomTimerViewController: UIImagePickerControllerDelegate,
+                                     UINavigationControllerDelegate {
 }
 
 // MARK: - UICollectionViewDelegate
@@ -123,4 +170,19 @@ extension CustomTimerViewController: UICollectionViewDataSource {
         return cell
     }
     
+}
+
+// MARK: - setup
+extension CustomTimerViewController {
+    
+    private func setupCollectionView() {
+        collectionView.collectionViewLayout = CustomTimerCollectionViewFlowLayout()
+        
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CustomTimerCollectionViewCell.nib,
+                                forCellWithReuseIdentifier: CustomTimerCollectionViewCell.identifier)
+    }
+
 }
