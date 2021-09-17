@@ -18,11 +18,15 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z5q-Ek-VBA">
-                        <rect key="frame" x="0.0" y="0.0" width="166" height="194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="166" height="168"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFc-Pa-vJY">
                         <rect key="frame" x="0.0" y="173" width="166" height="21"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="99Q-EY-gS4"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -31,10 +35,10 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="DFc-Pa-vJY" secondAttribute="trailing" id="178-Od-oWu"/>
-                <constraint firstItem="DFc-Pa-vJY" firstAttribute="bottom" secondItem="Z5q-Ek-VBA" secondAttribute="bottom" id="3ih-Dc-gtA"/>
-                <constraint firstAttribute="bottom" secondItem="Z5q-Ek-VBA" secondAttribute="bottom" id="K9d-MP-Cvu"/>
-                <constraint firstItem="DFc-Pa-vJY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="QEG-If-eaJ"/>
+                <constraint firstItem="DFc-Pa-vJY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ERn-3u-Za7"/>
+                <constraint firstAttribute="trailing" secondItem="DFc-Pa-vJY" secondAttribute="trailing" id="RBq-Ud-qDE"/>
+                <constraint firstItem="DFc-Pa-vJY" firstAttribute="top" secondItem="Z5q-Ek-VBA" secondAttribute="bottom" constant="5" id="RCW-O0-Yv1"/>
+                <constraint firstAttribute="bottom" secondItem="DFc-Pa-vJY" secondAttribute="bottom" id="Tec-oB-ERU"/>
                 <constraint firstItem="Z5q-Ek-VBA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="b15-U7-ZpI"/>
                 <constraint firstAttribute="trailing" secondItem="Z5q-Ek-VBA" secondAttribute="trailing" id="c4X-UY-2ep"/>
                 <constraint firstItem="Z5q-Ek-VBA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yeh-8T-erf"/>
