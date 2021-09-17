@@ -27,7 +27,7 @@ final class CustomTimerCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = 10
+        photoImageView.layer.cornerRadius = 10
     }
         
     func configure(image: UIImage) {

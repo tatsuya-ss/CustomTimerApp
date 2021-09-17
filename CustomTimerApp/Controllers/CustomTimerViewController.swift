@@ -136,6 +136,15 @@ final class CustomTimerViewController: UIViewController {
 // MARK: - UIImagePickerControllerDelegate
 extension CustomTimerViewController: UIImagePickerControllerDelegate,
                                      UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+              let cell = collectionView.cellForItem(at: selectedIndexPath) as? CustomTimerCollectionViewCell else { return }
+        cell.configure(image: selectedImage)
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate
