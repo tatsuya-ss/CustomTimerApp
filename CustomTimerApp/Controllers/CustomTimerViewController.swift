@@ -87,27 +87,6 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
-    private func showPhotosAuthorizationDeniedAlert() {
-        let alert = UIAlertController(title: "写真へのアクセスを許可しますか？",
-                                      message: nil,
-                                      preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: "設定画面へ",
-                                           style: .default) { _ in
-            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-            UIApplication.shared.open(settingsURL,
-                                      options: [:],
-                                      completionHandler: nil)
-        }
-        let closeAction = UIAlertAction(title: "キャンセル",
-                                        style: .cancel,
-                                        handler: nil)
-        [settingsAction, closeAction]
-            .forEach { alert.addAction($0) }
-        present(alert,
-                animated: true,
-                completion: nil)
-    }
-    
     private func showImagePickerController() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -142,14 +121,8 @@ extension CustomTimerViewController: UIImagePickerControllerDelegate,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         defer { dismiss(animated: true, completion: nil) }
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-        timerInfomations[selectedIndexPath.item].photo = convertImageToData(image: selectedImage)
+        timerInfomations[selectedIndexPath.item].photo = selectedImage.convertImageToData()
         collectionView.reloadItems(at: [selectedIndexPath])
-    }
-    
-    private func convertImageToData(image: UIImage?) -> Data? {
-        guard let image = image,
-              let selectedImageData = image.jpegData(compressionQuality: 1.0) else { return nil }
-        return selectedImageData
     }
     
 }
