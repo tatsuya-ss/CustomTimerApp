@@ -14,6 +14,6 @@ struct CustomTimerComponent: Hashable {
 
 struct TimeInfomation: Hashable {
     var time: Int
-    var photo: String?
+    var photo: Data?
     var text: String?
 }

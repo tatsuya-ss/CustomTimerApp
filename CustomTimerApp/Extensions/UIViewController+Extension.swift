@@ -24,3 +24,28 @@ extension UIViewController {
     }
 
 }
+
+extension UIViewController {
+    
+    func showPhotosAuthorizationDeniedAlert() {
+        let alert = UIAlertController(title: "写真へのアクセスを許可しますか？",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "設定画面へ",
+                                           style: .default) { _ in
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingsURL,
+                                      options: [:],
+                                      completionHandler: nil)
+        }
+        let closeAction = UIAlertAction(title: "キャンセル",
+                                        style: .cancel,
+                                        handler: nil)
+        [settingsAction, closeAction]
+            .forEach { alert.addAction($0) }
+        present(alert,
+                animated: true,
+                completion: nil)
+    }
+
+}

@@ -28,9 +28,9 @@ final class CustomTimerViewController: UIViewController {
     @IBOutlet private weak var timerNameTextField: UITextField!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var timePickerView: UIPickerView!
-    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet private weak var plusButton: UIButton!
     
-    private var timerInfomations: [TimeInfomation] = TimeInfomation.testNoTimes
+    private var timerInfomations: [TimeInfomation] = TimeInfomation.testTimerInfomations
     private var selectedIndexPath: IndexPath = [0, 0]
     
     override func viewDidLoad() {
@@ -68,6 +68,7 @@ final class CustomTimerViewController: UIViewController {
         getPhotosAuthorization()
     }
     
+    // MARK: - Authorization
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self else { return }
@@ -84,27 +85,6 @@ final class CustomTimerViewController: UIViewController {
                 break
             }
         }
-    }
-    
-    private func showPhotosAuthorizationDeniedAlert() {
-        let alert = UIAlertController(title: "写真へのアクセスを許可しますか？",
-                                      message: nil,
-                                      preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: "設定画面へ",
-                                           style: .default) { _ in
-            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-            UIApplication.shared.open(settingsURL,
-                                      options: [:],
-                                      completionHandler: nil)
-        }
-        let closeAction = UIAlertAction(title: "キャンセル",
-                                        style: .cancel,
-                                        handler: nil)
-        [settingsAction, closeAction]
-            .forEach { alert.addAction($0) }
-        present(alert,
-                animated: true,
-                completion: nil)
     }
     
     private func showImagePickerController() {
@@ -127,7 +107,7 @@ final class CustomTimerViewController: UIViewController {
         selectedIndexPath = insertIndexPath
         collectionView.insertItems(at: [insertIndexPath])
         self.collectionView.scrollToItem(at: insertIndexPath,
-                                         at: .right,
+                                         at: .centeredHorizontally,
                                          animated: true)
     }
     
@@ -136,15 +116,13 @@ final class CustomTimerViewController: UIViewController {
 // MARK: - UIImagePickerControllerDelegate
 extension CustomTimerViewController: UIImagePickerControllerDelegate,
                                      UINavigationControllerDelegate {
-}
-
-// MARK: - UICollectionViewDelegate
-extension CustomTimerViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
-        selectedIndexPath = indexPath
-        collectionView.reloadData()
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        defer { dismiss(animated: true, completion: nil) }
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        timerInfomations[selectedIndexPath.item].photo = selectedImage.convertImageToData()
+        collectionView.reloadItems(at: [selectedIndexPath])
     }
     
 }
@@ -163,11 +141,28 @@ extension CustomTimerViewController: UICollectionViewDataSource {
                 withReuseIdentifier: CustomTimerCollectionViewCell.identifier,
                 for: indexPath) as? CustomTimerCollectionViewCell
         else { fatalError("セルが見つかりません") }
-        cell.configure(image: UIImage(systemName: "timer")!)
+        if let imageData = timerInfomations[indexPath.item].photo,
+           let image = UIImage(data: imageData) {
+            cell.configure(image: image)
+        } else {
+            cell.configure(image: UIImage(systemName: "timer")!)
+        }
+        
         indexPath == selectedIndexPath
             ? cell.selectedCell()
             : cell.unselectedCell()
         return cell
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegate
+extension CustomTimerViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        collectionView.reloadData()
     }
     
 }

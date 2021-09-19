@@ -18,10 +18,15 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z5q-Ek-VBA">
-                        <rect key="frame" x="0.0" y="0.0" width="166" height="174"/>
+                        <rect key="frame" x="0.0" y="0.0" width="166" height="168"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5c-AF-NUf">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFc-Pa-vJY">
                         <rect key="frame" x="0.0" y="173" width="166" height="21"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="99Q-EY-gS4"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -29,28 +34,26 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="o5c-AF-NUf" firstAttribute="top" secondItem="Z5q-Ek-VBA" secondAttribute="bottom" constant="-1" id="Hwn-Zg-btM"/>
-                <constraint firstAttribute="bottom" secondItem="Z5q-Ek-VBA" secondAttribute="bottom" constant="20" id="K9d-MP-Cvu"/>
-                <constraint firstItem="o5c-AF-NUf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="SAX-e0-IY6"/>
-                <constraint firstAttribute="bottom" secondItem="o5c-AF-NUf" secondAttribute="bottom" id="Vxj-Wz-WvC"/>
+                <constraint firstItem="DFc-Pa-vJY" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ERn-3u-Za7"/>
+                <constraint firstAttribute="trailing" secondItem="DFc-Pa-vJY" secondAttribute="trailing" id="RBq-Ud-qDE"/>
+                <constraint firstItem="DFc-Pa-vJY" firstAttribute="top" secondItem="Z5q-Ek-VBA" secondAttribute="bottom" constant="5" id="RCW-O0-Yv1"/>
+                <constraint firstAttribute="bottom" secondItem="DFc-Pa-vJY" secondAttribute="bottom" id="Tec-oB-ERU"/>
                 <constraint firstItem="Z5q-Ek-VBA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="b15-U7-ZpI"/>
                 <constraint firstAttribute="trailing" secondItem="Z5q-Ek-VBA" secondAttribute="trailing" id="c4X-UY-2ep"/>
-                <constraint firstAttribute="trailing" secondItem="o5c-AF-NUf" secondAttribute="trailing" id="iOX-Gw-hfh"/>
                 <constraint firstItem="Z5q-Ek-VBA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yeh-8T-erf"/>
             </constraints>
             <size key="customSize" width="166" height="194"/>
             <connections>
                 <outlet property="photoImageView" destination="Z5q-Ek-VBA" id="1wY-dm-twC"/>
-                <outlet property="timeLabel" destination="o5c-AF-NUf" id="VNQ-gg-HIp"/>
+                <outlet property="timeLabel" destination="DFc-Pa-vJY" id="76A-a9-njV"/>
             </connections>
             <point key="canvasLocation" x="-62.318840579710148" y="26.785714285714285"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
