@@ -32,7 +32,7 @@ final class CustomTimerViewController: UIViewController {
     
     private var timerInfomations: [TimeInfomation] = TimeInfomation.testTimerInfomations
     private var selectedIndexPath: IndexPath = [0, 0]
-    private let TimeStructures: [TimeStructure] = [Hour(), Minute(), Second()]
+    private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var unitlabels: [UILabel] = []
     
     override func viewDidLoad() {
