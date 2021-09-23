@@ -15,7 +15,10 @@ final class CustomTimerViewController: UIViewController {
     @IBOutlet private weak var timePickerView: UIPickerView!
     @IBOutlet private weak var plusButton: UIButton!
     
-    private var timerInfomations = [TimeInfomation(time: TimeManagement())]
+    private var customTimerComponent = CustomTimerComponent(
+        name: "タイマー１",
+        timeInfomations: [TimeInfomation(time: TimeManagement())]
+    )
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var unitlabels: [UILabel] = []
@@ -93,8 +96,8 @@ final class CustomTimerViewController: UIViewController {
     }
     
     private func insertCell() {
-        timerInfomations.append(TimeInfomation(time: TimeManagement()))
-        let insertIndexPath = IndexPath(item: timerInfomations.count - 1,
+        customTimerComponent.timeInfomations.append(TimeInfomation(time: TimeManagement()))
+        let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1,
                                         section: 0)
         selectedIndexPath = insertIndexPath
         collectionView.insertItems(at: [insertIndexPath])
@@ -105,9 +108,9 @@ final class CustomTimerViewController: UIViewController {
     
     private func changeTimeOfSelectedTimer(row: Int, component: Int) {
         switch component {
-        case 0: timerInfomations[selectedIndexPath.item].time.changeHour(hour: row)
-        case 1: timerInfomations[selectedIndexPath.item].time.changeMinute(minute: row)
-        case 2: timerInfomations[selectedIndexPath.item].time.changeSecond(second: row)
+        case 0: customTimerComponent.timeInfomations[selectedIndexPath.item].time.changeHour(hour: row)
+        case 1: customTimerComponent.timeInfomations[selectedIndexPath.item].time.changeMinute(minute: row)
+        case 2: customTimerComponent.timeInfomations[selectedIndexPath.item].time.changeSecond(second: row)
         default:
             break
         }
@@ -129,7 +132,7 @@ extension CustomTimerViewController: UIImagePickerControllerDelegate,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         defer { dismiss(animated: true, completion: nil) }
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
-        timerInfomations[selectedIndexPath.item].photo = selectedImage.convertImageToData()
+        customTimerComponent.timeInfomations[selectedIndexPath.item].photo = selectedImage.convertImageToData()
         collectionView.reloadItems(at: [selectedIndexPath])
     }
     
@@ -140,7 +143,7 @@ extension CustomTimerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        timerInfomations.count
+        customTimerComponent.timeInfomations.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -150,8 +153,8 @@ extension CustomTimerViewController: UICollectionViewDataSource {
                 for: indexPath) as? CustomTimerCollectionViewCell
         else { fatalError("セルが見つかりません") }
         
-        let timeString = timerInfomations[indexPath.item].time.makeTimeString()
-        let image = makePhotoImage(timeInfomation: timerInfomations[indexPath.item])
+        let timeString = customTimerComponent.timeInfomations[indexPath.item].time.makeTimeString()
+        let image = makePhotoImage(timeInfomation: customTimerComponent.timeInfomations[indexPath.item])
         cell.configure(image: image, timeString: timeString)
         indexPath == selectedIndexPath
             ? cell.selectedCell()
