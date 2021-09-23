@@ -13,7 +13,43 @@ struct CustomTimerComponent: Hashable {
 }
 
 struct TimeInfomation: Hashable {
-    var time: Int
+    var time: TimeManagement
     var photo: Data?
     var text: String?
 }
+
+struct TimeManagement: Hashable {
+    private var hour: Int
+    private var minute: Int
+    private var second: Int
+    
+    init(hour: Int = 0,
+         minute: Int = 0,
+         second: Int = 0) {
+        self.hour = hour
+        self.minute = minute
+        self.second = second
+    }
+
+    mutating func changeHour(hour: Int) {
+        self.hour = hour
+    }
+    
+    mutating func changeMinute(minute: Int) {
+        self.minute = minute
+    }
+    
+    mutating func changeSecond(second: Int) {
+        self.second = second
+    }
+
+    func printTimeString() {
+        print("\(hour)時間\(minute)分\(second)秒")
+    }
+    
+    func makeTimeString() -> String {
+        "\(hour):\(minute):\(second)"
+    }
+
+}
+

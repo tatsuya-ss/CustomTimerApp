@@ -41,9 +41,18 @@ final class TimerViewController: UIViewController {
     private func displayAllTimer(animated: Bool = true) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
         snapshot.appendSections([.mainTimer])
-        let demo = [CustomTimerComponent(name: "ストレッチ", timeInfomations: [TimeInfomation(time: 10, photo: nil, text: nil)]),
-                    CustomTimerComponent(name: "スクワット", timeInfomations: [TimeInfomation(time: 10, photo: nil, text: nil)]),
-                    CustomTimerComponent(name: "ランニング", timeInfomations: [TimeInfomation(time: 10, photo: nil, text: nil)])]
+        let demo = [CustomTimerComponent(name: "ストレッチ",
+                                         timeInfomations: [TimeInfomation(time: TimeManagement(),
+                                                                          photo: nil,
+                                                                          text: nil)]),
+                    CustomTimerComponent(name: "スクワット",
+                                         timeInfomations: [TimeInfomation(time: TimeManagement(),
+                                                                          photo: nil,
+                                                                          text: nil)]),
+                    CustomTimerComponent(name: "ランニング",
+                                         timeInfomations: [TimeInfomation(time: TimeManagement(),
+                                                                          photo: nil,
+                                                                          text: nil)])]
         snapshot.appendItems(demo)
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
