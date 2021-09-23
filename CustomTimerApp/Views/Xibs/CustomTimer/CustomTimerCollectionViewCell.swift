@@ -32,8 +32,10 @@ final class CustomTimerCollectionViewCell: UICollectionViewCell {
         timeLabel.layer.cornerRadius = 10
     }
         
-    func configure(image: UIImage) {
+    func configure(image: UIImage?,
+                   timeString: String = "00:00:00") {
         photoImageView.image = image
+        timeLabel.text = timeString
     }
     
     func selectedCell() {
