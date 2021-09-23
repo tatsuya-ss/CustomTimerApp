@@ -25,6 +25,7 @@ final class CustomTimerViewController: UIViewController {
         
         setupCollectionView()
         setupPickerView()
+        setupTextField()
         
     }
     
@@ -32,6 +33,11 @@ final class CustomTimerViewController: UIViewController {
         super.viewDidLayoutSubviews()
         collectionView.layer.cornerRadius = 20
         plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>,
+                               with event: UIEvent?) {
+        timerNameTextField.resignFirstResponder()
     }
     
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
@@ -42,14 +48,12 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBAction func plusButtonDidTapped(_ sender: Any) {
-        
         DispatchQueue.main.async {
             self.deselectCell()
             DispatchQueue.main.async {
                 self.insertCell()
             }
         }
-        
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
@@ -200,6 +204,15 @@ extension CustomTimerViewController: UIPickerViewDelegate {
     
 }
 
+// MARK: - UITextFieldDelegate
+extension CustomTimerViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+    
+}
+
 // MARK: - setup
 extension CustomTimerViewController {
     
@@ -240,10 +253,14 @@ extension CustomTimerViewController {
             labelOffset += timePickerView.rowSize(forComponent: row).width
             print(labelWidth, labelOffset)
             self.unitlabels[row].frame = CGRect(x: labelOffset - labelWidth,
-                                            y: labelTop,
-                                            width: labelWidth,
-                                            height: labelHeight)
+                                                y: labelTop,
+                                                width: labelWidth,
+                                                height: labelHeight)
         }
+    }
+    
+    private func setupTextField() {
+        timerNameTextField.delegate = self
     }
     
 }
