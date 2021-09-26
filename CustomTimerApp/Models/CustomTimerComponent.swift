@@ -30,7 +30,7 @@ struct TimeManagement: Hashable {
         self.minute = minute
         self.second = second
     }
-
+    
     mutating func changeHour(hour: Int) {
         self.hour = hour
     }
@@ -42,25 +42,16 @@ struct TimeManagement: Hashable {
     mutating func changeSecond(second: Int) {
         self.second = second
     }
-
+    
+    func makeTimeString() -> String {
+        let timeString = TimeString()
+        return timeString.makeTimeString(hour: hour,
+                                         minute: minute,
+                                         second: second)
+    }
+    
     func printTimeString() {
         print("\(hour)時間\(minute)分\(second)秒")
     }
     
-    func makeTimeString() -> String {
-        let stringHour = makeTwoDigits(time: hour)
-        let stringMinute = makeTwoDigits(time: minute)
-        let stringSecond = makeTwoDigits(time: second)
-        return "\(stringHour):\(stringMinute):\(stringSecond)"
-    }
-    
-    private func makeTwoDigits(time: Int) -> String {
-        if time < 10 {
-            return "0\(time)"
-        } else {
-            return String(time)
-        }
-    }
-
 }
-
