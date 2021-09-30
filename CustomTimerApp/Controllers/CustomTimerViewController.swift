@@ -8,6 +8,8 @@
 import UIKit
 import Photos
 
+extension CustomTimerViewController: ShowAlertProtocol{ }
+
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
                           customTimerComponent: CustomTimerComponent)
@@ -58,16 +60,6 @@ final class CustomTimerViewController: UIViewController {
         customTimerComponent.name = text
         delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
         dismiss(animated: true, completion: nil)
-    }
-    
-    private func showAlert(title: String, message: String? = nil) {
-        let alert = UIAlertController(title: title,
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "閉じる",
-                                      style: .default,
-                                      handler: nil))
-        present(alert, animated: true, completion: nil)
     }
 
     @IBAction private func cancelButtonTapped(_ sender: Any) {
