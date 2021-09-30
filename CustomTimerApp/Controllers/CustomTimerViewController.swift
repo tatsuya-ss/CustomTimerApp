@@ -268,6 +268,7 @@ extension CustomTimerViewController {
     
     private func setupTextField() {
         timerNameTextField.delegate = self
+        timerNameTextField.keyboardType = .namePhonePad
     }
     
 }
