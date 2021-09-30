@@ -20,8 +20,10 @@ final class TimerCollectionViewCell: UICollectionViewCell {
 
     }
     
-    func configure(timerName: String) {
+    func configure(timerName: String,
+                   image: UIImage?) {
         timerNameLabel.text = timerName
+        contentsImageView.image = image
     }
 
 }

@@ -16,6 +16,7 @@ final class TimerViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
+    private var cutomTimers: [CustomTimerComponent] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ final class TimerViewController: UIViewController {
     
     @IBAction func addTimerButtonTapped(_ sender: Any) {
         let customTimerVC = CustomTimerViewController.instantiate()
+        customTimerVC.delegate = self
         let navVC = UINavigationController(rootViewController: customTimerVC)
         present(navVC, animated: true, completion: nil)
     }
@@ -41,22 +43,23 @@ final class TimerViewController: UIViewController {
     private func displayAllTimer(animated: Bool = true) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
         snapshot.appendSections([.mainTimer])
-        let demo = [CustomTimerComponent(name: "ストレッチ",
-                                         timeInfomations: [TimeInfomation(time: TimeManagement(),
-                                                                          photo: nil,
-                                                                          text: nil)]),
-                    CustomTimerComponent(name: "スクワット",
-                                         timeInfomations: [TimeInfomation(time: TimeManagement(),
-                                                                          photo: nil,
-                                                                          text: nil)]),
-                    CustomTimerComponent(name: "ランニング",
-                                         timeInfomations: [TimeInfomation(time: TimeManagement(),
-                                                                          photo: nil,
-                                                                          text: nil)])]
-        snapshot.appendItems(demo)
+        snapshot.appendItems(cutomTimers)
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
+    
+}
 
+extension TimerViewController: CustomTimerViewControllerDelegate {
+    
+    func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
+                          customTimerComponent: CustomTimerComponent) {
+        cutomTimers.append(customTimerComponent)
+        var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
+        snapshot.appendSections([.mainTimer])
+        snapshot.appendItems(cutomTimers, toSection: .mainTimer)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
 }
 
 extension TimerViewController: UICollectionViewDelegate {
@@ -92,18 +95,25 @@ extension TimerViewController {
         collectionView.register(TimerCollectionViewCell.nib,
                                 forCellWithReuseIdentifier: TimerCollectionViewCell.identifier)
     }
-
+    
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, CustomTimerComponent>(collectionView: collectionView, cellProvider: {
             collectionView, indexPath, customTimerComponent in
             guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: TimerCollectionViewCell.identifier, for: indexPath
+                withReuseIdentifier: TimerCollectionViewCell.identifier, for: indexPath
             ) as? TimerCollectionViewCell else { fatalError("セルが見つかりませんでした") }
-            cell.configure(timerName: customTimerComponent.name)
+            if let data = customTimerComponent.timeInfomations.first?.photo {
+                let image = UIImage(data: data)
+                cell.configure(timerName: customTimerComponent.name,
+                               image: image)
+            } else {
+                cell.configure(timerName: customTimerComponent.name,
+                image: UIImage(systemName: "timer"))
+            }
             cell.backgroundColor = .gray
             cell.layer.cornerRadius = 10
             return cell
         })
     }
-
+    
 }
