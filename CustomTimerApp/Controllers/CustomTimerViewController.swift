@@ -8,6 +8,11 @@
 import UIKit
 import Photos
 
+protocol CustomTimerViewControllerDelegate: AnyObject {
+    func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
+                          customTimerComponent: CustomTimerComponent)
+}
+
 final class CustomTimerViewController: UIViewController {
     
     @IBOutlet private weak var timerNameTextField: UITextField!
@@ -22,6 +27,7 @@ final class CustomTimerViewController: UIViewController {
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var unitlabels: [UILabel] = []
+    weak var delegate: CustomTimerViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +50,26 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
+        guard let text = timerNameTextField.text,
+              !text.isEmpty else {
+                  showAlert(title: "タイマー名を設定してください")
+                  return
+              }
+        customTimerComponent.name = text
+        delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
+        dismiss(animated: true, completion: nil)
     }
     
+    private func showAlert(title: String, message: String? = nil) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "閉じる",
+                                      style: .default,
+                                      handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
