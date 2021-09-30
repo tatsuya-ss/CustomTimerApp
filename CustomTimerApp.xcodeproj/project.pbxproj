@@ -16,6 +16,7 @@
 		7570114A26CCFCCC00716E93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7570114826CCFCCC00716E93 /* LaunchScreen.storyboard */; };
 		7570115526CCFCCD00716E93 /* CustomTimerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570115426CCFCCD00716E93 /* CustomTimerAppTests.swift */; };
 		7570116026CCFCCD00716E93 /* CustomTimerAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570115F26CCFCCD00716E93 /* CustomTimerAppUITests.swift */; };
+		757FEC242705B97D00E02B23 /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757FEC232705B97D00E02B23 /* ShowAlertProtocol.swift */; };
 		75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */; };
 		75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */; };
 		75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */; };
@@ -66,6 +67,7 @@
 		7570115B26CCFCCD00716E93 /* CustomTimerAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomTimerAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7570115F26CCFCCD00716E93 /* CustomTimerAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerAppUITests.swift; sourceTree = "<group>"; };
 		7570116126CCFCCD00716E93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		757FEC232705B97D00E02B23 /* ShowAlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertProtocol.swift; sourceTree = "<group>"; };
 		75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCollectionViewCell.swift; sourceTree = "<group>"; };
 		75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerCollectionViewCell.xib; sourceTree = "<group>"; };
 		75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerComponent.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		7570113C26CCFCC200716E93 /* CustomTimerApp */ = {
 			isa = PBXGroup;
 			children = (
+				757FEC222705B96C00E02B23 /* Protocols */,
 				75D28FE926F9D736000718DF /* Utilities */,
 				75D28ED126F31127000718DF /* CollectionViewFlowLayouts */,
 				754C290A26F035BE0050252E /* Extensions */,
@@ -180,6 +183,14 @@
 				7570116126CCFCCD00716E93 /* Info.plist */,
 			);
 			path = CustomTimerAppUITests;
+			sourceTree = "<group>";
+		};
+		757FEC222705B96C00E02B23 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				757FEC232705B97D00E02B23 /* ShowAlertProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		75888FB026E859A300F1A545 /* Xibs */ = {
@@ -393,6 +404,7 @@
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
 				75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */,
 				75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */,
+				757FEC242705B97D00E02B23 /* ShowAlertProtocol.swift in Sources */,
 				75D28FEB26F9D771000718DF /* TimePickerViewStructure.swift in Sources */,
 				75D28ED326F3118D000718DF /* CustomTimerCollectionViewFlowLayout.swift in Sources */,
 				75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */,

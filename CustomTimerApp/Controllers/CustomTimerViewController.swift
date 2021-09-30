@@ -8,6 +8,13 @@
 import UIKit
 import Photos
 
+extension CustomTimerViewController: ShowAlertProtocol{ }
+
+protocol CustomTimerViewControllerDelegate: AnyObject {
+    func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
+                          customTimerComponent: CustomTimerComponent)
+}
+
 final class CustomTimerViewController: UIViewController {
     
     @IBOutlet private weak var timerNameTextField: UITextField!
@@ -22,6 +29,7 @@ final class CustomTimerViewController: UIViewController {
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var unitlabels: [UILabel] = []
+    weak var delegate: CustomTimerViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +52,16 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
+        guard let text = timerNameTextField.text,
+              !text.isEmpty else {
+                  showAlert(title: "タイマー名を設定してください")
+                  return
+              }
+        customTimerComponent.name = text
+        delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
+        dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -209,13 +225,9 @@ extension CustomTimerViewController: UIPickerViewDelegate {
 
 // MARK: - UITextFieldDelegate
 extension CustomTimerViewController: UITextFieldDelegate {
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        defer { textField.resignFirstResponder() }
-        guard let timerName = textField.text,
-              !timerName.isEmpty else { return true }
-        customTimerComponent.name = timerName
-        return true
+        textField.resignFirstResponder()
     }
     
 }
@@ -268,6 +280,7 @@ extension CustomTimerViewController {
     
     private func setupTextField() {
         timerNameTextField.delegate = self
+        timerNameTextField.keyboardType = .namePhonePad
     }
     
 }
