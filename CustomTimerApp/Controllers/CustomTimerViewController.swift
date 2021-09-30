@@ -233,13 +233,9 @@ extension CustomTimerViewController: UIPickerViewDelegate {
 
 // MARK: - UITextFieldDelegate
 extension CustomTimerViewController: UITextFieldDelegate {
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        defer { textField.resignFirstResponder() }
-        guard let timerName = textField.text,
-              !timerName.isEmpty else { return true }
-        customTimerComponent.name = timerName
-        return true
+        textField.resignFirstResponder()
     }
     
 }
