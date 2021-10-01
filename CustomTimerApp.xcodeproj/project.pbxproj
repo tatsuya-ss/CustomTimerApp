@@ -217,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				75D28FEA26F9D771000718DF /* TimePickerViewStructure.swift */,
+				75D29059270050FB000718DF /* TimeString.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -245,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */,
-				75D29059270050FB000718DF /* TimeString.swift */,
 				751A36CF2707229E00715E43 /* TimerBehavior.swift */,
 			);
 			path = Models;
