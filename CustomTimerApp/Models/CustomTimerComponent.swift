@@ -19,9 +19,9 @@ struct TimeInfomation: Hashable {
 }
 
 struct TimeManagement: Hashable {
-    private var hour: Int
-    private var minute: Int
-    private var second: Int
+    var hour: Int
+    var minute: Int
+    var second: Int
     
     init(hour: Int = 0,
          minute: Int = 0,
@@ -52,6 +52,29 @@ struct TimeManagement: Hashable {
     
     func printTimeString() {
         print("\(hour)時間\(minute)分\(second)秒")
+    }
+    
+    mutating func countDown() {
+        if second > 0 {
+            second -= 1
+        } else {
+            if minute > 0 {
+                minute -= 1
+                second = 59
+            } else {
+                if hour > 0 {
+                    hour -= 1
+                    minute = 59
+                    second = 59
+                } else {
+                    print("タイムアップ")
+                }
+            }
+        }
+    }
+    
+    func askIfTimeIsUp() -> Bool {
+        hour == 0 && minute == 0 && second == 0
     }
     
 }
