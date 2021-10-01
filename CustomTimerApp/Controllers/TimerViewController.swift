@@ -16,7 +16,7 @@ final class TimerViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
-    private var cutomTimers: [CustomTimerComponent] = []
+    private var customTimers: [CustomTimerComponent] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ final class TimerViewController: UIViewController {
     private func displayAllTimer(animated: Bool = true) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
         snapshot.appendSections([.mainTimer])
-        snapshot.appendItems(cutomTimers)
+        snapshot.appendItems(customTimers)
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
     
@@ -53,16 +53,23 @@ extension TimerViewController: CustomTimerViewControllerDelegate {
     
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
                           customTimerComponent: CustomTimerComponent) {
-        cutomTimers.append(customTimerComponent)
+        customTimers.append(customTimerComponent)
         var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
         snapshot.appendSections([.mainTimer])
-        snapshot.appendItems(cutomTimers, toSection: .mainTimer)
+        snapshot.appendItems(customTimers, toSection: .mainTimer)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
 }
 
 extension TimerViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        let startTimerVC = StartTimerViewController.instantiate()
+        startTimerVC.getCustomTimer(customTimer: customTimers[indexPath.item])
+        present(startTimerVC, animated: true, completion: nil)
+    }
     
 }
 
