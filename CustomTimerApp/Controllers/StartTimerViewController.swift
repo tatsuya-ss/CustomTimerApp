@@ -24,19 +24,12 @@ final class StartTimerViewController: UIViewController {
         timerBehavior.start()
     }
     
-    private func setupTimerBehavior() {
-        timerBehavior.delegate = self
-        currentTimeLabel.text = "スタート"
-        guard let photoData = timerBehavior.makeInitialPhotoData() else { return }
-        let photoImage = UIImage(data: photoData)
-        timerContentsImageView.image = photoImage
-    }
-
     @IBAction private func stopButtonTapped(_ sender: Any) {
     }
     
 }
 
+// MARK: - TimerBehaviorDelegate
 extension StartTimerViewController: TimerBehaviorDelegate {
     
     func timerBehavior(didCountDown timeString: String,
@@ -48,6 +41,20 @@ extension StartTimerViewController: TimerBehaviorDelegate {
                 timerContentsImageView.image = photoImage
             }
         }
+    }
+    
+}
+
+// MARK: - setup
+extension StartTimerViewController {
+    
+    private func setupTimerBehavior() {
+        timerBehavior.delegate = self
+        currentTimeLabel.text = "スタート"
+        guard let photoData = timerBehavior.makeInitialPhotoData()
+        else { return }
+        let photoImage = UIImage(data: photoData)
+        timerContentsImageView.image = photoImage
     }
     
 }

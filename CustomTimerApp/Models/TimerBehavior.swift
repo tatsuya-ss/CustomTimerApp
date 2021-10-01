@@ -33,15 +33,17 @@ final class TimerBehavior {
                   let isTimeUp = self?.customTimer.timeInfomations[timeIndex].time.askIfTimeIsUp(),
                   let numberOfTimes = self?.customTimer.timeInfomations.count
             else { return }
+            let photo = self?.customTimer.timeInfomations[timeIndex].photo
+            
             if isTimeUp {
                 if timeIndex < numberOfTimes - 1 {
                     self?.timeIndex += 1
                 } else {
                     timer.invalidate()
+                    print("終了")
                 }
             }
             
-            let photo = self?.customTimer.timeInfomations[timeIndex].photo
             self?.customTimer.timeInfomations[timeIndex].time.countDown()
             self?.delegate?.timerBehavior(didCountDown: timeString,
                                           with: photo)
