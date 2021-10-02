@@ -25,6 +25,22 @@ final class StartTimerViewController: UIViewController {
     }
     
     @IBAction private func stopButtonTapped(_ sender: Any) {
+        showStopTimerAlert()
+    }
+    
+    private func showStopTimerAlert() {
+        let alert = UIAlertController(title: "タイマーを終了しますか？",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "キャンセル",
+                                      style: .cancel,
+                                      handler: nil))
+        alert.addAction(UIAlertAction(title: "終了する",
+                                      style: .destructive,
+                                      handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
 }
