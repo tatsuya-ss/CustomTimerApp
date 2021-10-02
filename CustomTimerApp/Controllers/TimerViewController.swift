@@ -67,8 +67,9 @@ extension TimerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         let startTimerVC = StartTimerViewController.instantiate()
+        let navigationController = UINavigationController(rootViewController: startTimerVC)
         startTimerVC.getCustomTimer(customTimer: customTimers[indexPath.item])
-        present(startTimerVC, animated: true, completion: nil)
+        present(navigationController, animated: true, completion: nil)
     }
     
 }
