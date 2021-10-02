@@ -24,3 +24,30 @@ extension ShowAlertProtocol where Self: UIViewController {
     }
     
 }
+
+protocol ShowDismissAlertProtocol {
+    func showDismissAlert(alertTitle: String,
+                          cancelMessage: String,
+                          destructiveTitle: String)
+}
+
+extension ShowDismissAlertProtocol where Self: UIViewController {
+    
+    func showDismissAlert(alertTitle: String,
+                          cancelMessage: String = "キャンセル",
+                          destructiveTitle: String) {
+        let alert = UIAlertController(title: alertTitle,
+                                      message: nil,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: cancelMessage,
+                                      style: .cancel,
+                                      handler: nil))
+        alert.addAction(UIAlertAction(title: destructiveTitle,
+                                      style: .destructive,
+                                      handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
+}

@@ -9,6 +9,7 @@ import UIKit
 import Photos
 
 extension CustomTimerViewController: ShowAlertProtocol{ }
+extension CustomTimerViewController: ShowDismissAlertProtocol{ }
 
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -37,6 +38,7 @@ final class CustomTimerViewController: UIViewController {
         setupCollectionView()
         setupPickerView()
         setupTextField()
+        setupModelInPresentation()
         
     }
     
@@ -63,7 +65,7 @@ final class CustomTimerViewController: UIViewController {
     }
 
     @IBAction private func cancelButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        showDiscardChangesAlert()
     }
     
     @IBAction func plusButtonDidTapped(_ sender: Any) {
@@ -78,8 +80,7 @@ final class CustomTimerViewController: UIViewController {
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         getPhotosAuthorization()
     }
-    
-    // MARK: - Authorization
+
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self else { return }
@@ -136,6 +137,19 @@ final class CustomTimerViewController: UIViewController {
         guard let imageData = timeInfomation.photo,
               let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
         return image
+    }
+    
+    private func showDiscardChangesAlert() {
+        showDismissAlert(alertTitle: "画面を閉じると編集中のタイマーは保存されません。",
+                         destructiveTitle: "閉じる")
+    }
+    
+}
+
+extension CustomTimerViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        showDiscardChangesAlert()
     }
     
 }
@@ -283,4 +297,9 @@ extension CustomTimerViewController {
         timerNameTextField.keyboardType = .namePhonePad
     }
     
+    private func setupModelInPresentation() {
+        // プルダウンジェスチャーによる解除を無効
+        isModalInPresentation = true
+    }
+
 }

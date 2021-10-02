@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension StartTimerViewController: ShowDismissAlertProtocol { }
+
 final class StartTimerViewController: UIViewController {
     
     @IBOutlet private weak var timerContentsImageView: UIImageView!
@@ -20,11 +22,27 @@ final class StartTimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupModelInPresentation()
         setupTimerBehavior()
         timerBehavior.start()
     }
     
     @IBAction private func stopButtonTapped(_ sender: Any) {
+        showStopTimerAlert()
+    }
+    
+    private func showStopTimerAlert() {
+        showDismissAlert(alertTitle: "タイマーを終了しますか？",
+                         destructiveTitle: "終了する")
+    }
+    
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+extension StartTimerViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        showStopTimerAlert()
     }
     
 }
@@ -55,6 +73,11 @@ extension StartTimerViewController {
         else { return }
         let photoImage = UIImage(data: photoData)
         timerContentsImageView.image = photoImage
+    }
+    
+    private func setupModelInPresentation() {
+        // プルダウンジェスチャーによる解除を無効
+        isModalInPresentation = true
     }
     
 }

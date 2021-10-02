@@ -30,14 +30,15 @@ final class TimerViewController: UIViewController {
     @IBAction func addTimerButtonTapped(_ sender: Any) {
         let customTimerVC = CustomTimerViewController.instantiate()
         customTimerVC.delegate = self
-        let navVC = UINavigationController(rootViewController: customTimerVC)
-        present(navVC, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: customTimerVC)
+        navigationController.presentationController?.delegate = customTimerVC
+        present(navigationController, animated: true, completion: nil)
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
         let settingVC = SettingViewController.instantiate()
-        let navVC = UINavigationController(rootViewController: settingVC)
-        present(navVC, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: settingVC)
+        present(navigationController, animated: true, completion: nil)
     }
     
     private func displayAllTimer(animated: Bool = true) {
@@ -67,8 +68,10 @@ extension TimerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         let startTimerVC = StartTimerViewController.instantiate()
+        let navigationController = UINavigationController(rootViewController: startTimerVC)
         startTimerVC.getCustomTimer(customTimer: customTimers[indexPath.item])
-        present(startTimerVC, animated: true, completion: nil)
+        navigationController.presentationController?.delegate = startTimerVC
+        present(navigationController, animated: true, completion: nil)
     }
     
 }
