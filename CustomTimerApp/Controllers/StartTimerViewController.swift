@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension StartTimerViewController: ShowDismissAlertProtocol { }
+
 final class StartTimerViewController: UIViewController {
     
     @IBOutlet private weak var timerContentsImageView: UIImageView!
@@ -30,22 +32,13 @@ final class StartTimerViewController: UIViewController {
     }
     
     private func showStopTimerAlert() {
-        let alert = UIAlertController(title: "タイマーを終了しますか？",
-                                      message: nil,
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "キャンセル",
-                                      style: .cancel,
-                                      handler: nil))
-        alert.addAction(UIAlertAction(title: "終了する",
-                                      style: .destructive,
-                                      handler: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
+        showDismissAlert(alertTitle: "タイマーを終了しますか？",
+                         destructiveTitle: "終了する")
     }
     
 }
 
+// MARK: - UIAdaptivePresentationControllerDelegate
 extension StartTimerViewController: UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
