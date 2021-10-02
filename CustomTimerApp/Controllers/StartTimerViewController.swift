@@ -20,6 +20,7 @@ final class StartTimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupModelInPresentation()
         setupTimerBehavior()
         timerBehavior.start()
     }
@@ -41,6 +42,14 @@ final class StartTimerViewController: UIViewController {
             self?.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension StartTimerViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        showStopTimerAlert()
     }
     
 }
@@ -71,6 +80,11 @@ extension StartTimerViewController {
         else { return }
         let photoImage = UIImage(data: photoData)
         timerContentsImageView.image = photoImage
+    }
+    
+    private func setupModelInPresentation() {
+        // プルダウンジェスチャーによる解除を無効
+        isModalInPresentation = true
     }
     
 }
