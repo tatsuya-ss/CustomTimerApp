@@ -121,15 +121,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		754C290D26F036DC0050252E /* CustomTimer */ = {
-			isa = PBXGroup;
-			children = (
-				754C290E26F037000050252E /* CustomTimerCollectionViewCell.swift */,
-				754C290F26F037000050252E /* CustomTimerCollectionViewCell.xib */,
-			);
-			path = CustomTimer;
-			sourceTree = "<group>";
-		};
 		7570113126CCFCC200716E93 = {
 			isa = PBXGroup;
 			children = (
@@ -157,11 +148,13 @@
 				75D28FE926F9D736000718DF /* Utilities */,
 				75D28ED126F31127000718DF /* CollectionViewFlowLayouts */,
 				754C290A26F035BE0050252E /* Extensions */,
-				75DC7B5326CFD75C00A142BF /* Models */,
-				75DC7B5226CFD75200A142BF /* Views */,
-				75DC7B5126CFD72D00A142BF /* Controllers */,
+				75DC7B5326CFD75C00A142BF /* CommonModels */,
 				7570113D26CCFCC200716E93 /* AppDelegate.swift */,
 				7570113F26CCFCC200716E93 /* SceneDelegate.swift */,
+				75EC65E7270ADE9E0001F464 /* Timer */,
+				75EC65E9270ADF520001F464 /* CustomTimer */,
+				75EC65EB270ADF9D0001F464 /* StartTimer */,
+				75EC65EC270ADFD50001F464 /* Setting */,
 				7570114626CCFCCC00716E93 /* Assets.xcassets */,
 				7570114826CCFCCC00716E93 /* LaunchScreen.storyboard */,
 				7570114B26CCFCCC00716E93 /* Info.plist */,
@@ -195,16 +188,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		75888FB026E859A300F1A545 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */,
-				75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */,
-				754C290D26F036DC0050252E /* CustomTimer */,
-			);
-			path = Xibs;
-			sourceTree = "<group>";
-		};
 		75D28ED126F31127000718DF /* CollectionViewFlowLayouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,44 +205,69 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		75DC7B5126CFD72D00A142BF /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				75DC7B5526CFD92200A142BF /* TimerViewController.swift */,
-				75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */,
-				75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */,
-				75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		75DC7B5226CFD75200A142BF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				75DC7B5426CFD8A400A142BF /* Storyboards */,
-				75888FB026E859A300F1A545 /* Xibs */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		75DC7B5326CFD75C00A142BF /* Models */ = {
+		75DC7B5326CFD75C00A142BF /* CommonModels */ = {
 			isa = PBXGroup;
 			children = (
 				75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */,
-				751A36CF2707229E00715E43 /* TimerBehavior.swift */,
 			);
-			path = Models;
+			path = CommonModels;
 			sourceTree = "<group>";
 		};
-		75DC7B5426CFD8A400A142BF /* Storyboards */ = {
+		75EC65E7270ADE9E0001F464 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
 				75DC7B5726CFD93900A142BF /* Timer.storyboard */,
-				75DC7B5B26CFD9E100A142BF /* CustomTimer.storyboard */,
-				75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */,
-				75DC7B6326CFDA9900A142BF /* Setting.storyboard */,
+				75DC7B5526CFD92200A142BF /* TimerViewController.swift */,
+				75EC65E8270ADEE70001F464 /* Cells */,
 			);
-			path = Storyboards;
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		75EC65E8270ADEE70001F464 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */,
+				75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		75EC65E9270ADF520001F464 /* CustomTimer */ = {
+			isa = PBXGroup;
+			children = (
+				75DC7B5B26CFD9E100A142BF /* CustomTimer.storyboard */,
+				75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */,
+				75EC65EA270ADF6A0001F464 /* Cells */,
+			);
+			path = CustomTimer;
+			sourceTree = "<group>";
+		};
+		75EC65EA270ADF6A0001F464 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				754C290E26F037000050252E /* CustomTimerCollectionViewCell.swift */,
+				754C290F26F037000050252E /* CustomTimerCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		75EC65EB270ADF9D0001F464 /* StartTimer */ = {
+			isa = PBXGroup;
+			children = (
+				75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */,
+				75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */,
+				751A36CF2707229E00715E43 /* TimerBehavior.swift */,
+			);
+			path = StartTimer;
+			sourceTree = "<group>";
+		};
+		75EC65EC270ADFD50001F464 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				75DC7B6326CFDA9900A142BF /* Setting.storyboard */,
+				75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
