@@ -153,6 +153,7 @@
 		7570113C26CCFCC200716E93 /* CustomTimerApp */ = {
 			isa = PBXGroup;
 			children = (
+				75EC65E7270ADE9E0001F464 /* Timer */,
 				757FEC222705B96C00E02B23 /* Protocols */,
 				75D28FE926F9D736000718DF /* Utilities */,
 				75D28ED126F31127000718DF /* CollectionViewFlowLayouts */,
@@ -198,8 +199,6 @@
 		75888FB026E859A300F1A545 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */,
-				75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */,
 				754C290D26F036DC0050252E /* CustomTimer */,
 			);
 			path = Xibs;
@@ -225,7 +224,6 @@
 		75DC7B5126CFD72D00A142BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				75DC7B5526CFD92200A142BF /* TimerViewController.swift */,
 				75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */,
 				75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */,
 				75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */,
@@ -254,12 +252,30 @@
 		75DC7B5426CFD8A400A142BF /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				75DC7B5726CFD93900A142BF /* Timer.storyboard */,
 				75DC7B5B26CFD9E100A142BF /* CustomTimer.storyboard */,
 				75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */,
 				75DC7B6326CFDA9900A142BF /* Setting.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		75EC65E7270ADE9E0001F464 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				75DC7B5726CFD93900A142BF /* Timer.storyboard */,
+				75DC7B5526CFD92200A142BF /* TimerViewController.swift */,
+				75EC65E8270ADEE70001F464 /* Cells */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		75EC65E8270ADEE70001F464 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */,
+				75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
