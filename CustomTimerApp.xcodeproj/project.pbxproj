@@ -144,17 +144,17 @@
 		7570113C26CCFCC200716E93 /* CustomTimerApp */ = {
 			isa = PBXGroup;
 			children = (
-				75EC65EC270ADFD50001F464 /* Setting */,
-				75EC65EB270ADF9D0001F464 /* StartTimer */,
-				75EC65E9270ADF520001F464 /* CustomTimer */,
-				75EC65E7270ADE9E0001F464 /* Timer */,
 				757FEC222705B96C00E02B23 /* Protocols */,
 				75D28FE926F9D736000718DF /* Utilities */,
 				75D28ED126F31127000718DF /* CollectionViewFlowLayouts */,
 				754C290A26F035BE0050252E /* Extensions */,
-				75DC7B5326CFD75C00A142BF /* Models */,
+				75DC7B5326CFD75C00A142BF /* CommonModels */,
 				7570113D26CCFCC200716E93 /* AppDelegate.swift */,
 				7570113F26CCFCC200716E93 /* SceneDelegate.swift */,
+				75EC65E7270ADE9E0001F464 /* Timer */,
+				75EC65E9270ADF520001F464 /* CustomTimer */,
+				75EC65EB270ADF9D0001F464 /* StartTimer */,
+				75EC65EC270ADFD50001F464 /* Setting */,
 				7570114626CCFCCC00716E93 /* Assets.xcassets */,
 				7570114826CCFCCC00716E93 /* LaunchScreen.storyboard */,
 				7570114B26CCFCCC00716E93 /* Info.plist */,
@@ -205,13 +205,12 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		75DC7B5326CFD75C00A142BF /* Models */ = {
+		75DC7B5326CFD75C00A142BF /* CommonModels */ = {
 			isa = PBXGroup;
 			children = (
 				75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */,
-				751A36CF2707229E00715E43 /* TimerBehavior.swift */,
 			);
-			path = Models;
+			path = CommonModels;
 			sourceTree = "<group>";
 		};
 		75EC65E7270ADE9E0001F464 /* Timer */ = {
@@ -257,6 +256,7 @@
 			children = (
 				75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */,
 				75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */,
+				751A36CF2707229E00715E43 /* TimerBehavior.swift */,
 			);
 			path = StartTimer;
 			sourceTree = "<group>";
