@@ -121,13 +121,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		754C290D26F036DC0050252E /* CustomTimer */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomTimer;
-			sourceTree = "<group>";
-		};
 		7570113126CCFCC200716E93 = {
 			isa = PBXGroup;
 			children = (
@@ -160,8 +153,6 @@
 				75D28ED126F31127000718DF /* CollectionViewFlowLayouts */,
 				754C290A26F035BE0050252E /* Extensions */,
 				75DC7B5326CFD75C00A142BF /* Models */,
-				75DC7B5226CFD75200A142BF /* Views */,
-				75DC7B5126CFD72D00A142BF /* Controllers */,
 				7570113D26CCFCC200716E93 /* AppDelegate.swift */,
 				7570113F26CCFCC200716E93 /* SceneDelegate.swift */,
 				7570114626CCFCCC00716E93 /* Assets.xcassets */,
@@ -197,14 +188,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		75888FB026E859A300F1A545 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				754C290D26F036DC0050252E /* CustomTimer */,
-			);
-			path = Xibs;
-			sourceTree = "<group>";
-		};
 		75D28ED126F31127000718DF /* CollectionViewFlowLayouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,22 +205,6 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		75DC7B5126CFD72D00A142BF /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		75DC7B5226CFD75200A142BF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				75DC7B5426CFD8A400A142BF /* Storyboards */,
-				75888FB026E859A300F1A545 /* Xibs */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		75DC7B5326CFD75C00A142BF /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,13 +212,6 @@
 				751A36CF2707229E00715E43 /* TimerBehavior.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		75DC7B5426CFD8A400A142BF /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		75EC65E7270ADE9E0001F464 /* Timer */ = {
