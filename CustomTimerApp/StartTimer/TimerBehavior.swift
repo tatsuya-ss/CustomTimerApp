@@ -30,7 +30,7 @@ final class TimerBehavior {
             
             guard let timeIndex = self?.timeIndex,
                   let timeString = self?.customTimer.timeInfomations[timeIndex].time.makeTimeString(),
-                  let isTimeUp = self?.customTimer.timeInfomations[timeIndex].time.askIfTimeIsUp(),
+                  let isTimeUp = self?.customTimer.timeInfomations[timeIndex].time.isTimeUp,
                   let numberOfTimes = self?.customTimer.timeInfomations.count
             else { return }
             let photo = self?.customTimer.timeInfomations[timeIndex].photo
