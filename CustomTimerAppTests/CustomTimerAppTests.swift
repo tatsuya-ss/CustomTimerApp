@@ -93,6 +93,32 @@ final class TimeStringTests: XCTestCase {
     
 }
 
+final class TimeBehaviorTests: XCTestCase {
+    
+    func testMakeInitialPhotoData_1番初めにデータがある時に渡せているか() {
+        let timeBehaviorNil =
+        TimerBehavior(customTimer: CustomTimerComponent(name: "test1",
+                                                        timeInfomations:
+                                                            [TimeInfomation(time: TimeManagement())]))
+        let timeBehaviorData =
+        TimerBehavior(customTimer: CustomTimerComponent(name: "test1",
+                                                        timeInfomations:
+                                                            [TimeInfomation(time: TimeManagement(),
+                                                                           photo: Data())]))
+
+        XCTContext.runActivity(named: "データがない場合") { _ in
+            let data = timeBehaviorNil.makeInitialPhotoData()
+            XCTAssertNil(data)
+        }
+        
+        XCTContext.runActivity(named: "データがある場合") { _ in
+            let data = timeBehaviorData.makeInitialPhotoData()
+            XCTAssertNotNil(data)
+        }
+    }
+    
+}
+
 class CustomTimerAppTests: XCTestCase {
     
     func testExample() throws {
