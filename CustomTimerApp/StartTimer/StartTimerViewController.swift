@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 extension StartTimerViewController: ShowDismissAlertProtocol { }
 
@@ -19,11 +20,13 @@ final class StartTimerViewController: UIViewController {
     func getCustomTimer(customTimer: CustomTimerComponent) {
         self.timerBehavior = TimerBehavior(customTimer: customTimer)
     }
+    private var audioPlayer: AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupModelInPresentation()
         setupTimerBehavior()
+        setupAVAudioPlayer()
         timerBehavior.start()
     }
     
@@ -61,6 +64,11 @@ extension StartTimerViewController: TimerBehaviorDelegate {
         }
     }
     
+    func makeSound() {
+        audioPlayer?.currentTime = 0
+        audioPlayer?.play()
+    }
+    
 }
 
 // MARK: - setup
@@ -78,6 +86,19 @@ extension StartTimerViewController {
     private func setupModelInPresentation() {
         // プルダウンジェスチャーによる解除を無効
         isModalInPresentation = true
+    }
+    
+    private func setupAVAudioPlayer() {
+        guard let soundFilePath = Bundle.main.path(forResource: "BellSound",
+                                                   ofType: "mp3")
+        else { return }
+        let soundURL = URL(fileURLWithPath: soundFilePath)
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+        } catch {
+            print(error)
+        }
+        audioPlayer?.prepareToPlay()
     }
     
 }
