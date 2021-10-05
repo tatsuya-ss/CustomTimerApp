@@ -33,6 +33,7 @@
 		75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */; };
 		75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */; };
 		75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B6326CFDA9900A142BF /* Setting.storyboard */; };
+		75EC6612270BE94B0001F464 /* BellSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75EC6611270BE94B0001F464 /* BellSound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartTimer.storyboard; sourceTree = "<group>"; };
 		75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		75DC7B6326CFDA9900A142BF /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		75EC6611270BE94B0001F464 /* BellSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = BellSound.mp3; path = ../../../../../Downloads/BellSound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 		7570113C26CCFCC200716E93 /* CustomTimerApp */ = {
 			isa = PBXGroup;
 			children = (
+				75EC6610270BE93C0001F464 /* Sounds */,
 				757FEC222705B96C00E02B23 /* Protocols */,
 				75D28FE926F9D736000718DF /* Utilities */,
 				75D28ED126F31127000718DF /* CollectionViewFlowLayouts */,
@@ -270,6 +273,14 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		75EC6610270BE93C0001F464 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				75EC6611270BE94B0001F464 /* BellSound.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -374,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75DC7B5826CFD93900A142BF /* Timer.storyboard in Resources */,
+				75EC6612270BE94B0001F464 /* BellSound.mp3 in Resources */,
 				7570114A26CCFCCC00716E93 /* LaunchScreen.storyboard in Resources */,
 				75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */,
 				7570114726CCFCCC00716E93 /* Assets.xcassets in Resources */,
