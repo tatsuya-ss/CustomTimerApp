@@ -10,6 +10,7 @@ import Foundation
 protocol TimerBehaviorDelegate: AnyObject {
     func timerBehavior(didCountDown timeString: String,
                        with photoData: Data?)
+    func makeSound()
 }
 
 final class TimerBehavior {
@@ -35,6 +36,7 @@ final class TimerBehavior {
             let numberOfTimes = timeInfomations.count
             
             if isTimeUp {
+                self?.delegate?.makeSound()
                 if timeIndex < numberOfTimes - 1 {
                     self?.timeIndex += 1
                 } else {
