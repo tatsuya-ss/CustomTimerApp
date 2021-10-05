@@ -23,6 +23,10 @@ struct TimeManagement: Hashable {
     var minute: Int
     var second: Int
     
+    var isTimeUp: Bool {
+        hour == 0 && minute == 0 && second == 0
+    }
+    
     init(hour: Int = 0,
          minute: Int = 0,
          second: Int = 0) {
@@ -71,10 +75,6 @@ struct TimeManagement: Hashable {
                 }
             }
         }
-    }
-    
-    func askIfTimeIsUp() -> Bool {
-        hour == 0 && minute == 0 && second == 0
     }
     
 }

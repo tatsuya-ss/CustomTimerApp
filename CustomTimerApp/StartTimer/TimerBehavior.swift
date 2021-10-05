@@ -29,11 +29,10 @@ final class TimerBehavior {
                                      block: { [weak self] timer in
             
             guard let timeIndex = self?.timeIndex,
-                  let timeString = self?.customTimer.timeInfomations[timeIndex].time.makeTimeString(),
-                  let isTimeUp = self?.customTimer.timeInfomations[timeIndex].time.askIfTimeIsUp(),
-                  let numberOfTimes = self?.customTimer.timeInfomations.count
+                  let timeInfomations = self?.customTimer.timeInfomations
             else { return }
-            let photo = self?.customTimer.timeInfomations[timeIndex].photo
+            let isTimeUp = timeInfomations[timeIndex].time.isTimeUp
+            let numberOfTimes = timeInfomations.count
             
             if isTimeUp {
                 if timeIndex < numberOfTimes - 1 {
@@ -45,6 +44,8 @@ final class TimerBehavior {
             }
             
             self?.customTimer.timeInfomations[timeIndex].time.countDown()
+            let timeString = timeInfomations[timeIndex].time.makeTimeString()
+            let photo = timeInfomations[timeIndex].photo
             self?.delegate?.timerBehavior(didCountDown: timeString,
                                           with: photo)
         })
