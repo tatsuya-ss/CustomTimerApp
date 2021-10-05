@@ -31,11 +31,9 @@ final class TimerBehavior {
             guard let timeIndex = self?.timeIndex,
                   let timeInfomations = self?.customTimer.timeInfomations
             else { return }
-            let photo = timeInfomations[timeIndex].photo
-            let timeString = timeInfomations[timeIndex].time.makeTimeString()
             let isTimeUp = timeInfomations[timeIndex].time.isTimeUp
             let numberOfTimes = timeInfomations.count
-
+            
             if isTimeUp {
                 if timeIndex < numberOfTimes - 1 {
                     self?.timeIndex += 1
@@ -46,6 +44,8 @@ final class TimerBehavior {
             }
             
             self?.customTimer.timeInfomations[timeIndex].time.countDown()
+            let timeString = timeInfomations[timeIndex].time.makeTimeString()
+            let photo = timeInfomations[timeIndex].photo
             self?.delegate?.timerBehavior(didCountDown: timeString,
                                           with: photo)
         })
