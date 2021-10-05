@@ -72,6 +72,26 @@ final class TimeManagementTests: XCTestCase {
     
 }
 
+final class TimeStringTests: XCTestCase {
+    
+    func testMakeTimeString_時間の２桁表示が出来ているか() {
+        let timeString = TimeString()
+        XCTContext.runActivity(named: "全部１桁の時間の場合") { _ in
+            let oneDigitTime = timeString.makeTimeString(hour: 0,
+                                                         minute: 1,
+                                                         second: 9)
+            XCTAssertEqual(oneDigitTime, "00:01:09")
+        }
+        
+        XCTContext.runActivity(named: "全部二桁の場合") { _ in
+            let twoDigitsTime = timeString.makeTimeString(hour: 10,
+                                                          minute: 11,
+                                                          second: 12)
+            XCTAssertEqual(twoDigitsTime, "10:11:12")
+        }
+    }
+    
+}
 
 class CustomTimerAppTests: XCTestCase {
     
