@@ -36,9 +36,12 @@ final class TimerBehavior {
             else { return }
             let timeManagement = TimeManagement(startDate: startDate,
                                                 time: timeInfomations[timeIndex].time)
+            let timeString = timeManagement.makeTimeString()
+            let photoData = timeInfomations[timeIndex].photo
+            self?.delegate?.timerBehavior(didCountDown: timeString, with: photoData)
+
             let isFinish = timeManagement.isFinish(now: Date())
             let numberOfTimes = timeInfomations.count
-            
             if isFinish {
                 self?.delegate?.makeSound()
                 if timeIndex < numberOfTimes - 1 {
@@ -48,10 +51,6 @@ final class TimerBehavior {
                     timer.invalidate()
                 }
             }
-            
-            let timeString = timeManagement.makeTimeString()
-            let photoData = timeInfomations[timeIndex].photo
-            self?.delegate?.timerBehavior(didCountDown: timeString, with: photoData)
         })
     }
     
