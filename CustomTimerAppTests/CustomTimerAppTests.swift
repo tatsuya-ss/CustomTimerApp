@@ -47,26 +47,21 @@ final class TimeBehaviorTests: XCTestCase {
     
     func testMakeInitialPhotoData_1番初めにデータがある時に渡せているか() {
         let timeBehaviorNil =
-        TimerBehavior(customTimer: CustomTimerComponent(name: "test1",
-                                                        timeInfomations:
-                                                            [TimeInfomation(time: TimeManagement())]))
+        TimerBehavior(customTimer: CustomTimerComponent(name: "test1", timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), photo: nil, text: nil)]))
         let timeBehaviorData =
-        TimerBehavior(customTimer: CustomTimerComponent(name: "test1",
-                                                        timeInfomations:
-                                                            [TimeInfomation(time: TimeManagement(),
-                                                                           photo: Data())]))
+        TimerBehavior(customTimer: CustomTimerComponent(name: "test1", timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), photo: Data(), text: nil)]))
 
         XCTContext.runActivity(named: "データがない場合") { _ in
             let data = timeBehaviorNil.makeInitialPhotoData()
             XCTAssertNil(data)
         }
-        
+
         XCTContext.runActivity(named: "データがある場合") { _ in
             let data = timeBehaviorData.makeInitialPhotoData()
             XCTAssertNotNil(data)
         }
     }
-    
+
 }
 
 class CustomTimerAppTests: XCTestCase {
