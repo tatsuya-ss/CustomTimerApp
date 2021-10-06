@@ -34,6 +34,7 @@
 		75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */; };
 		75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B6326CFDA9900A142BF /* Setting.storyboard */; };
 		75EC6612270BE94B0001F464 /* BellSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75EC6611270BE94B0001F464 /* BellSound.mp3 */; };
+		75EC6617270D803E0001F464 /* TimeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EC6616270D803E0001F464 /* TimeManagement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		75DC7B6326CFDA9900A142BF /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		75EC6611270BE94B0001F464 /* BellSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = BellSound.mp3; path = ../../../../../Downloads/BellSound.mp3; sourceTree = "<group>"; };
+		75EC6616270D803E0001F464 /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */,
 				75DC7B5D26CFDA4000A142BF /* StartTimerViewController.swift */,
 				751A36CF2707229E00715E43 /* TimerBehavior.swift */,
+				75EC6616270D803E0001F464 /* TimeManagement.swift */,
 			);
 			path = StartTimer;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75EC6617270D803E0001F464 /* TimeManagement.swift in Sources */,
 				754C290C26F035DA0050252E /* UIViewController+Extension.swift in Sources */,
 				754C291026F037000050252E /* CustomTimerCollectionViewCell.swift in Sources */,
 				75DC7B5626CFD92200A142BF /* TimerViewController.swift in Sources */,

@@ -18,6 +18,8 @@ final class TimerBehavior {
     private var customTimer: CustomTimerComponent!
     private var timer = Timer()
     private var timeIndex = 0
+    private var startDate = Date()
+    
     weak var delegate: TimerBehaviorDelegate?
     
     init(customTimer: CustomTimerComponent) {
@@ -28,28 +30,27 @@ final class TimerBehavior {
         timer = Timer.scheduledTimer(withTimeInterval: 1,
                                      repeats: true,
                                      block: { [weak self] timer in
-            
-            guard let timeIndex = self?.timeIndex,
+            guard let startDate = self?.startDate,
+                  let timeIndex = self?.timeIndex,
                   let timeInfomations = self?.customTimer.timeInfomations
             else { return }
-            let isTimeUp = timeInfomations[timeIndex].time.isTimeUp
+            let timeManagement = TimeManagement(startDate: startDate,
+                                                time: timeInfomations[timeIndex].time)
+            let timeString = timeManagement.makeTimeString()
+            let photoData = timeInfomations[timeIndex].photo
+            self?.delegate?.timerBehavior(didCountDown: timeString, with: photoData)
+
+            let isFinish = timeManagement.isFinish(now: Date())
             let numberOfTimes = timeInfomations.count
-            
-            if isTimeUp {
+            if isFinish {
                 self?.delegate?.makeSound()
                 if timeIndex < numberOfTimes - 1 {
                     self?.timeIndex += 1
+                    self?.startDate = Date()
                 } else {
                     timer.invalidate()
-                    print("終了")
                 }
             }
-            
-            self?.customTimer.timeInfomations[timeIndex].time.countDown()
-            let timeString = timeInfomations[timeIndex].time.makeTimeString()
-            let photo = timeInfomations[timeIndex].photo
-            self?.delegate?.timerBehavior(didCountDown: timeString,
-                                          with: photo)
         })
     }
     
