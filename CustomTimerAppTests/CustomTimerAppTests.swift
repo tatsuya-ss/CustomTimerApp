@@ -10,6 +10,15 @@ import XCTest
 
 final class TimeManagementTests: XCTestCase {
     
+    func testTimeCount_時間を秒に変換が出来ているか() {
+        XCTContext.runActivity(named: "1時間20分30秒の時に4830秒か") { _ in
+            let timeManagement = TimeManagement(startDate: Date(),
+                                                time: Time(hour: 1,
+                                                           minute: 20,
+                                                           second: 30))
+            XCTAssertEqual(timeManagement.count, 4830)
+        }
+    }
     
 }
 
