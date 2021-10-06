@@ -24,18 +24,9 @@ struct Time: Hashable {
     var second: Int
     
     func makeTimeString() -> String {
-        let hour = makeTwoDigitsString(time: hour)
-        let minute = makeTwoDigitsString(time: minute)
-        let second = makeTwoDigitsString(time: second)
-        return hour + ":" + minute + ":" + second
-    }
-    
-    private func makeTwoDigitsString(time: Int) -> String {
-        if time < 10 {
-            return "0\(time)"
-        } else {
-            return String(time)
-        }
+        TimeString().makeTimeString(hour: hour,
+                                    minute: minute,
+                                    second: second)
     }
 }
 
@@ -57,21 +48,9 @@ struct TimeManagement {
     }
     
     func makeTimeString() -> String {
-        let leftHour = timeLeft / 3600
-        let letfMinute = (timeLeft % 3600) / 60
-        let leftSecond = (timeLeft % 3600) % 60
-        
-        let hourString = makeTwoDigitsString(time: leftHour)
-        let minuteString = makeTwoDigitsString(time: letfMinute)
-        let secondString = makeTwoDigitsString(time: leftSecond)
-        return hourString + ":" + minuteString + ":" + secondString
+        return TimeString().makeTimeString(hour: timeLeft / 3600,
+                                           minute: (timeLeft % 3600) / 60,
+                                           second: (timeLeft % 3600) % 60)
     }
     
-    private func makeTwoDigitsString(time: Int) -> String {
-        if time < 10 {
-            return "0\(time)"
-        } else {
-            return String(time)
-        }
-    }
 }
