@@ -13,68 +13,65 @@ struct CustomTimerComponent: Hashable {
 }
 
 struct TimeInfomation: Hashable {
-    var time: TimeManagement
+    var time: Time
     var photo: Data?
     var text: String?
 }
 
-struct TimeManagement: Hashable {
+struct Time: Hashable {
     var hour: Int
     var minute: Int
     var second: Int
     
-    var isTimeUp: Bool {
-        hour == 0 && minute == 0 && second == 0
+    func makeTimeString() -> String {
+        let hour = makeTwoDigitsString(time: hour)
+        let minute = makeTwoDigitsString(time: minute)
+        let second = makeTwoDigitsString(time: second)
+        return hour + ":" + minute + ":" + second
     }
     
-    init(hour: Int = 0,
-         minute: Int = 0,
-         second: Int = 0) {
-        self.hour = hour
-        self.minute = minute
-        self.second = second
+    private func makeTwoDigitsString(time: Int) -> String {
+        if time < 10 {
+            return "0\(time)"
+        } else {
+            return String(time)
+        }
+    }
+}
+
+struct TimeManagement {
+    var startDate: Date
+    var time: Time
+    var count: Int {
+        time.second + (time.minute * 60) + (time.hour * 60 * 60)
+    }
+    var endDate: Date {
+        startDate.addingTimeInterval(TimeInterval(count))
+    }
+    var timeLeft: Int {
+        Int(endDate.timeIntervalSince1970 - Date().timeIntervalSince1970 + 1)
     }
     
-    mutating func changeHour(hour: Int) {
-        self.hour = hour
-    }
-    
-    mutating func changeMinute(minute: Int) {
-        self.minute = minute
-    }
-    
-    mutating func changeSecond(second: Int) {
-        self.second = second
+    func isFinish(now: Date) -> Bool {
+        now > endDate
     }
     
     func makeTimeString() -> String {
-        let timeString = TimeString()
-        return timeString.makeTimeString(hour: hour,
-                                         minute: minute,
-                                         second: second)
+        let leftHour = timeLeft / 3600
+        let letfMinute = (timeLeft % 3600) / 60
+        let leftSecond = (timeLeft % 3600) % 60
+        
+        let hourString = makeTwoDigitsString(time: leftHour)
+        let minuteString = makeTwoDigitsString(time: letfMinute)
+        let secondString = makeTwoDigitsString(time: leftSecond)
+        return hourString + ":" + minuteString + ":" + secondString
     }
     
-    func printTimeString() {
-        print("\(hour)時間\(minute)分\(second)秒")
-    }
-    
-    mutating func countDown() {
-        if second > 0 {
-            second -= 1
+    private func makeTwoDigitsString(time: Int) -> String {
+        if time < 10 {
+            return "0\(time)"
         } else {
-            if minute > 0 {
-                minute -= 1
-                second = 59
-            } else {
-                if hour > 0 {
-                    hour -= 1
-                    minute = 59
-                    second = 59
-                } else {
-                    print("タイムアップ")
-                }
-            }
+            return String(time)
         }
     }
-    
 }

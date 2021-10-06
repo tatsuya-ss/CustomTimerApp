@@ -25,7 +25,7 @@ final class CustomTimerViewController: UIViewController {
     
     private var customTimerComponent = CustomTimerComponent(
         name: "タイマー１",
-        timeInfomations: [TimeInfomation(time: TimeManagement())]
+        timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))]
     )
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
@@ -113,7 +113,7 @@ final class CustomTimerViewController: UIViewController {
     }
     
     private func insertCell() {
-        customTimerComponent.timeInfomations.append(TimeInfomation(time: TimeManagement()))
+        customTimerComponent.timeInfomations.append(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)))
         let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1,
                                         section: 0)
         selectedIndexPath = insertIndexPath
@@ -125,9 +125,9 @@ final class CustomTimerViewController: UIViewController {
     
     private func changeTimeOfSelectedTimer(row: Int, component: Int) {
         switch component {
-        case 0: customTimerComponent.timeInfomations[selectedIndexPath.item].time.changeHour(hour: row)
-        case 1: customTimerComponent.timeInfomations[selectedIndexPath.item].time.changeMinute(minute: row)
-        case 2: customTimerComponent.timeInfomations[selectedIndexPath.item].time.changeSecond(second: row)
+        case 0: customTimerComponent.timeInfomations[selectedIndexPath.item].time.hour = row
+        case 1: customTimerComponent.timeInfomations[selectedIndexPath.item].time.minute = row
+        case 2: customTimerComponent.timeInfomations[selectedIndexPath.item].time.second = row
         default:
             break
         }
