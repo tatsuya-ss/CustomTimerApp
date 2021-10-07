@@ -9,7 +9,6 @@ import UIKit
 import Photos
 
 extension CustomTimerViewController: ShowAlertProtocol{ }
-extension CustomTimerViewController: ShowDismissAlertProtocol{ }
 
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -56,14 +55,15 @@ final class CustomTimerViewController: UIViewController {
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
         guard let text = timerNameTextField.text,
               !text.isEmpty else {
-                  showAlert(title: "タイマー名を設定してください")
+                  showAlert(title: "タイマー名を設定してください",
+                            defaultTitle: "閉じる")
                   return
               }
         customTimerComponent.name = text
         delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
         dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         showDiscardChangesAlert()
     }
@@ -140,8 +140,12 @@ final class CustomTimerViewController: UIViewController {
     }
     
     private func showDiscardChangesAlert() {
-        showDismissAlert(alertTitle: "画面を閉じると編集中のタイマーは保存されません。",
-                         destructiveTitle: "閉じる")
+        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
+                            cancelMessage: "キャンセル",
+                            destructiveTitle: "破棄する",
+                            handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        })
     }
     
 }
