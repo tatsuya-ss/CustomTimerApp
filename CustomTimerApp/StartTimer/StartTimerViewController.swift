@@ -8,7 +8,6 @@
 import UIKit
 import AVFoundation
 
-extension StartTimerViewController: ShowDismissAlertProtocol { }
 extension StartTimerViewController: ShowAlertProtocol { }
 
 final class StartTimerViewController: UIViewController {
@@ -36,8 +35,12 @@ final class StartTimerViewController: UIViewController {
     }
     
     private func showStopTimerAlert() {
-        showDismissAlert(alertTitle: "タイマーを終了しますか？",
-                         destructiveTitle: "終了する")
+        showTwoChoicesAlert(alertTitle: "タイマーを終了しますか？",
+                            cancelMessage: "キャンセル",
+                            destructiveTitle: "終了する",
+                            handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        })
     }
     
     private func showTimeIsUpAlert() {

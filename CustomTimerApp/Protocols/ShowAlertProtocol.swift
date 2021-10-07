@@ -12,6 +12,11 @@ protocol ShowAlertProtocol {
                    message: String?,
                    defaultTitle: String,
                    handler: ((UIAlertAction) -> Void)?)
+    
+    func showTwoChoicesAlert(alertTitle: String,
+                          cancelMessage: String,
+                             destructiveTitle: String,
+                             handler: ((UIAlertAction) -> Void)?)
 }
 
 extension ShowAlertProtocol where Self: UIViewController {
@@ -29,19 +34,10 @@ extension ShowAlertProtocol where Self: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-}
-
-protocol ShowDismissAlertProtocol {
-    func showDismissAlert(alertTitle: String,
-                          cancelMessage: String,
-                          destructiveTitle: String)
-}
-
-extension ShowDismissAlertProtocol where Self: UIViewController {
-    
-    func showDismissAlert(alertTitle: String,
-                          cancelMessage: String = "キャンセル",
-                          destructiveTitle: String) {
+    func showTwoChoicesAlert(alertTitle: String,
+                             cancelMessage: String,
+                             destructiveTitle: String,
+                             handler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: alertTitle,
                                       message: nil,
                                       preferredStyle: .alert)
@@ -50,10 +46,8 @@ extension ShowDismissAlertProtocol where Self: UIViewController {
                                       handler: nil))
         alert.addAction(UIAlertAction(title: destructiveTitle,
                                       style: .destructive,
-                                      handler: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        }))
+                                      handler: handler))
         present(alert, animated: true, completion: nil)
     }
-
+    
 }
