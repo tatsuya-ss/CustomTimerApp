@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 
 extension StartTimerViewController: ShowDismissAlertProtocol { }
+extension StartTimerViewController: ShowAlertProtocol { }
 
 final class StartTimerViewController: UIViewController {
     
@@ -39,6 +40,12 @@ final class StartTimerViewController: UIViewController {
                          destructiveTitle: "終了する")
     }
     
+    private func showTimeIsUpAlert() {
+        showAlert(title: "タイマーを閉じます",
+                  defaultTitle: "閉じる") { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }
+    }
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
@@ -67,6 +74,10 @@ extension StartTimerViewController: TimerBehaviorDelegate {
     func makeSound() {
         audioPlayer?.currentTime = 0
         audioPlayer?.play()
+    }
+    
+    func timeIsUp() {
+        showTimeIsUpAlert()
     }
     
 }

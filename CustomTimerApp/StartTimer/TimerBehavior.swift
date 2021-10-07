@@ -11,6 +11,7 @@ protocol TimerBehaviorDelegate: AnyObject {
     func timerBehavior(didCountDown timeString: String,
                        with photoData: Data?)
     func makeSound()
+    func timeIsUp()
 }
 
 final class TimerBehavior {
@@ -49,6 +50,7 @@ final class TimerBehavior {
                     self?.startDate = Date()
                 } else {
                     timer.invalidate()
+                    self?.delegate?.timeIsUp()
                 }
             }
         })

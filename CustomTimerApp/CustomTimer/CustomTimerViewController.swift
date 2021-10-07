@@ -56,14 +56,15 @@ final class CustomTimerViewController: UIViewController {
     @IBAction private func saveTimerButtonTapped(_ sender: Any) {
         guard let text = timerNameTextField.text,
               !text.isEmpty else {
-                  showAlert(title: "タイマー名を設定してください")
+                  showAlert(title: "タイマー名を設定してください",
+                            defaultTitle: "閉じる")
                   return
               }
         customTimerComponent.name = text
         delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
         dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         showDiscardChangesAlert()
     }

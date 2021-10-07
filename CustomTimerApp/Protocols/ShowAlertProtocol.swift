@@ -8,18 +8,24 @@
 import UIKit
 
 protocol ShowAlertProtocol {
-    func showAlert(title: String, message: String?)
+    func showAlert(title: String,
+                   message: String?,
+                   defaultTitle: String,
+                   handler: ((UIAlertAction) -> Void)?)
 }
 
 extension ShowAlertProtocol where Self: UIViewController {
     
-    func showAlert(title: String, message: String? = nil) {
+    func showAlert(title: String,
+                   message: String? = nil,
+                   defaultTitle: String,
+                   handler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "閉じる",
+        alert.addAction(UIAlertAction(title: defaultTitle,
                                       style: .default,
-                                      handler: nil))
+                                      handler: handler))
         present(alert, animated: true, completion: nil)
     }
     
