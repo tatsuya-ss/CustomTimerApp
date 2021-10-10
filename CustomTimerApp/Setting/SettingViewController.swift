@@ -7,13 +7,13 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
-    @IBOutlet private weak var settingTableView: UITableView!
+final class SettingViewController: UIViewController {
+    
+    @IBOutlet private weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
     @IBAction private func stopButtonTapped(_ sender: Any) {
