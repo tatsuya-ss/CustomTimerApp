@@ -9,7 +9,14 @@ import UIKit
 
 final class SettingViewController: UIViewController {
     
+    private enum Section: CaseIterable {
+        case setting
+        case app
+    }
+    
     @IBOutlet private weak var collectionView: UICollectionView!
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, String>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
