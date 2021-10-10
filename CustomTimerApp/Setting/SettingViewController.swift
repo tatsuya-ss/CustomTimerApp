@@ -10,7 +10,19 @@ import UIKit
 final class SettingViewController: UIViewController {
     
     private enum Section: CaseIterable {
+        case setting
         case app
+    }
+    
+    private enum SettingCellType: CaseIterable {
+        case setting
+        
+        var title: String {
+            switch self {
+            case .setting:
+                return "設定"
+            }
+        }
     }
     
     private enum ApplicationCellType: CaseIterable {
@@ -82,9 +94,18 @@ extension SettingViewController {
         })
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
-        snapshot.appendSections([.app])
-        ApplicationCellType.allCases.forEach {
-            snapshot.appendItems([$0.title], toSection: .app)
+        Section.allCases.forEach { section in
+            snapshot.appendSections([section])
+            switch section {
+            case .setting:
+                SettingCellType.allCases.forEach {
+                    snapshot.appendItems([$0.title], toSection: section)
+                }
+            case .app:
+                ApplicationCellType.allCases.forEach {
+                    snapshot.appendItems([$0.title], toSection: section)
+                }
+            }
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
