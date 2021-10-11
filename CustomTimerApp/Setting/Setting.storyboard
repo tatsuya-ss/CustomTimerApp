@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j6D-lR-oII">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j6D-lR-oII">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,18 +18,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bzD-hY-OuG">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pon-y0-QJv">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Xgw-Vg-k70">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Jnb-xV-TM1">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8wK-wg-zHe">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="bzD-hY-OuG" secondAttribute="bottom" id="1nh-lg-02B"/>
-                            <constraint firstItem="bzD-hY-OuG" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="GMu-At-6mM"/>
-                            <constraint firstItem="bzD-hY-OuG" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="LwH-98-9bP"/>
-                            <constraint firstItem="bzD-hY-OuG" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="en9-vR-hxH"/>
+                            <constraint firstItem="pon-y0-QJv" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="LBC-QR-dvq"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pon-y0-QJv" secondAttribute="trailing" id="StO-47-0ZG"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="pon-y0-QJv" secondAttribute="bottom" id="bcz-XJ-UWT"/>
+                            <constraint firstItem="pon-y0-QJv" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="psG-nc-xdB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="設定" id="y3z-YQ-7HC">
@@ -38,7 +56,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="settingTableView" destination="bzD-hY-OuG" id="eoC-oF-dTT"/>
+                        <outlet property="collectionView" destination="pon-y0-QJv" id="MRs-8w-Wbh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
