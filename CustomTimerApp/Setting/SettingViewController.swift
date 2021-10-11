@@ -9,12 +9,12 @@ import UIKit
 
 final class SettingViewController: UIViewController {
     
-    private enum Section: CaseIterable {
+    private enum Section: Int, CaseIterable {
         case setting
         case app
     }
     
-    private enum SettingCellType: CaseIterable {
+    private enum SettingCellType: Int, CaseIterable {
         case setting
         
         var title: String {
@@ -25,7 +25,7 @@ final class SettingViewController: UIViewController {
         }
     }
     
-    private enum ApplicationCellType: CaseIterable {
+    private enum ApplicationCellType: Int, CaseIterable {
         case operation
         case evaluation
         case inquiry
@@ -59,12 +59,37 @@ final class SettingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    private func showActivityVC() {
+        guard let shareUrl = URL(string: "https://apps.apple.com/jp/app/movie-reviews-%E6%98%A0%E7%94%BB%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E7%AE%A1%E7%90%86/id1578614989")
+        else { return }
+        let activityVC = UIActivityViewController(activityItems: [shareUrl],
+                                                  applicationActivities: nil)
+        present(activityVC, animated: true, completion: nil)
+    }
 }
 
 extension SettingViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        switch indexPath {
+        case [Section.setting.rawValue, SettingCellType.setting.rawValue]:
+            break
+        case [Section.app.rawValue, ApplicationCellType.operation.rawValue]:
+            break
+        case [Section.app.rawValue, ApplicationCellType.evaluation.rawValue]:
+            break
+        case [Section.app.rawValue, ApplicationCellType.inquiry.rawValue]:
+            break
+        case [Section.app.rawValue, ApplicationCellType.share.rawValue]:
+            showActivityVC()
+        default: break
+        }
+    }
+    
 }
 
+// MARK: - CollectionView関連
 extension SettingViewController {
     
     private func createListLayout() -> UICollectionViewLayout {
