@@ -81,6 +81,7 @@ extension SettingViewController {
     
     private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, item in
+            cell.accessories = [.disclosureIndicator()]
             var content = cell.defaultContentConfiguration() // デフォルトのListCellを取得
             content.text = item
             cell.contentConfiguration = content
