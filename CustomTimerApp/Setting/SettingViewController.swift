@@ -7,28 +7,32 @@
 
 import UIKit
 
+struct TitleCellData: Hashable {
+    let title: String
+}
+
+enum Item: Hashable {
+    case title(TitleCellData)
+}
+
 final class SettingViewController: UIViewController {
     
     private enum Section: CaseIterable {
         case setting
         case app
-        var titles: [String] {
+        var items: [Item] {
             switch self {
-            case .setting:
-                return SettingItem.allCases.map { $0.title }
-            case .app:
-                return ApplicationItem.allCases.map { $0.title }
+            case .setting: return SettingItem.allCases.map { $0.item }
+            case .app: return ApplicationItem.allCases.map { $0.item}
             }
         }
     }
     
     private enum SettingItem: CaseIterable {
         case setting
-        
-        var title: String {
+        var item: Item {
             switch self {
-            case .setting:
-                return "設定"
+            case .setting: return .title(TitleCellData(title: "設定"))
             }
         }
     }
@@ -38,24 +42,19 @@ final class SettingViewController: UIViewController {
         case evaluation
         case inquiry
         case share
-        
-        var title: String {
+        var item: Item {
             switch self {
-            case .operation:
-                return "操作方法"
-            case .evaluation:
-                return "このアプリを評価する"
-            case .inquiry:
-                return "お問い合わせ"
-            case .share:
-                return "このアプリをシェアする"
+            case .operation: return .title(TitleCellData(title: "操作方法"))
+            case .evaluation: return .title(TitleCellData(title: "このアプリを評価する"))
+            case .inquiry: return .title(TitleCellData(title: "お問い合わせ"))
+            case .share: return .title(TitleCellData(title: "このアプリをシェアする"))
             }
         }
     }
-
+    
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, String>! = nil
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,24 +113,26 @@ extension SettingViewController {
     }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, String> { cell, indexPath, item in
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, Item> { cell, indexPath, item in
             cell.accessories = [.disclosureIndicator()]
             var content = cell.defaultContentConfiguration() // デフォルトのListCellを取得
-            content.text = item
+            switch item {
+            case .title(let data): content.text = data.title
+            }
             cell.contentConfiguration = content
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, String>(collectionView: collectionView, cellProvider: {
+        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: {
             collectionView, indexPath, itemIdentifier -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                 for: indexPath,
                                                                 item: itemIdentifier)
         })
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         Section.allCases.forEach { section in
             snapshot.appendSections([section])
-            snapshot.appendItems(section.titles, toSection: section)
+            snapshot.appendItems(section.items, toSection: section)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
