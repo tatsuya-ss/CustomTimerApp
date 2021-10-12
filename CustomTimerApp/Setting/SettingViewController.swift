@@ -9,7 +9,7 @@ import UIKit
 
 final class SettingViewController: UIViewController {
     
-    private enum Section: Int, CaseIterable {
+    private enum Section: CaseIterable {
         case setting
         case app
         var titles: [String] {
@@ -22,7 +22,7 @@ final class SettingViewController: UIViewController {
         }
     }
     
-    private enum SettingItem: Int, CaseIterable {
+    private enum SettingItem: CaseIterable {
         case setting
         
         var title: String {
@@ -81,19 +81,18 @@ extension SettingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         let section = Section.allCases[indexPath.section]
-        let item = section.titles[indexPath.item]
-        switch indexPath {
-        case [Section.setting.rawValue, SettingItem.setting.rawValue]:
-            break
-        case [Section.app.rawValue, ApplicationItem.operation.rawValue]:
-            break
-        case [Section.app.rawValue, ApplicationItem.evaluation.rawValue]:
-            break
-        case [Section.app.rawValue, ApplicationItem.inquiry.rawValue]:
-            break
-        case [Section.app.rawValue, ApplicationItem.share.rawValue]:
-            showActivityVC()
-        default: break
+        switch section {
+        case .setting:
+            switch SettingItem.allCases[indexPath.item] {
+            case .setting: break
+            }
+        case .app:
+            switch ApplicationItem.allCases[indexPath.item] {
+            case .operation: break
+            case .evaluation: break
+            case .inquiry: break
+            case .share: showActivityVC()
+            }
         }
     }
     
