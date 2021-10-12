@@ -14,7 +14,7 @@ final class SettingViewController: UIViewController {
         case app
     }
     
-    private enum SettingCellType: Int, CaseIterable {
+    private enum SettingRow: Int, CaseIterable {
         case setting
         
         var title: String {
@@ -25,7 +25,7 @@ final class SettingViewController: UIViewController {
         }
     }
     
-    private enum ApplicationCellType: Int, CaseIterable {
+    private enum ApplicationRow: Int, CaseIterable {
         case operation
         case evaluation
         case inquiry
@@ -73,15 +73,15 @@ extension SettingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         switch indexPath {
-        case [Section.setting.rawValue, SettingCellType.setting.rawValue]:
+        case [Section.setting.rawValue, SettingRow.setting.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationCellType.operation.rawValue]:
+        case [Section.app.rawValue, ApplicationRow.operation.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationCellType.evaluation.rawValue]:
+        case [Section.app.rawValue, ApplicationRow.evaluation.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationCellType.inquiry.rawValue]:
+        case [Section.app.rawValue, ApplicationRow.inquiry.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationCellType.share.rawValue]:
+        case [Section.app.rawValue, ApplicationRow.share.rawValue]:
             showActivityVC()
         default: break
         }
