@@ -12,9 +12,17 @@ final class SettingViewController: UIViewController {
     private enum Section: Int, CaseIterable {
         case setting
         case app
+        var titles: [String] {
+            switch self {
+            case .setting:
+                return SettingItem.allCases.map { $0.title }
+            case .app:
+                return ApplicationItem.allCases.map { $0.title }
+            }
+        }
     }
     
-    private enum SettingRow: Int, CaseIterable {
+    private enum SettingItem: Int, CaseIterable {
         case setting
         
         var title: String {
@@ -25,7 +33,7 @@ final class SettingViewController: UIViewController {
         }
     }
     
-    private enum ApplicationRow: Int, CaseIterable {
+    private enum ApplicationItem: Int, CaseIterable {
         case operation
         case evaluation
         case inquiry
@@ -72,16 +80,18 @@ extension SettingViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+        let section = Section.allCases[indexPath.section]
+        let item = section.titles[indexPath.item]
         switch indexPath {
-        case [Section.setting.rawValue, SettingRow.setting.rawValue]:
+        case [Section.setting.rawValue, SettingItem.setting.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationRow.operation.rawValue]:
+        case [Section.app.rawValue, ApplicationItem.operation.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationRow.evaluation.rawValue]:
+        case [Section.app.rawValue, ApplicationItem.evaluation.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationRow.inquiry.rawValue]:
+        case [Section.app.rawValue, ApplicationItem.inquiry.rawValue]:
             break
-        case [Section.app.rawValue, ApplicationRow.share.rawValue]:
+        case [Section.app.rawValue, ApplicationItem.share.rawValue]:
             showActivityVC()
         default: break
         }
@@ -122,18 +132,9 @@ extension SettingViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         Section.allCases.forEach { section in
             snapshot.appendSections([section])
-            switch section {
-            case .setting:
-                SettingCellType.allCases.forEach {
-                    snapshot.appendItems([$0.title], toSection: section)
-                }
-            case .app:
-                ApplicationCellType.allCases.forEach {
-                    snapshot.appendItems([$0.title], toSection: section)
-                }
-            }
+            snapshot.appendItems(section.titles, toSection: section)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-
+    
 }
