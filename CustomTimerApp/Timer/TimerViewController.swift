@@ -24,6 +24,7 @@ final class TimerViewController: UIViewController {
         configureHierarchy()
         configureDataSource()
         displayAllTimer()
+        setupLongPressRecognizer()
         
     }
     
@@ -124,6 +125,31 @@ extension TimerViewController {
             cell.layer.cornerRadius = 10
             return cell
         })
+    }
+    
+}
+
+extension TimerViewController {
+    
+    private func setupLongPressRecognizer() {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self,
+                                                               action: #selector(longPressRecognizer))
+        longPressRecognizer.allowableMovement = 10
+        longPressRecognizer.minimumPressDuration = 0.5
+        collectionView.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    @objc private func longPressRecognizer(sender: UILongPressGestureRecognizer) {
+        let point = sender.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: point)
+        if let indexPath = indexPath {
+            switch sender.state {
+            case .began:
+                presentCustomTimerVC()
+                print("bagan, \(indexPath)")
+            default: break
+            }
+        }
     }
     
 }
