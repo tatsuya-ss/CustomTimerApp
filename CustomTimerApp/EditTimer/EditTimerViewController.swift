@@ -14,6 +14,11 @@ final class EditTimerViewController: UIViewController {
     @IBOutlet private weak var timePickerView: UIPickerView!
     @IBOutlet private weak var plusButton: UIButton!
     
+    private var customTimerComponent: CustomTimerComponent!
+    func receiveCustomTimerComponent(customTimerComponent: CustomTimerComponent) {
+        self.customTimerComponent = customTimerComponent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
