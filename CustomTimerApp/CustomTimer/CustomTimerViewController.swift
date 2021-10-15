@@ -43,7 +43,6 @@ final class CustomTimerViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView.layer.cornerRadius = 20
         plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
     }
     
@@ -260,6 +259,7 @@ extension CustomTimerViewController {
         collectionView.dataSource = self
         collectionView.register(CustomTimerCollectionViewCell.nib,
                                 forCellWithReuseIdentifier: CustomTimerCollectionViewCell.identifier)
+        collectionView.layer.cornerRadius = 20
     }
     
     private func setupPickerView() {
