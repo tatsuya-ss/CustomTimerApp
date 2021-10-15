@@ -57,6 +57,7 @@ final class TimerViewController: UIViewController {
         let editTimerVC = EditTimerViewController.instantiate()
         editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item])
         let navigationController = UINavigationController(rootViewController: editTimerVC)
+        navigationController.presentationController?.delegate = editTimerVC
         present(navigationController, animated: true, completion: nil)
     }
 }

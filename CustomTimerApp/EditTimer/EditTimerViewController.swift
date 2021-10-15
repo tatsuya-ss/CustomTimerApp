@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension EditTimerViewController: ShowAlertProtocol{ }
+
 final class EditTimerViewController: UIViewController {
 
     @IBOutlet private weak var timerNameTextField: UITextField!
@@ -24,6 +26,7 @@ final class EditTimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        setupModelInPresentation()
         collectionView.reloadData()
     }
     
@@ -37,7 +40,7 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func cancelButtonDidTapped(_ sender: Any) {
-        
+        showDiscardChangesAlert()
     }
     
     @IBAction private func plusButtonDidTapped(_ sender: Any) {
@@ -53,7 +56,23 @@ final class EditTimerViewController: UIViewController {
               let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
         return image
     }
+    
+    private func showDiscardChangesAlert() {
+        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
+                            cancelMessage: "キャンセル",
+                            destructiveTitle: "破棄する",
+                            handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        })
+    }
 
+}
+
+extension EditTimerViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        showDiscardChangesAlert()
+    }
 }
 
 extension EditTimerViewController: UICollectionViewDataSource {
@@ -95,4 +114,9 @@ extension EditTimerViewController {
         collectionView.layer.cornerRadius = 20
     }
     
+    private func setupModelInPresentation() {
+        // プルダウンジェスチャーによる解除を無効
+        isModalInPresentation = true
+    }
+
 }
