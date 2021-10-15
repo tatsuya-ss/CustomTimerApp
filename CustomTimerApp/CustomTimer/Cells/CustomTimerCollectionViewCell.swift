@@ -17,19 +17,14 @@ final class CustomTimerCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        photoImageView.layer.cornerRadius = 10
+        timeLabel.clipsToBounds = true
+        timeLabel.layer.cornerRadius = 10
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         photoImageView.image = nil
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        photoImageView.layer.cornerRadius = 10
-        timeLabel.clipsToBounds = true
-        timeLabel.layer.cornerRadius = 10
     }
         
     func configure(image: UIImage?,
