@@ -52,7 +52,7 @@ final class CustomTimerViewController: UIViewController {
         timerNameTextField.resignFirstResponder()
     }
     
-    @IBAction private func saveTimerButtonTapped(_ sender: Any) {
+    @IBAction private func saveTimerButtonDidTapped(_ sender: Any) {
         guard let text = timerNameTextField.text,
               !text.isEmpty else {
                   showAlert(title: "タイマー名を設定してください",
