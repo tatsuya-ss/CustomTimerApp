@@ -26,6 +26,11 @@ final class EditTimerViewController: UIViewController {
         setupCollectionView()
         collectionView.reloadData()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
+    }
 
     @IBAction private func saveButtonDidTapped(_ sender: Any) {
         
@@ -87,6 +92,7 @@ extension EditTimerViewController {
         collectionView.dataSource = self
         collectionView.register(EditTimerCollectionViewCell.nib,
                                 forCellWithReuseIdentifier: EditTimerCollectionViewCell.identifier)
+        collectionView.layer.cornerRadius = 20
     }
     
 }
