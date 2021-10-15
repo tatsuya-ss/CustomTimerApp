@@ -36,6 +36,11 @@ final class EditTimerViewController: UIViewController {
         plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>,
+                               with event: UIEvent?) {
+        timerNameTextField.resignFirstResponder()
+    }
+
     @IBAction private func saveButtonDidTapped(_ sender: Any) {
         
     }
@@ -74,6 +79,14 @@ extension EditTimerViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         showDiscardChangesAlert()
     }
+}
+
+extension EditTimerViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+
 }
 
 extension EditTimerViewController: UICollectionViewDataSource {
@@ -121,6 +134,8 @@ extension EditTimerViewController {
     }
     
     private func setupTextField() {
+        timerNameTextField.delegate = self
+        timerNameTextField.keyboardType = .namePhonePad
         timerNameTextField.text = customTimerComponent.name
     }
 
