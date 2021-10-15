@@ -27,6 +27,7 @@ final class EditTimerViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         setupModelInPresentation()
+        setupTextField()
         collectionView.reloadData()
     }
     
@@ -117,6 +118,10 @@ extension EditTimerViewController {
     private func setupModelInPresentation() {
         // プルダウンジェスチャーによる解除を無効
         isModalInPresentation = true
+    }
+    
+    private func setupTextField() {
+        timerNameTextField.text = customTimerComponent.name
     }
 
 }
