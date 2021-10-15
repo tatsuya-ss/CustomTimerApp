@@ -52,7 +52,13 @@ final class TimerViewController: UIViewController {
         navigationController.presentationController?.delegate = customTimerVC
         present(navigationController, animated: true, completion: nil)
     }
-    
+
+    private func presentEditTimerVC(indexPath: IndexPath) {
+        let editTimerVC = EditTimerViewController.instantiate()
+        editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item])
+        let navigationController = UINavigationController(rootViewController: editTimerVC)
+        present(navigationController, animated: true, completion: nil)
+    }
 }
 
 extension TimerViewController: CustomTimerViewControllerDelegate {
@@ -149,8 +155,7 @@ extension TimerViewController {
         if let indexPath = indexPath {
             switch sender.state {
             case .began:
-                presentCustomTimerVC()
-                print("bagan, \(indexPath)")
+                presentEditTimerVC(indexPath: indexPath)
             default: break
             }
         }

@@ -97,7 +97,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="保存" id="9TJ-CP-LEI">
                             <connections>
-                                <action selector="saveTimerButtonTapped:" destination="Y6W-OH-hqX" id="R2G-Ee-Eqk"/>
+                                <action selector="saveTimerButtonDidTapped:" destination="Y6W-OH-hqX" id="xCF-p4-3O3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
