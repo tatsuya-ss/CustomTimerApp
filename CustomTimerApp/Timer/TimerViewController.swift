@@ -29,11 +29,7 @@ final class TimerViewController: UIViewController {
     }
     
     @IBAction func addTimerButtonTapped(_ sender: Any) {
-        let customTimerVC = CustomTimerViewController.instantiate()
-        customTimerVC.delegate = self
-        let navigationController = UINavigationController(rootViewController: customTimerVC)
-        navigationController.presentationController?.delegate = customTimerVC
-        present(navigationController, animated: true, completion: nil)
+        presentCustomTimerVC()
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
@@ -47,6 +43,14 @@ final class TimerViewController: UIViewController {
         snapshot.appendSections([.mainTimer])
         snapshot.appendItems(customTimers)
         dataSource.apply(snapshot, animatingDifferences: animated)
+    }
+    
+    private func presentCustomTimerVC() {
+        let customTimerVC = CustomTimerViewController.instantiate()
+        customTimerVC.delegate = self
+        let navigationController = UINavigationController(rootViewController: customTimerVC)
+        navigationController.presentationController?.delegate = customTimerVC
+        present(navigationController, animated: true, completion: nil)
     }
     
 }
