@@ -51,13 +51,13 @@ final class TimerViewController: UIViewController {
         editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item], editingIndexPath: indexPath)
         let navigationController = UINavigationController(rootViewController: editTimerVC)
         navigationController.presentationController?.delegate = editTimerVC
+        present(navigationController, animated: true, completion: nil)
         editTimerVC.didTappedSaveButton = { [weak self] indexPath, customTimerComponent in
             guard let strongSelf = self else { return }
             strongSelf.customTimers[indexPath.item] = customTimerComponent
             strongSelf.updateCollectionView()
             strongSelf.dismiss(animated: true, completion: nil)
         }
-        present(navigationController, animated: true, completion: nil)
     }
     
     private func updateCollectionView(animated: Bool = true) {
