@@ -125,9 +125,7 @@ final class CustomTimerViewController: UIViewController {
     private func showImagePickerController() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
-        present(imagePickerController,
-                animated: true,
-                completion: nil)
+        present(imagePickerController, animated: true, completion: nil)
     }
     
     private func changeTimeOfSelectedTimer(row: Int, component: Int) {
@@ -163,10 +161,10 @@ extension CustomTimerViewController: UIImagePickerControllerDelegate,
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        defer { dismiss(animated: true, completion: nil) }
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         customTimerComponent.timeInfomations[selectedIndexPath.item].photo = selectedImage.convertImageToData()
         collectionView.reloadItems(at: [selectedIndexPath])
+        dismiss(animated: true, completion: nil)
     }
     
 }

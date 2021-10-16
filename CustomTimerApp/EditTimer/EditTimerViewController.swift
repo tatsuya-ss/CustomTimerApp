@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 extension EditTimerViewController: ShowAlertProtocol{ }
 
@@ -74,9 +75,34 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
-        
+        getPhotosAuthorization()
     }
     
+    private func getPhotosAuthorization() {
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
+            guard let self = self else { return }
+            switch status {
+            case .authorized:
+                DispatchQueue.main.async {
+                    self.showImagePickerController()
+                }
+            case .denied:
+                DispatchQueue.main.async {
+                    self.showPhotosAuthorizationDeniedAlert()
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    private func showImagePickerController() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+
+
     private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
         guard let imageData = timeInfomation.photo,
               let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
@@ -92,6 +118,19 @@ final class EditTimerViewController: UIViewController {
         })
     }
     
+}
+
+extension EditTimerViewController: UIImagePickerControllerDelegate,
+                                   UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info:
+                               [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        customTimerComponent.timeInfomations[selectedIndexPath.item].photo = selectedImage.convertImageToData()
+        collectionView.reloadItems(at: [selectedIndexPath])
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 extension EditTimerViewController: UIAdaptivePresentationControllerDelegate {
