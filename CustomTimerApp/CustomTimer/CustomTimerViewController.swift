@@ -92,6 +92,7 @@ final class CustomTimerViewController: UIViewController {
                                              at: .centeredHorizontally,
                                              animated: true)
         }
+        showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
     
     private func showDiscardChangesAlert() {
@@ -141,6 +142,13 @@ final class CustomTimerViewController: UIViewController {
         guard let imageData = timeInfomation.photo,
               let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
         return image
+    }
+    
+    private func showSelectedTimeInPicker(indexPath: IndexPath = [0, 0]) {
+        let currentTime = customTimerComponent.timeInfomations[indexPath.item].time
+        timePickerView.selectRow(currentTime.hour, inComponent: 0, animated: true)
+        timePickerView.selectRow(currentTime.minute, inComponent: 1, animated: true)
+        timePickerView.selectRow(currentTime.second, inComponent: 2, animated: true)
     }
     
 }
@@ -208,6 +216,7 @@ extension CustomTimerViewController: UICollectionViewDelegate {
                                         at: .centeredHorizontally,
                                         animated: true)
         }
+        showSelectedTimeInPicker(indexPath: indexPath)
     }
     
 }
