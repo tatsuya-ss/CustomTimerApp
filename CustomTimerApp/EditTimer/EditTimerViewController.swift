@@ -10,7 +10,7 @@ import UIKit
 extension EditTimerViewController: ShowAlertProtocol{ }
 
 final class EditTimerViewController: UIViewController {
-
+    
     @IBOutlet private weak var timerNameTextField: UITextField!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var timePickerView: UIPickerView!
@@ -21,6 +21,7 @@ final class EditTimerViewController: UIViewController {
         self.customTimerComponent = customTimerComponent
     }
     
+    private var deselectedIndexPath: IndexPath = []
     private var selectedIndexPath: IndexPath = [0, 0]
     
     override func viewDidLoad() {
@@ -35,12 +36,12 @@ final class EditTimerViewController: UIViewController {
         super.viewDidLayoutSubviews()
         plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
         timerNameTextField.resignFirstResponder()
     }
-
+    
     @IBAction private func saveButtonDidTapped(_ sender: Any) {
         
     }
@@ -50,7 +51,26 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func plusButtonDidTapped(_ sender: Any) {
-        
+        insertCell()
+    }
+    
+    private func insertCell() {
+        customTimerComponent.timeInfomations.append(
+            TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))
+        )
+        let lastIndexPathItem = customTimerComponent.timeInfomations.count - 1
+        let insertIndexPath = IndexPath(item: lastIndexPathItem,
+                                        section: 0)
+        deselectedIndexPath = selectedIndexPath
+        selectedIndexPath = insertIndexPath
+        collectionView.performBatchUpdates {
+            collectionView.insertItems(at: [insertIndexPath])
+            collectionView.reloadItems(at: [deselectedIndexPath])
+        } completion: { _ in
+            self.collectionView.scrollToItem(at: insertIndexPath,
+                                             at: .centeredHorizontally,
+                                             animated: true)
+        }
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
@@ -71,7 +91,7 @@ final class EditTimerViewController: UIViewController {
             self?.dismiss(animated: true, completion: nil)
         })
     }
-
+    
 }
 
 extension EditTimerViewController: UIAdaptivePresentationControllerDelegate {
@@ -86,7 +106,7 @@ extension EditTimerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
-
+    
 }
 
 extension EditTimerViewController: UICollectionViewDataSource {
@@ -105,8 +125,8 @@ extension EditTimerViewController: UICollectionViewDataSource {
         let image = makePhotoImage(timeInfomation: customTimerComponent.timeInfomations[indexPath.item])
         cell.configure(image: image, timeString: timeString)
         indexPath == selectedIndexPath
-            ? cell.selectedCell()
-            : cell.unselectedCell()
+        ? cell.selectedCell()
+        : cell.unselectedCell()
         return cell
     }
     
@@ -138,5 +158,5 @@ extension EditTimerViewController {
         timerNameTextField.keyboardType = .namePhonePad
         timerNameTextField.text = customTimerComponent.name
     }
-
+    
 }

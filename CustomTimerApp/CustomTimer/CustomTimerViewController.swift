@@ -26,6 +26,7 @@ final class CustomTimerViewController: UIViewController {
         name: "タイマー１",
         timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))]
     )
+    private var deselectedIndexPath: IndexPath = []
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var unitlabels: [UILabel] = []
@@ -67,19 +68,42 @@ final class CustomTimerViewController: UIViewController {
         showDiscardChangesAlert()
     }
     
+    private func showDiscardChangesAlert() {
+        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
+                            cancelMessage: "キャンセル",
+                            destructiveTitle: "破棄する",
+                            handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        })
+    }
+    
     @IBAction func plusButtonDidTapped(_ sender: Any) {
-        DispatchQueue.main.async {
-            self.deselectCell()
-            DispatchQueue.main.async {
-                self.insertCell()
-            }
+        insertCell()
+    }
+    
+    private func insertCell() {
+        customTimerComponent.timeInfomations.append(
+            TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))
+        )
+        let lastIndexPathItem = customTimerComponent.timeInfomations.count - 1
+        let insertIndexPath = IndexPath(item: lastIndexPathItem,
+                                        section: 0)
+        deselectedIndexPath = selectedIndexPath
+        selectedIndexPath = insertIndexPath
+        collectionView.performBatchUpdates {
+            collectionView.insertItems(at: [insertIndexPath])
+            collectionView.reloadItems(at: [deselectedIndexPath])
+        } completion: { _ in
+            self.collectionView.scrollToItem(at: insertIndexPath,
+                                             at: .centeredHorizontally,
+                                             animated: true)
         }
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         getPhotosAuthorization()
     }
-
+    
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self else { return }
@@ -106,22 +130,6 @@ final class CustomTimerViewController: UIViewController {
                 completion: nil)
     }
     
-    private func deselectCell() {
-        selectedIndexPath = []
-        collectionView.reloadData()
-    }
-    
-    private func insertCell() {
-        customTimerComponent.timeInfomations.append(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)))
-        let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1,
-                                        section: 0)
-        selectedIndexPath = insertIndexPath
-        collectionView.insertItems(at: [insertIndexPath])
-        self.collectionView.scrollToItem(at: insertIndexPath,
-                                         at: .centeredHorizontally,
-                                         animated: true)
-    }
-    
     private func changeTimeOfSelectedTimer(row: Int, component: Int) {
         switch component {
         case 0: customTimerComponent.timeInfomations[selectedIndexPath.item].time.hour = row
@@ -138,14 +146,6 @@ final class CustomTimerViewController: UIViewController {
         return image
     }
     
-    private func showDiscardChangesAlert() {
-        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
-                            cancelMessage: "キャンセル",
-                            destructiveTitle: "破棄する",
-                            handler: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        })
-    }
     
 }
 
@@ -182,16 +182,16 @@ extension CustomTimerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CustomTimerCollectionViewCell.identifier,
-                for: indexPath) as? CustomTimerCollectionViewCell
+            withReuseIdentifier: CustomTimerCollectionViewCell.identifier,
+            for: indexPath) as? CustomTimerCollectionViewCell
         else { fatalError("セルが見つかりません") }
         
         let timeString = customTimerComponent.timeInfomations[indexPath.item].time.makeTimeString()
         let image = makePhotoImage(timeInfomation: customTimerComponent.timeInfomations[indexPath.item])
         cell.configure(image: image, timeString: timeString)
         indexPath == selectedIndexPath
-            ? cell.selectedCell()
-            : cell.unselectedCell()
+        ? cell.selectedCell()
+        : cell.unselectedCell()
         return cell
     }
     
@@ -242,7 +242,7 @@ extension CustomTimerViewController: UIPickerViewDelegate {
 
 // MARK: - UITextFieldDelegate
 extension CustomTimerViewController: UITextFieldDelegate {
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
     }
@@ -305,5 +305,5 @@ extension CustomTimerViewController {
         // プルダウンジェスチャーによる解除を無効
         isModalInPresentation = true
     }
-
+    
 }
