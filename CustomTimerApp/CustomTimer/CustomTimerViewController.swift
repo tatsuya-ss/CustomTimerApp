@@ -200,8 +200,15 @@ extension CustomTimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+        deselectedIndexPath = selectedIndexPath
         selectedIndexPath = indexPath
-        collectionView.reloadData()
+        collectionView.performBatchUpdates {
+            collectionView.reloadItems(at: [deselectedIndexPath, indexPath])
+        } completion: { _ in
+            collectionView.scrollToItem(at: indexPath,
+                                        at: .centeredHorizontally,
+                                        animated: true)
+        }
     }
     
 }

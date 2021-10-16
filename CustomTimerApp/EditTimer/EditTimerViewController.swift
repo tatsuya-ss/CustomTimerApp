@@ -178,6 +178,18 @@ extension EditTimerViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension EditTimerViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        deselectedIndexPath = selectedIndexPath
+        selectedIndexPath = indexPath
+        collectionView.performBatchUpdates {
+            collectionView.reloadItems(at: [deselectedIndexPath, indexPath])
+        } completion: { _ in
+            collectionView.scrollToItem(at: indexPath,
+                                        at: .centeredHorizontally,
+                                        animated: true)
+        }
+    }
 }
 
 // MARK: - setup
