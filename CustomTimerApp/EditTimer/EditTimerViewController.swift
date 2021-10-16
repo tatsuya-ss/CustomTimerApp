@@ -18,12 +18,16 @@ final class EditTimerViewController: UIViewController {
     @IBOutlet private weak var plusButton: UIButton!
     
     private var customTimerComponent: CustomTimerComponent!
-    func receiveCustomTimerComponent(customTimerComponent: CustomTimerComponent) {
+    private var editingIndexPath: IndexPath!
+    func receiveCustomTimerComponent(customTimerComponent: CustomTimerComponent,
+                                     editingIndexPath: IndexPath) {
         self.customTimerComponent = customTimerComponent
+        self.editingIndexPath = editingIndexPath
     }
     
     private var deselectedIndexPath: IndexPath = []
     private var selectedIndexPath: IndexPath = [0, 0]
+    var didTappedSaveButton: ((IndexPath, CustomTimerComponent) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +48,13 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func saveButtonDidTapped(_ sender: Any) {
-        
+        guard let text = timerNameTextField.text,
+              !text.isEmpty else {
+                  showTimerNameEmptyAlert()
+                  return
+              }
+        customTimerComponent.name = text
+        didTappedSaveButton?(editingIndexPath, customTimerComponent)
     }
     
     @IBAction private func cancelButtonDidTapped(_ sender: Any) {
@@ -57,6 +67,16 @@ final class EditTimerViewController: UIViewController {
         
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         getPhotosAuthorization()
+    }
+    
+    private func showTimerNameEmptyAlert() {
+        let alert = UIAlertController(title: "タイマー名を設定してください",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "閉じる",
+                                      style: .default,
+                                      handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     private func insertCell() {

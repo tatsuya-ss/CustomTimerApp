@@ -23,7 +23,7 @@ final class TimerViewController: UIViewController {
         
         configureHierarchy()
         configureDataSource()
-        displayAllTimer()
+        updateCollectionView()
         setupLongPressRecognizer()
         
     }
@@ -38,13 +38,6 @@ final class TimerViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    private func displayAllTimer(animated: Bool = true) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
-        snapshot.appendSections([.mainTimer])
-        snapshot.appendItems(customTimers)
-        dataSource.apply(snapshot, animatingDifferences: animated)
-    }
-    
     private func presentCustomTimerVC() {
         let customTimerVC = CustomTimerViewController.instantiate()
         customTimerVC.delegate = self
@@ -55,11 +48,25 @@ final class TimerViewController: UIViewController {
 
     private func presentEditTimerVC(indexPath: IndexPath) {
         let editTimerVC = EditTimerViewController.instantiate()
-        editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item])
+        editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item], editingIndexPath: indexPath)
         let navigationController = UINavigationController(rootViewController: editTimerVC)
         navigationController.presentationController?.delegate = editTimerVC
+        editTimerVC.didTappedSaveButton = { [weak self] indexPath, customTimerComponent in
+            guard let strongSelf = self else { return }
+            strongSelf.customTimers[indexPath.item] = customTimerComponent
+            strongSelf.updateCollectionView()
+            strongSelf.dismiss(animated: true, completion: nil)
+        }
         present(navigationController, animated: true, completion: nil)
     }
+    
+    private func updateCollectionView(animated: Bool = true) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
+        snapshot.appendSections([.mainTimer])
+        snapshot.appendItems(customTimers, toSection: .mainTimer)
+        dataSource.apply(snapshot, animatingDifferences: animated)
+    }
+    
 }
 
 extension TimerViewController: CustomTimerViewControllerDelegate {
@@ -67,10 +74,7 @@ extension TimerViewController: CustomTimerViewControllerDelegate {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
                           customTimerComponent: CustomTimerComponent) {
         customTimers.append(customTimerComponent)
-        var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
-        snapshot.appendSections([.mainTimer])
-        snapshot.appendItems(customTimers, toSection: .mainTimer)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        updateCollectionView()
     }
     
 }
