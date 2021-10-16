@@ -98,6 +98,7 @@ final class EditTimerViewController: UIViewController {
                                              at: .centeredHorizontally,
                                              animated: true)
         }
+        showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
 
     private func getPhotosAuthorization() {
@@ -148,6 +149,13 @@ final class EditTimerViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    private func showSelectedTimeInPicker(indexPath: IndexPath = [0, 0]) {
+        let currentTime = customTimerComponent.timeInfomations[indexPath.item].time
+        timePickerView.selectRow(currentTime.hour, inComponent: 0, animated: true)
+        timePickerView.selectRow(currentTime.minute, inComponent: 1, animated: true)
+        timePickerView.selectRow(currentTime.second, inComponent: 2, animated: true)
     }
 
 }
@@ -221,6 +229,8 @@ extension EditTimerViewController: UICollectionViewDelegate {
                                         at: .centeredHorizontally,
                                         animated: true)
         }
+        
+        showSelectedTimeInPicker(indexPath: indexPath)
     }
 }
 
@@ -284,6 +294,7 @@ extension EditTimerViewController {
         timePickerView.dataSource = self
         timePickerView.delegate = self
         setupPickerViewUnits()
+        showSelectedTimeInPicker()
     }
     
     private func setupPickerViewUnits() {
