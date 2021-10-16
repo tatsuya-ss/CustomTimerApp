@@ -25,6 +25,7 @@ final class EditTimerViewController: UIViewController {
         self.editingIndexPath = editingIndexPath
     }
     
+    private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var deselectedIndexPath: IndexPath = []
     private var selectedIndexPath: IndexPath = [0, 0]
     var didTappedSaveButton: ((IndexPath, CustomTimerComponent) -> Void)?
@@ -34,6 +35,7 @@ final class EditTimerViewController: UIViewController {
         setupCollectionView()
         setupModelInPresentation()
         setupTextField()
+        setupPickerView()
         collectionView.reloadData()
     }
     
@@ -138,6 +140,16 @@ final class EditTimerViewController: UIViewController {
         })
     }
     
+    private func changeTimeOfSelectedTimer(row: Int, component: Int) {
+        switch component {
+        case 0: customTimerComponent.timeInfomations[selectedIndexPath.item].time.hour = row
+        case 1: customTimerComponent.timeInfomations[selectedIndexPath.item].time.minute = row
+        case 2: customTimerComponent.timeInfomations[selectedIndexPath.item].time.second = row
+        default:
+            break
+        }
+    }
+
 }
 
 // MARK: - UIImagePickerControllerDelegate
@@ -212,6 +224,38 @@ extension EditTimerViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UIPickerViewDataSource
+extension EditTimerViewController: UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        TimeStructures.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    numberOfRowsInComponent component: Int) -> Int {
+        TimeStructures[component].timeRange.count
+    }
+    
+}
+
+// MARK: - UIPickerViewDelegate
+extension EditTimerViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    titleForRow row: Int,
+                    forComponent component: Int) -> String? {
+        row.description
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    didSelectRow row: Int,
+                    inComponent component: Int) {
+        changeTimeOfSelectedTimer(row: row, component: component)
+        collectionView.reloadItems(at: [selectedIndexPath])
+    }
+    
+}
+
 // MARK: - setup
 extension EditTimerViewController {
     
@@ -236,4 +280,40 @@ extension EditTimerViewController {
         timerNameTextField.text = customTimerComponent.name
     }
     
+    private func setupPickerView() {
+        timePickerView.dataSource = self
+        timePickerView.delegate = self
+        setupPickerViewUnits()
+    }
+    
+    private func setupPickerViewUnits() {
+        // 後に表示修正
+        var unitlabels: [UILabel] = []
+        let fontSize = CGFloat(15)
+        let labelTop = timePickerView.bounds.origin.y + timePickerView.bounds.height / 2 - fontSize
+        let labelHeight = timePickerView.rowSize(forComponent: 0).height
+        var labelOffset = timePickerView.bounds.origin.x
+        // 変更
+        TimeStructures.forEach {
+            let row = $0.row
+            if unitlabels.count == row {
+                let label = UILabel()
+                label.backgroundColor = .systemBlue
+                label.text = $0.unit
+                label.font = UIFont.boldSystemFont(ofSize: fontSize)
+                label.sizeToFit()
+                
+                timePickerView.addSubview(label)
+                unitlabels.append(label)
+            }
+            let labelWidth = unitlabels[row].frame.width
+            labelOffset += timePickerView.rowSize(forComponent: row).width
+            print(labelWidth, labelOffset)
+            unitlabels[row].frame = CGRect(x: labelOffset - labelWidth,
+                                                y: labelTop,
+                                                width: labelWidth,
+                                                height: labelHeight)
+        }
+    }
+
 }
