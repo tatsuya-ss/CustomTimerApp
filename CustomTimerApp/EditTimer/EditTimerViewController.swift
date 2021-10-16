@@ -54,6 +54,10 @@ final class EditTimerViewController: UIViewController {
     @IBAction private func plusButtonDidTapped(_ sender: Any) {
         insertCell()
     }
+        
+    @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
+        getPhotosAuthorization()
+    }
     
     private func insertCell() {
         customTimerComponent.timeInfomations.append(
@@ -73,11 +77,7 @@ final class EditTimerViewController: UIViewController {
                                              animated: true)
         }
     }
-    
-    @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
-        getPhotosAuthorization()
-    }
-    
+
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self else { return }
@@ -120,6 +120,7 @@ final class EditTimerViewController: UIViewController {
     
 }
 
+// MARK: - UIImagePickerControllerDelegate
 extension EditTimerViewController: UIImagePickerControllerDelegate,
                                    UINavigationControllerDelegate {
     
@@ -133,6 +134,7 @@ extension EditTimerViewController: UIImagePickerControllerDelegate,
     }
 }
 
+// MARK: - UIAdaptivePresentationControllerDelegate
 extension EditTimerViewController: UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
@@ -140,6 +142,7 @@ extension EditTimerViewController: UIAdaptivePresentationControllerDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension EditTimerViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -148,6 +151,7 @@ extension EditTimerViewController: UITextFieldDelegate {
     
 }
 
+// MARK: - UICollectionViewDataSource
 extension EditTimerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
@@ -171,10 +175,12 @@ extension EditTimerViewController: UICollectionViewDataSource {
     
 }
 
+// MARK: - UICollectionViewDelegate
 extension EditTimerViewController: UICollectionViewDelegate {
     
 }
 
+// MARK: - setup
 extension EditTimerViewController {
     
     private func setupCollectionView() {

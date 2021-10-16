@@ -67,18 +67,13 @@ final class CustomTimerViewController: UIViewController {
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         showDiscardChangesAlert()
     }
-    
-    private func showDiscardChangesAlert() {
-        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
-                            cancelMessage: "キャンセル",
-                            destructiveTitle: "破棄する",
-                            handler: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        })
-    }
-    
+        
     @IBAction func plusButtonDidTapped(_ sender: Any) {
         insertCell()
+    }
+    
+    @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
+        getPhotosAuthorization()
     }
     
     private func insertCell() {
@@ -100,10 +95,15 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
-    @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
-        getPhotosAuthorization()
+    private func showDiscardChangesAlert() {
+        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
+                            cancelMessage: "キャンセル",
+                            destructiveTitle: "破棄する",
+                            handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        })
     }
-    
+
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self else { return }
@@ -144,9 +144,9 @@ final class CustomTimerViewController: UIViewController {
         return image
     }
     
-    
 }
 
+// MARK: - UIAdaptivePresentationControllerDelegate
 extension CustomTimerViewController: UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
