@@ -23,16 +23,13 @@ final class TimerViewController: UIViewController {
         
         configureHierarchy()
         configureDataSource()
-        displayAllTimer()
+        updateCollectionView()
+        setupLongPressRecognizer()
         
     }
     
     @IBAction func addTimerButtonTapped(_ sender: Any) {
-        let customTimerVC = CustomTimerViewController.instantiate()
-        customTimerVC.delegate = self
-        let navigationController = UINavigationController(rootViewController: customTimerVC)
-        navigationController.presentationController?.delegate = customTimerVC
-        present(navigationController, animated: true, completion: nil)
+        presentCustomTimerVC()
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
@@ -41,10 +38,32 @@ final class TimerViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
-    private func displayAllTimer(animated: Bool = true) {
+    private func presentCustomTimerVC() {
+        let customTimerVC = CustomTimerViewController.instantiate()
+        customTimerVC.delegate = self
+        let navigationController = UINavigationController(rootViewController: customTimerVC)
+        navigationController.presentationController?.delegate = customTimerVC
+        present(navigationController, animated: true, completion: nil)
+    }
+
+    private func presentEditTimerVC(indexPath: IndexPath) {
+        let editTimerVC = EditTimerViewController.instantiate()
+        editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item], editingIndexPath: indexPath)
+        let navigationController = UINavigationController(rootViewController: editTimerVC)
+        navigationController.presentationController?.delegate = editTimerVC
+        present(navigationController, animated: true, completion: nil)
+        editTimerVC.didTappedSaveButton = { [weak self] indexPath, customTimerComponent in
+            guard let strongSelf = self else { return }
+            strongSelf.customTimers[indexPath.item] = customTimerComponent
+            strongSelf.updateCollectionView()
+            strongSelf.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    private func updateCollectionView(animated: Bool = true) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
         snapshot.appendSections([.mainTimer])
-        snapshot.appendItems(customTimers)
+        snapshot.appendItems(customTimers, toSection: .mainTimer)
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
     
@@ -55,10 +74,7 @@ extension TimerViewController: CustomTimerViewControllerDelegate {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
                           customTimerComponent: CustomTimerComponent) {
         customTimers.append(customTimerComponent)
-        var snapshot = NSDiffableDataSourceSnapshot<Section, CustomTimerComponent>()
-        snapshot.appendSections([.mainTimer])
-        snapshot.appendItems(customTimers, toSection: .mainTimer)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        updateCollectionView()
     }
     
 }
@@ -124,6 +140,30 @@ extension TimerViewController {
             cell.layer.cornerRadius = 10
             return cell
         })
+    }
+    
+}
+
+extension TimerViewController {
+    
+    private func setupLongPressRecognizer() {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self,
+                                                               action: #selector(longPressRecognizer))
+        longPressRecognizer.allowableMovement = 10
+        longPressRecognizer.minimumPressDuration = 0.5
+        collectionView.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    @objc private func longPressRecognizer(sender: UILongPressGestureRecognizer) {
+        let point = sender.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: point)
+        if let indexPath = indexPath {
+            switch sender.state {
+            case .began:
+                presentEditTimerVC(indexPath: indexPath)
+            default: break
+            }
+        }
     }
     
 }

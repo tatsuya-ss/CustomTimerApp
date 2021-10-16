@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kgh-qW-CEN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Kgh-qW-CEN">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -80,7 +81,6 @@
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="IUP-S3-543"/>
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="L8C-wr-X3p"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="iX1-Q4-V47" secondAttribute="trailing" constant="20" id="P6i-X9-4gQ"/>
-                            <constraint firstItem="L0F-FX-XCY" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="b7l-SK-3ZQ"/>
                             <constraint firstItem="q3k-rS-yVn" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="fi5-JH-gfV"/>
                             <constraint firstItem="iX1-Q4-V47" firstAttribute="leading" secondItem="L0F-FX-XCY" secondAttribute="trailing" constant="20" id="ixw-ea-ggF"/>
                             <constraint firstItem="L0F-FX-XCY" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.2" id="jhS-wA-1bP"/>
@@ -97,7 +97,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="保存" id="9TJ-CP-LEI">
                             <connections>
-                                <action selector="saveTimerButtonTapped:" destination="Y6W-OH-hqX" id="R2G-Ee-Eqk"/>
+                                <action selector="saveTimerButtonDidTapped:" destination="Y6W-OH-hqX" id="xCF-p4-3O3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

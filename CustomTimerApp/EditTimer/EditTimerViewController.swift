@@ -1,44 +1,42 @@
 //
-//  CustomTimerViewController.swift
+//  EditTimerViewController.swift
 //  CustomTimerApp
 //
-//  Created by 坂本龍哉 on 2021/08/20.
+//  Created by 坂本龍哉 on 2021/10/15.
 //
 
 import UIKit
 import Photos
 
-extension CustomTimerViewController: ShowAlertProtocol{ }
+extension EditTimerViewController: ShowAlertProtocol{ }
 
-protocol CustomTimerViewControllerDelegate: AnyObject {
-    func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
-                          customTimerComponent: CustomTimerComponent)
-}
-
-final class CustomTimerViewController: UIViewController {
+final class EditTimerViewController: UIViewController {
     
     @IBOutlet private weak var timerNameTextField: UITextField!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var timePickerView: UIPickerView!
     @IBOutlet private weak var plusButton: UIButton!
     
-    private var customTimerComponent = CustomTimerComponent(
-        name: "タイマー１",
-        timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))]
-    )
+    private var customTimerComponent: CustomTimerComponent!
+    private var editingIndexPath: IndexPath!
+    func receiveCustomTimerComponent(customTimerComponent: CustomTimerComponent,
+                                     editingIndexPath: IndexPath) {
+        self.customTimerComponent = customTimerComponent
+        self.editingIndexPath = editingIndexPath
+    }
+    
+    private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var deselectedIndexPath: IndexPath = []
     private var selectedIndexPath: IndexPath = [0, 0]
-    private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
-    weak var delegate: CustomTimerViewControllerDelegate?
+    var didTappedSaveButton: ((IndexPath, CustomTimerComponent) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupCollectionView()
-        setupPickerView()
-        setupTextField()
         setupModelInPresentation()
-        
+        setupTextField()
+        setupPickerView()
+        collectionView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,28 +49,36 @@ final class CustomTimerViewController: UIViewController {
         timerNameTextField.resignFirstResponder()
     }
     
-    @IBAction private func saveTimerButtonDidTapped(_ sender: Any) {
+    @IBAction private func saveButtonDidTapped(_ sender: Any) {
         guard let text = timerNameTextField.text,
               !text.isEmpty else {
-                  showAlert(title: "タイマー名を設定してください",
-                            defaultTitle: "閉じる")
+                  showTimerNameEmptyAlert()
                   return
               }
         customTimerComponent.name = text
-        delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
-        dismiss(animated: true, completion: nil)
+        didTappedSaveButton?(editingIndexPath, customTimerComponent)
     }
     
-    @IBAction private func cancelButtonTapped(_ sender: Any) {
+    @IBAction private func cancelButtonDidTapped(_ sender: Any) {
         showDiscardChangesAlert()
     }
-        
-    @IBAction func plusButtonDidTapped(_ sender: Any) {
+    
+    @IBAction private func plusButtonDidTapped(_ sender: Any) {
         insertCell()
     }
-    
+        
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         getPhotosAuthorization()
+    }
+    
+    private func showTimerNameEmptyAlert() {
+        let alert = UIAlertController(title: "タイマー名を設定してください",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "閉じる",
+                                      style: .default,
+                                      handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     private func insertCell() {
@@ -93,15 +99,6 @@ final class CustomTimerViewController: UIViewController {
                                              animated: true)
         }
         showSelectedTimeInPicker(indexPath: insertIndexPath)
-    }
-    
-    private func showDiscardChangesAlert() {
-        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
-                            cancelMessage: "キャンセル",
-                            destructiveTitle: "破棄する",
-                            handler: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        })
     }
 
     private func getPhotosAuthorization() {
@@ -127,6 +124,22 @@ final class CustomTimerViewController: UIViewController {
         imagePickerController.delegate = self
         present(imagePickerController, animated: true, completion: nil)
     }
+
+
+    private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
+        guard let imageData = timeInfomation.photo,
+              let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
+        return image
+    }
+    
+    private func showDiscardChangesAlert() {
+        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
+                            cancelMessage: "キャンセル",
+                            destructiveTitle: "破棄する",
+                            handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        })
+    }
     
     private func changeTimeOfSelectedTimer(row: Int, component: Int) {
         switch component {
@@ -138,46 +151,48 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
-    private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
-        guard let imageData = timeInfomation.photo,
-              let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
-        return image
-    }
-    
     private func showSelectedTimeInPicker(indexPath: IndexPath = [0, 0]) {
         let currentTime = customTimerComponent.timeInfomations[indexPath.item].time
         timePickerView.selectRow(currentTime.hour, inComponent: 0, animated: true)
         timePickerView.selectRow(currentTime.minute, inComponent: 1, animated: true)
         timePickerView.selectRow(currentTime.second, inComponent: 2, animated: true)
     }
-    
-}
 
-// MARK: - UIAdaptivePresentationControllerDelegate
-extension CustomTimerViewController: UIAdaptivePresentationControllerDelegate {
-    
-    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        showDiscardChangesAlert()
-    }
-    
 }
 
 // MARK: - UIImagePickerControllerDelegate
-extension CustomTimerViewController: UIImagePickerControllerDelegate,
-                                     UINavigationControllerDelegate {
+extension EditTimerViewController: UIImagePickerControllerDelegate,
+                                   UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+                               didFinishPickingMediaWithInfo info:
+                               [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
         customTimerComponent.timeInfomations[selectedIndexPath.item].photo = selectedImage.convertImageToData()
         collectionView.reloadItems(at: [selectedIndexPath])
         dismiss(animated: true, completion: nil)
     }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+extension EditTimerViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        showDiscardChangesAlert()
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension EditTimerViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
     
 }
 
 // MARK: - UICollectionViewDataSource
-extension CustomTimerViewController: UICollectionViewDataSource {
+extension EditTimerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
@@ -187,10 +202,8 @@ extension CustomTimerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CustomTimerCollectionViewCell.identifier,
-            for: indexPath) as? CustomTimerCollectionViewCell
-        else { fatalError("セルが見つかりません") }
-        
+            withReuseIdentifier: EditTimerCollectionViewCell.identifier, for: indexPath
+        ) as? EditTimerCollectionViewCell else { fatalError("セルが見つかりません") }
         let timeString = customTimerComponent.timeInfomations[indexPath.item].time.makeTimeString()
         let image = makePhotoImage(timeInfomation: customTimerComponent.timeInfomations[indexPath.item])
         cell.configure(image: image, timeString: timeString)
@@ -203,7 +216,7 @@ extension CustomTimerViewController: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegate
-extension CustomTimerViewController: UICollectionViewDelegate {
+extension EditTimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
@@ -216,13 +229,13 @@ extension CustomTimerViewController: UICollectionViewDelegate {
                                         at: .centeredHorizontally,
                                         animated: true)
         }
+        
         showSelectedTimeInPicker(indexPath: indexPath)
     }
-    
 }
 
 // MARK: - UIPickerViewDataSource
-extension CustomTimerViewController: UIPickerViewDataSource {
+extension EditTimerViewController: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         TimeStructures.count
@@ -236,7 +249,7 @@ extension CustomTimerViewController: UIPickerViewDataSource {
 }
 
 // MARK: - UIPickerViewDelegate
-extension CustomTimerViewController: UIPickerViewDelegate {
+extension EditTimerViewController: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView,
                     titleForRow row: Int,
@@ -253,35 +266,39 @@ extension CustomTimerViewController: UIPickerViewDelegate {
     
 }
 
-// MARK: - UITextFieldDelegate
-extension CustomTimerViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-    }
-    
-}
-
 // MARK: - setup
-extension CustomTimerViewController {
+extension EditTimerViewController {
     
     private func setupCollectionView() {
-        collectionView.collectionViewLayout = CustomTimerCollectionViewFlowLayout()
+        collectionView.collectionViewLayout = EditTimerCollectionViewFlowLayout()
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(CustomTimerCollectionViewCell.nib,
-                                forCellWithReuseIdentifier: CustomTimerCollectionViewCell.identifier)
+        collectionView.register(EditTimerCollectionViewCell.nib,
+                                forCellWithReuseIdentifier: EditTimerCollectionViewCell.identifier)
         collectionView.layer.cornerRadius = 20
+    }
+    
+    private func setupModelInPresentation() {
+        // プルダウンジェスチャーによる解除を無効
+        isModalInPresentation = true
+    }
+    
+    private func setupTextField() {
+        timerNameTextField.delegate = self
+        timerNameTextField.keyboardType = .namePhonePad
+        timerNameTextField.text = customTimerComponent.name
     }
     
     private func setupPickerView() {
         timePickerView.dataSource = self
         timePickerView.delegate = self
         setupPickerViewUnits()
+        showSelectedTimeInPicker()
     }
     
     private func setupPickerViewUnits() {
+        // 後に表示修正
         var unitlabels: [UILabel] = []
         let fontSize = CGFloat(15)
         let labelTop = timePickerView.bounds.origin.y + timePickerView.bounds.height / 2 - fontSize
@@ -309,15 +326,5 @@ extension CustomTimerViewController {
                                                 height: labelHeight)
         }
     }
-    
-    private func setupTextField() {
-        timerNameTextField.delegate = self
-        timerNameTextField.keyboardType = .namePhonePad
-    }
-    
-    private func setupModelInPresentation() {
-        // プルダウンジェスチャーによる解除を無効
-        isModalInPresentation = true
-    }
-    
+
 }
