@@ -8,7 +8,8 @@
 import UIKit
 import Photos
 
-extension EditTimerViewController: ShowAlertProtocol{ }
+extension EditTimerViewController: ShowAlertProtocol { }
+extension EditTimerViewController: InsertCellProtocol { }
 
 final class EditTimerViewController: UIViewController {
     
@@ -69,7 +70,8 @@ final class EditTimerViewController: UIViewController {
         let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
-        insertCellWithAnimation(insertIndexPath: insertIndexPath,
+        insertCellWithAnimation(collectionView: collectionView,
+                                insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
         showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
@@ -86,18 +88,6 @@ final class EditTimerViewController: UIViewController {
                                       style: .default,
                                       handler: nil))
         present(alert, animated: true, completion: nil)
-    }
-    
-    private func insertCellWithAnimation(insertIndexPath: IndexPath,
-                                         deselectedIndexPath: IndexPath) {
-        collectionView.performBatchUpdates {
-            collectionView.insertItems(at: [insertIndexPath])
-            collectionView.reloadItems(at: [deselectedIndexPath])
-        } completion: { _ in
-            self.collectionView.scrollToItem(at: insertIndexPath,
-                                             at: .centeredHorizontally,
-                                             animated: true)
-        }
     }
     
     private func getPhotosAuthorization() {

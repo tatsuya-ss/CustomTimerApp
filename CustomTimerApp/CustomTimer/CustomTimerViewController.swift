@@ -9,6 +9,7 @@ import UIKit
 import Photos
 
 extension CustomTimerViewController: ShowAlertProtocol{ }
+extension CustomTimerViewController: InsertCellProtocol{ }
 
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -73,25 +74,14 @@ final class CustomTimerViewController: UIViewController {
         let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
-        insertCellWithAnimation(insertIndexPath: insertIndexPath,
+        insertCellWithAnimation(collectionView: collectionView,
+                                insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
         showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         getPhotosAuthorization()
-    }
-    
-    private func insertCellWithAnimation(insertIndexPath: IndexPath,
-                                         deselectedIndexPath: IndexPath) {
-        collectionView.performBatchUpdates {
-            collectionView.insertItems(at: [insertIndexPath])
-            collectionView.reloadItems(at: [deselectedIndexPath])
-        } completion: { _ in
-            self.collectionView.scrollToItem(at: insertIndexPath,
-                                             at: .centeredHorizontally,
-                                             animated: true)
-        }
     }
     
     private func showDiscardChangesAlert() {
