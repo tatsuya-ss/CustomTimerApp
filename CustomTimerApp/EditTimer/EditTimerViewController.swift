@@ -26,7 +26,6 @@ final class EditTimerViewController: UIViewController {
     }
     
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
-    private var deselectedIndexPath: IndexPath = []
     private var selectedIndexPath: IndexPath = [0, 0]
     var didTappedSaveButton: ((IndexPath, CustomTimerComponent) -> Void)?
     
@@ -64,9 +63,17 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func plusButtonDidTapped(_ sender: Any) {
-        insertCell()
+        customTimerComponent.timeInfomations.append(
+            TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))
+        )
+        let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
+        let deselectedIndexPath = selectedIndexPath
+        selectedIndexPath = insertIndexPath
+        insertCellWithAnimation(insertIndexPath: insertIndexPath,
+                                deselectedIndexPath: deselectedIndexPath)
+        showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
-        
+    
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         getPhotosAuthorization()
     }
@@ -81,15 +88,8 @@ final class EditTimerViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func insertCell() {
-        customTimerComponent.timeInfomations.append(
-            TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))
-        )
-        let lastIndexPathItem = customTimerComponent.timeInfomations.count - 1
-        let insertIndexPath = IndexPath(item: lastIndexPathItem,
-                                        section: 0)
-        deselectedIndexPath = selectedIndexPath
-        selectedIndexPath = insertIndexPath
+    private func insertCellWithAnimation(insertIndexPath: IndexPath,
+                                         deselectedIndexPath: IndexPath) {
         collectionView.performBatchUpdates {
             collectionView.insertItems(at: [insertIndexPath])
             collectionView.reloadItems(at: [deselectedIndexPath])
@@ -98,9 +98,8 @@ final class EditTimerViewController: UIViewController {
                                              at: .centeredHorizontally,
                                              animated: true)
         }
-        showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
-
+    
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self else { return }
@@ -124,8 +123,7 @@ final class EditTimerViewController: UIViewController {
         imagePickerController.delegate = self
         present(imagePickerController, animated: true, completion: nil)
     }
-
-
+    
     private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
         guard let imageData = timeInfomation.photo,
               let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
@@ -157,7 +155,7 @@ final class EditTimerViewController: UIViewController {
         timePickerView.selectRow(currentTime.minute, inComponent: 1, animated: true)
         timePickerView.selectRow(currentTime.second, inComponent: 2, animated: true)
     }
-
+    
 }
 
 // MARK: - UIImagePickerControllerDelegate
@@ -220,7 +218,7 @@ extension EditTimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        deselectedIndexPath = selectedIndexPath
+        let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = indexPath
         collectionView.performBatchUpdates {
             collectionView.reloadItems(at: [deselectedIndexPath, indexPath])
@@ -321,10 +319,10 @@ extension EditTimerViewController {
             labelOffset += timePickerView.rowSize(forComponent: row).width
             print(labelWidth, labelOffset)
             unitlabels[row].frame = CGRect(x: labelOffset - labelWidth,
-                                                y: labelTop,
-                                                width: labelWidth,
-                                                height: labelHeight)
+                                           y: labelTop,
+                                           width: labelWidth,
+                                           height: labelHeight)
         }
     }
-
+    
 }

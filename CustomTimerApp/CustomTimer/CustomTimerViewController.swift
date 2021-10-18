@@ -26,7 +26,6 @@ final class CustomTimerViewController: UIViewController {
         name: "タイマー１",
         timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))]
     )
-    private var deselectedIndexPath: IndexPath = []
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     weak var delegate: CustomTimerViewControllerDelegate?
@@ -66,24 +65,25 @@ final class CustomTimerViewController: UIViewController {
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         showDiscardChangesAlert()
     }
-        
+    
     @IBAction func plusButtonDidTapped(_ sender: Any) {
-        insertCell()
+        customTimerComponent.timeInfomations.append(
+            TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))
+        )
+        let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
+        let deselectedIndexPath = selectedIndexPath
+        selectedIndexPath = insertIndexPath
+        insertCellWithAnimation(insertIndexPath: insertIndexPath,
+                                deselectedIndexPath: deselectedIndexPath)
+        showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         getPhotosAuthorization()
     }
     
-    private func insertCell() {
-        customTimerComponent.timeInfomations.append(
-            TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))
-        )
-        let lastIndexPathItem = customTimerComponent.timeInfomations.count - 1
-        let insertIndexPath = IndexPath(item: lastIndexPathItem,
-                                        section: 0)
-        deselectedIndexPath = selectedIndexPath
-        selectedIndexPath = insertIndexPath
+    private func insertCellWithAnimation(insertIndexPath: IndexPath,
+                                         deselectedIndexPath: IndexPath) {
         collectionView.performBatchUpdates {
             collectionView.insertItems(at: [insertIndexPath])
             collectionView.reloadItems(at: [deselectedIndexPath])
@@ -92,7 +92,6 @@ final class CustomTimerViewController: UIViewController {
                                              at: .centeredHorizontally,
                                              animated: true)
         }
-        showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
     
     private func showDiscardChangesAlert() {
@@ -103,7 +102,7 @@ final class CustomTimerViewController: UIViewController {
             self?.dismiss(animated: true, completion: nil)
         })
     }
-
+    
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             guard let self = self else { return }
@@ -207,7 +206,7 @@ extension CustomTimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        deselectedIndexPath = selectedIndexPath
+        let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = indexPath
         collectionView.performBatchUpdates {
             collectionView.reloadItems(at: [deselectedIndexPath, indexPath])
@@ -304,9 +303,9 @@ extension CustomTimerViewController {
             labelOffset += timePickerView.rowSize(forComponent: row).width
             print(labelWidth, labelOffset)
             unitlabels[row].frame = CGRect(x: labelOffset - labelWidth,
-                                                y: labelTop,
-                                                width: labelWidth,
-                                                height: labelHeight)
+                                           y: labelTop,
+                                           width: labelWidth,
+                                           height: labelHeight)
         }
     }
     
