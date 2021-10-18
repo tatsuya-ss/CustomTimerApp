@@ -24,7 +24,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="odp-Qv-Fbf">
-                                <rect key="frame" x="20" y="171" width="324" height="179"/>
+                                <rect key="frame" x="20" y="171" width="374" height="179"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RqY-UM-wkr">
                                     <size key="itemSize" width="128" height="128"/>
@@ -44,44 +44,76 @@
                                 </cells>
                             </collectionView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YMY-UO-1Ga">
-                                <rect key="frame" x="20" y="370" width="374" height="216"/>
+                                <rect key="frame" x="20" y="435" width="374" height="216"/>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8a-iM-P94">
-                                <rect key="frame" x="159" y="606" width="96" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="写真を選択"/>
-                                <connections>
-                                    <action selector="selectPhotoButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="bLC-Mm-PSb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vBp-4p-cFt">
-                                <rect key="frame" x="364" y="245.5" width="30" height="30"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="plus" catalog="system"/>
-                                <connections>
-                                    <action selector="plusButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="d38-pw-ZSE"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pXB-7f-ODA">
+                                <rect key="frame" x="87.5" y="370" width="239" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvg-Yl-9gt">
+                                        <rect key="frame" x="0.0" y="0.0" width="44.5" height="45"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Gvg-Yl-9gt" secondAttribute="height" multiplier="1:1" id="PZS-CV-6FE"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="photo" catalog="system"/>
+                                        <connections>
+                                            <action selector="selectPhotoButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="89h-la-yRq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onm-Ow-HzJ">
+                                        <rect key="frame" x="64.5" y="0.0" width="45" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="onm-Ow-HzJ" secondAttribute="height" multiplier="1:1" id="xmC-Tx-1fe"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="休"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCE-jI-pZO">
+                                        <rect key="frame" x="129.5" y="0.0" width="45" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="qCE-jI-pZO" secondAttribute="height" multiplier="1:1" id="igY-Rr-7Zy"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="minus" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgb-y6-Nqm">
+                                        <rect key="frame" x="194.5" y="0.0" width="44.5" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="jgb-y6-Nqm" secondAttribute="height" multiplier="1:1" id="6na-aa-Zpo"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="plus" catalog="system"/>
+                                        <connections>
+                                            <action selector="plusButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9v2-dn-97x"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="w4O-AJ-Rn4" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="1ts-4S-71Y"/>
                             <constraint firstItem="w4O-AJ-Rn4" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="AGh-aH-Bhc"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="odp-Qv-Fbf" secondAttribute="trailing" constant="70" id="CTF-fK-JMj"/>
                             <constraint firstItem="odp-Qv-Fbf" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.2" id="DJD-ge-css"/>
-                            <constraint firstItem="g8a-iM-P94" firstAttribute="top" secondItem="YMY-UO-1Ga" secondAttribute="bottom" constant="20" id="E4m-bO-NOy"/>
                             <constraint firstItem="odp-Qv-Fbf" firstAttribute="leading" secondItem="w4O-AJ-Rn4" secondAttribute="leading" id="G51-SB-yzZ"/>
                             <constraint firstItem="YMY-UO-1Ga" firstAttribute="leading" secondItem="odp-Qv-Fbf" secondAttribute="leading" id="LO2-7T-xrP"/>
-                            <constraint firstItem="vBp-4p-cFt" firstAttribute="width" secondItem="vBp-4p-cFt" secondAttribute="height" multiplier="1:1" id="NEv-Q9-fzy"/>
-                            <constraint firstItem="vBp-4p-cFt" firstAttribute="centerY" secondItem="odp-Qv-Fbf" secondAttribute="centerY" id="Sn7-s6-m2G"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="vBp-4p-cFt" secondAttribute="trailing" constant="20" id="dib-Jc-eK4"/>
+                            <constraint firstItem="YMY-UO-1Ga" firstAttribute="top" secondItem="pXB-7f-ODA" secondAttribute="bottom" constant="20" id="Mrj-Pu-pCQ"/>
+                            <constraint firstItem="pXB-7f-ODA" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.05" id="VbI-Sa-S6V"/>
                             <constraint firstItem="YMY-UO-1Ga" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="g3Z-eQ-8nw"/>
                             <constraint firstItem="odp-Qv-Fbf" firstAttribute="top" secondItem="w4O-AJ-Rn4" secondAttribute="bottom" constant="29" id="ipP-b2-tx1"/>
-                            <constraint firstItem="YMY-UO-1Ga" firstAttribute="top" secondItem="odp-Qv-Fbf" secondAttribute="bottom" constant="20" id="kPU-B3-QWx"/>
-                            <constraint firstItem="vBp-4p-cFt" firstAttribute="leading" secondItem="odp-Qv-Fbf" secondAttribute="trailing" constant="20" id="shu-Tv-dkr"/>
-                            <constraint firstItem="g8a-iM-P94" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="ua1-o7-DOh"/>
+                            <constraint firstItem="pXB-7f-ODA" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="kEt-EL-Tsh"/>
+                            <constraint firstItem="pXB-7f-ODA" firstAttribute="top" secondItem="odp-Qv-Fbf" secondAttribute="bottom" constant="20" id="mac-js-elb"/>
                             <constraint firstItem="w4O-AJ-Rn4" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="vtA-aW-exp"/>
+                            <constraint firstItem="odp-Qv-Fbf" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="zje-9M-bKk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="タイマー編集" id="5rh-aQ-QYz">
@@ -98,7 +130,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="odp-Qv-Fbf" id="wga-K6-AXt"/>
-                        <outlet property="plusButton" destination="vBp-4p-cFt" id="XmA-Pc-1kr"/>
+                        <outlet property="deleteButton" destination="qCE-jI-pZO" id="GFp-KT-kGe"/>
+                        <outlet property="photoButton" destination="Gvg-Yl-9gt" id="t1W-eO-blZ"/>
+                        <outlet property="plusButton" destination="jgb-y6-Nqm" id="Dwj-4W-d1M"/>
+                        <outlet property="restButton" destination="onm-Ow-HzJ" id="l3m-U2-oI9"/>
                         <outlet property="timePickerView" destination="YMY-UO-1Ga" id="nDw-pH-gCa"/>
                         <outlet property="timerNameTextField" destination="w4O-AJ-Rn4" id="XTD-HN-j8A"/>
                     </connections>
@@ -127,12 +162,23 @@
         </scene>
     </scenes>
     <resources>
+        <image name="minus" catalog="system" width="128" height="24"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
