@@ -22,6 +22,9 @@ final class CustomTimerViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var timePickerView: UIPickerView!
     @IBOutlet private weak var plusButton: UIButton!
+    @IBOutlet private weak var deleteButton: UIButton!
+    @IBOutlet private weak var restButton: UIButton!
+    @IBOutlet private weak var photoButton: UIButton!
     
     private var customTimerComponent = CustomTimerComponent(
         name: "タイマー１",
@@ -44,6 +47,9 @@ final class CustomTimerViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         plusButton.layer.cornerRadius = plusButton.layer.frame.height / 2
+        deleteButton.layer.cornerRadius = deleteButton.layer.frame.height / 2
+        restButton.layer.cornerRadius = restButton.layer.frame.height / 2
+        photoButton.layer.cornerRadius = photoButton.layer.frame.height / 2
     }
     
     override func touchesBegan(_ touches: Set<UITouch>,
