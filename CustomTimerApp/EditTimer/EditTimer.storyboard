@@ -84,6 +84,9 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="minus" catalog="system"/>
+                                        <connections>
+                                            <action selector="deleteButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="wsG-3L-Ssa"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgb-y6-Nqm">
                                         <rect key="frame" x="194.5" y="0.0" width="44.5" height="45"/>
