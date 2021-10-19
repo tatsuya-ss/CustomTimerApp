@@ -16,6 +16,12 @@ struct TimeInfomation: Hashable {
     var time: Time
     var photo: Data?
     var text: String?
+    var type: TimerType = .action
+}
+
+enum TimerType {
+    case action
+    case rest
 }
 
 struct Time: Hashable {

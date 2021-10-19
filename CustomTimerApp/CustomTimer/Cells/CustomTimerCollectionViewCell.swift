@@ -33,6 +33,10 @@ final class CustomTimerCollectionViewCell: UICollectionViewCell {
         timeLabel.text = timeString
     }
     
+    func changeBackgroungOfImageView(color: UIColor) {
+        photoImageView.backgroundColor = color
+    }
+    
     func selectedCell() {
         layer.masksToBounds = false
         layer.shadowOffset = CGSize(width: -4.0,
