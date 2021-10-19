@@ -8,8 +8,8 @@
 import UIKit
 import Photos
 
-extension CustomTimerViewController: ShowAlertProtocol{ }
-extension CustomTimerViewController: InsertCellProtocol{ }
+extension CustomTimerViewController: ShowAlertProtocol { }
+extension CustomTimerViewController: PerformBatchUpdatesProtocol { }
 
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -36,12 +36,11 @@ final class CustomTimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupCollectionView()
         setupPickerView()
         setupTextField()
         setupModelInPresentation()
-        
+        setupButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,9 +72,9 @@ final class CustomTimerViewController: UIViewController {
         showDiscardChangesAlert()
     }
     
+    // TODO: plusを押してすぐdeleteを押すと出るエラー修正 "Attempted to scroll the collection view to an out-of-bounds item (0) when there are only 0 items in section 0."
     @IBAction func plusButtonDidTapped(_ sender: Any) {
-        customTimerComponent.timeInfomations
-            .append(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)))
+        customTimerComponent.timeInfomations.append(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)))
         let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
@@ -100,6 +99,25 @@ final class CustomTimerViewController: UIViewController {
                                 insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
         showSelectedTimeInPicker(indexPath: insertIndexPath)
+    }
+    
+    @IBAction func deleteButtonDidTapped(_ sender: Any) {
+        guard !customTimerComponent.timeInfomations.isEmpty else { return }
+        customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
+        collectionView.performBatchUpdates {
+            collectionView.deleteItems(at: [selectedIndexPath])
+            adjustSelectedIndexWhenLastIndex()
+        } completion: { [weak self] _ in
+            self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
+            self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
+                                              at: .centeredHorizontally,
+                                              animated: true)
+        }
+    }
+    
+    private func adjustSelectedIndexWhenLastIndex() {
+        let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
+        if isLastIndex { selectedIndexPath.item -= 1 }
     }
     
     private func showDiscardChangesAlert() {
@@ -334,6 +352,11 @@ extension CustomTimerViewController {
     private func setupModelInPresentation() {
         // プルダウンジェスチャーによる解除を無効
         isModalInPresentation = true
+    }
+    
+    private func setupButton() {
+        [photoButton, restButton, deleteButton, plusButton]
+            .forEach { $0?.isExclusiveTouch = true }
     }
     
 }

@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol InsertCellProtocol {
+protocol PerformBatchUpdatesProtocol {
     func insertCellWithAnimation(collectionView: UICollectionView,
                                  insertIndexPath: IndexPath,
                                  deselectedIndexPath: IndexPath)
 }
 
-extension InsertCellProtocol where Self : UIViewController {
+extension PerformBatchUpdatesProtocol where Self : UIViewController {
     
     func insertCellWithAnimation(collectionView: UICollectionView,
                                  insertIndexPath: IndexPath,
@@ -23,8 +23,8 @@ extension InsertCellProtocol where Self : UIViewController {
             collectionView.reloadItems(at: [deselectedIndexPath])
         } completion: { _ in
             collectionView.scrollToItem(at: insertIndexPath,
-                                             at: .centeredHorizontally,
-                                             animated: true)
+                                        at: .centeredHorizontally,
+                                        animated: true)
         }
     }
     

@@ -9,7 +9,7 @@ import UIKit
 import Photos
 
 extension EditTimerViewController: ShowAlertProtocol { }
-extension EditTimerViewController: InsertCellProtocol { }
+extension EditTimerViewController: PerformBatchUpdatesProtocol { }
 
 final class EditTimerViewController: UIViewController {
     
@@ -39,6 +39,7 @@ final class EditTimerViewController: UIViewController {
         setupModelInPresentation()
         setupTextField()
         setupPickerView()
+        setupButton()
         collectionView.reloadData()
     }
     
@@ -48,7 +49,7 @@ final class EditTimerViewController: UIViewController {
         deleteButton.layer.cornerRadius = deleteButton.layer.frame.height / 2
         restButton.layer.cornerRadius = restButton.layer.frame.height / 2
         photoButton.layer.cornerRadius = photoButton.layer.frame.height / 2
- }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
@@ -97,6 +98,25 @@ final class EditTimerViewController: UIViewController {
                                 insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
         showSelectedTimeInPicker(indexPath: insertIndexPath)
+    }
+    
+    @IBAction private func deleteButtonDidTapped(_ sender: Any) {
+        guard !customTimerComponent.timeInfomations.isEmpty else { return }
+        customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
+        collectionView.performBatchUpdates {
+            collectionView.deleteItems(at: [selectedIndexPath])
+            adjustSelectedIndexWhenLastIndex()
+        } completion: { [weak self] _ in
+            self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
+            self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
+                                              at: .centeredHorizontally,
+                                              animated: true)
+        }
+    }
+    
+    private func adjustSelectedIndexWhenLastIndex() {
+        let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
+        if isLastIndex { selectedIndexPath.item -= 1 }
     }
     
     private func showTimerNameEmptyAlert() {
@@ -343,4 +363,9 @@ extension EditTimerViewController {
         }
     }
     
+    private func setupButton() {
+        [photoButton, restButton, deleteButton, plusButton]
+            .forEach { $0?.isExclusiveTouch = true }
+    }
+
 }
