@@ -102,6 +102,25 @@ final class CustomTimerViewController: UIViewController {
         showSelectedTimeInPicker(indexPath: insertIndexPath)
     }
     
+    @IBAction func deleteButtonDidTapped(_ sender: Any) {
+        guard !customTimerComponent.timeInfomations.isEmpty else { return }
+        customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
+        collectionView.performBatchUpdates {
+            collectionView.deleteItems(at: [selectedIndexPath])
+        } completion: { [weak self] _ in
+            self?.adjustSelectedIndexWhenLastIndex()
+            self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
+            self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
+                                             at: .centeredHorizontally,
+                                             animated: true)
+        }
+    }
+    
+    private func adjustSelectedIndexWhenLastIndex() {
+        let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
+        if isLastIndex { selectedIndexPath.item -= 1 }
+    }
+    
     private func showDiscardChangesAlert() {
         showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
                             cancelMessage: "キャンセル",
