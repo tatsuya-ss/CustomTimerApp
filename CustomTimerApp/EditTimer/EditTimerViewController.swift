@@ -135,7 +135,12 @@ final class EditTimerViewController: UIViewController {
     
     private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
         guard let imageData = timeInfomation.photo,
-              let image = UIImage(data: imageData) else { return UIImage(systemName: "timer") }
+              let image = UIImage(data: imageData) else {
+                  switch timeInfomation.type {
+                  case .action: return UIImage(systemName: "timer")
+                  case .rest: return UIImage(systemName: "stop.circle")
+                  }
+              }
         return image
     }
     
@@ -213,6 +218,10 @@ extension EditTimerViewController: UICollectionViewDataSource {
         ) as? EditTimerCollectionViewCell else { fatalError("セルが見つかりません") }
         let timeString = customTimerComponent.timeInfomations[indexPath.item].time.makeTimeString()
         let image = makePhotoImage(timeInfomation: customTimerComponent.timeInfomations[indexPath.item])
+        switch customTimerComponent.timeInfomations[indexPath.item].type {
+        case .action: cell.changeBackgroungOfImageView(color: .systemBackground)
+        case .rest: cell.changeBackgroungOfImageView(color: .systemGreen)
+        }
         cell.configure(image: image, timeString: timeString)
         indexPath == selectedIndexPath
         ? cell.selectedCell()
