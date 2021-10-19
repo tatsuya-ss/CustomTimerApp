@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol InsertCellProtocol {
+protocol PerformBatchUpdatesProtocol {
     func insertCellWithAnimation(collectionView: UICollectionView,
                                  insertIndexPath: IndexPath,
                                  deselectedIndexPath: IndexPath)
 }
 
-extension InsertCellProtocol where Self : UIViewController {
+extension PerformBatchUpdatesProtocol where Self : UIViewController {
     
     func insertCellWithAnimation(collectionView: UICollectionView,
                                  insertIndexPath: IndexPath,

@@ -9,7 +9,7 @@ import UIKit
 import Photos
 
 extension EditTimerViewController: ShowAlertProtocol { }
-extension EditTimerViewController: InsertCellProtocol { }
+extension EditTimerViewController: PerformBatchUpdatesProtocol { }
 
 final class EditTimerViewController: UIViewController {
     

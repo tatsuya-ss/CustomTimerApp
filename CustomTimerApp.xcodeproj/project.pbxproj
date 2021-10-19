@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		750031E0271D6EE000971701 /* InsertCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750031DF271D6EE000971701 /* InsertCellProtocol.swift */; };
+		750031E0271D6EE000971701 /* PerformBatchUpdatesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750031DF271D6EE000971701 /* PerformBatchUpdatesProtocol.swift */; };
 		751A36D02707229E00715E43 /* TimerBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A36CF2707229E00715E43 /* TimerBehavior.swift */; };
 		754C290C26F035DA0050252E /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754C290B26F035DA0050252E /* UIViewController+Extension.swift */; };
 		754C291026F037000050252E /* CustomTimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754C290E26F037000050252E /* CustomTimerCollectionViewCell.swift */; };
@@ -61,7 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		750031DF271D6EE000971701 /* InsertCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertCellProtocol.swift; sourceTree = "<group>"; };
+		750031DF271D6EE000971701 /* PerformBatchUpdatesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformBatchUpdatesProtocol.swift; sourceTree = "<group>"; };
 		751A36CF2707229E00715E43 /* TimerBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerBehavior.swift; sourceTree = "<group>"; };
 		754C290B26F035DA0050252E /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		754C290E26F037000050252E /* CustomTimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				757FEC232705B97D00E02B23 /* ShowAlertProtocol.swift */,
-				750031DF271D6EE000971701 /* InsertCellProtocol.swift */,
+				750031DF271D6EE000971701 /* PerformBatchUpdatesProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -467,7 +467,7 @@
 				75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */,
 				75BCC7FE27196912001B5810 /* EditTimerCollectionViewCell.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
-				750031E0271D6EE000971701 /* InsertCellProtocol.swift in Sources */,
+				750031E0271D6EE000971701 /* PerformBatchUpdatesProtocol.swift in Sources */,
 				75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */,
 				75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */,
 				757FEC242705B97D00E02B23 /* ShowAlertProtocol.swift in Sources */,

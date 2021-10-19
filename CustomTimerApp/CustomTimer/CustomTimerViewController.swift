@@ -8,8 +8,8 @@
 import UIKit
 import Photos
 
-extension CustomTimerViewController: ShowAlertProtocol{ }
-extension CustomTimerViewController: InsertCellProtocol{ }
+extension CustomTimerViewController: ShowAlertProtocol { }
+extension CustomTimerViewController: PerformBatchUpdatesProtocol { }
 
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
