@@ -23,8 +23,8 @@ extension PerformBatchUpdatesProtocol where Self : UIViewController {
             collectionView.reloadItems(at: [deselectedIndexPath])
         } completion: { _ in
             collectionView.scrollToItem(at: insertIndexPath,
-                                             at: .centeredHorizontally,
-                                             animated: true)
+                                        at: .centeredHorizontally,
+                                        animated: true)
         }
     }
     

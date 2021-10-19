@@ -36,12 +36,11 @@ final class CustomTimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupCollectionView()
         setupPickerView()
         setupTextField()
         setupModelInPresentation()
-        
+        setupButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,9 +72,9 @@ final class CustomTimerViewController: UIViewController {
         showDiscardChangesAlert()
     }
     
+    // TODO: plusを押してすぐdeleteを押すと出るエラー修正 "Attempted to scroll the collection view to an out-of-bounds item (0) when there are only 0 items in section 0."
     @IBAction func plusButtonDidTapped(_ sender: Any) {
-        customTimerComponent.timeInfomations
-            .append(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)))
+        customTimerComponent.timeInfomations.append(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)))
         let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
@@ -107,12 +106,12 @@ final class CustomTimerViewController: UIViewController {
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
             collectionView.deleteItems(at: [selectedIndexPath])
+            adjustSelectedIndexWhenLastIndex()
         } completion: { [weak self] _ in
-            self?.adjustSelectedIndexWhenLastIndex()
             self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
             self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
-                                             at: .centeredHorizontally,
-                                             animated: true)
+                                              at: .centeredHorizontally,
+                                              animated: true)
         }
     }
     
@@ -353,6 +352,11 @@ extension CustomTimerViewController {
     private func setupModelInPresentation() {
         // プルダウンジェスチャーによる解除を無効
         isModalInPresentation = true
+    }
+    
+    private func setupButton() {
+        [photoButton, restButton, deleteButton, plusButton]
+            .forEach { $0?.isExclusiveTouch = true }
     }
     
 }

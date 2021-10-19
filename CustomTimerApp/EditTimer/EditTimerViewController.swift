@@ -39,6 +39,7 @@ final class EditTimerViewController: UIViewController {
         setupModelInPresentation()
         setupTextField()
         setupPickerView()
+        setupButton()
         collectionView.reloadData()
     }
     
@@ -104,8 +105,8 @@ final class EditTimerViewController: UIViewController {
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
             collectionView.deleteItems(at: [selectedIndexPath])
+            adjustSelectedIndexWhenLastIndex()
         } completion: { [weak self] _ in
-            self?.adjustSelectedIndexWhenLastIndex()
             self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
             self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
                                               at: .centeredHorizontally,
@@ -362,4 +363,9 @@ extension EditTimerViewController {
         }
     }
     
+    private func setupButton() {
+        [photoButton, restButton, deleteButton, plusButton]
+            .forEach { $0?.isExclusiveTouch = true }
+    }
+
 }
