@@ -71,6 +71,9 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="休"/>
+                                        <connections>
+                                            <action selector="restButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="P3B-tt-EzJ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCE-jI-pZO">
                                         <rect key="frame" x="129.5" y="0.0" width="45" height="45"/>

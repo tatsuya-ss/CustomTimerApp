@@ -86,6 +86,19 @@ final class EditTimerViewController: UIViewController {
         getPhotosAuthorization()
     }
     
+    @IBAction private func restButtonDidTapped(_ sender: Any) {
+        let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
+        let deselectedIndexPath = selectedIndexPath
+        selectedIndexPath = insertIndexPath
+        customTimerComponent.timeInfomations
+            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), type: .rest),
+                    at: insertIndexPath.item)
+        insertCellWithAnimation(collectionView: collectionView,
+                                insertIndexPath: insertIndexPath,
+                                deselectedIndexPath: deselectedIndexPath)
+        showSelectedTimeInPicker(indexPath: insertIndexPath)
+    }
+    
     private func showTimerNameEmptyAlert() {
         let alert = UIAlertController(title: "タイマー名を設定してください",
                                       message: nil,
