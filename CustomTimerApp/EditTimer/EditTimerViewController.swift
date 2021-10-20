@@ -71,12 +71,10 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func plusButtonDidTapped(_ sender: Any) {
-        customTimerComponent.timeInfomations.append(
-            TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))
-        )
-        let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
+        let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
+        customTimerComponent.timeInfomations.insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)), at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
