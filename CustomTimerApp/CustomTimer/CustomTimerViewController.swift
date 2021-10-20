@@ -74,10 +74,10 @@ final class CustomTimerViewController: UIViewController {
     
     // TODO: plusを押してすぐdeleteを押すと出るエラー修正 "Attempted to scroll the collection view to an out-of-bounds item (0) when there are only 0 items in section 0."
     @IBAction func plusButtonDidTapped(_ sender: Any) {
-        customTimerComponent.timeInfomations.append(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)))
-        let insertIndexPath = IndexPath(item: customTimerComponent.timeInfomations.count - 1, section: 0)
+        let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
+        customTimerComponent.timeInfomations.insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)), at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
