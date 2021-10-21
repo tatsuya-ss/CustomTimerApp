@@ -268,6 +268,54 @@ extension EditTimerViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UICollectionViewDragDelegate
+extension EditTimerViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView,
+                        itemsForBeginning session: UIDragSession,
+                        at indexPath: IndexPath) -> [UIDragItem] {
+        let timeInfomation = customTimerComponent.timeInfomations[indexPath.item]
+        let object = timeInfomation.id.uuidString as NSString
+        let itemProvider = NSItemProvider(object: object)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        return [dragItem]
+    }
+    
+}
+
+// MARK: - UICollectionViewDropDelegate
+extension EditTimerViewController: UICollectionViewDropDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        dropSessionDidUpdate session: UIDropSession,
+                        withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        if session.localDragSession == nil {
+            return UICollectionViewDropProposal(operation: .copy,
+                                                intent: .insertAtDestinationIndexPath)
+        } else {
+            return UICollectionViewDropProposal(operation: .move,
+                                                intent: .insertAtDestinationIndexPath)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let destinationIndexPath = coordinator.destinationIndexPath,
+              let sourceIndexPath = coordinator.items.first?.sourceIndexPath,
+              let dragItem = coordinator.items.first?.dragItem
+        else { return }
+        selectedIndexPath = destinationIndexPath
+        collectionView.performBatchUpdates {
+            let sourceItem = customTimerComponent.timeInfomations.remove(at: sourceIndexPath.item)
+            customTimerComponent.timeInfomations.insert(sourceItem, at: destinationIndexPath.item)
+            collectionView.deleteItems(at: [sourceIndexPath])
+            collectionView.insertItems(at: [destinationIndexPath])
+        }
+        coordinator.drop(dragItem, toItemAt: destinationIndexPath)
+    }
+    
+}
+
+
 // MARK: - UIPickerViewDataSource
 extension EditTimerViewController: UIPickerViewDataSource {
     
@@ -308,6 +356,8 @@ extension EditTimerViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
         collectionView.register(EditTimerCollectionViewCell.nib,
                                 forCellWithReuseIdentifier: EditTimerCollectionViewCell.identifier)
         collectionView.layer.cornerRadius = 20
