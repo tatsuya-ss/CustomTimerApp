@@ -17,6 +17,7 @@ struct TimeInfomation: Hashable {
     var photo: Data?
     var text: String?
     var type: TimerType = .action
+    let id = UUID()
 }
 
 enum TimerType {
