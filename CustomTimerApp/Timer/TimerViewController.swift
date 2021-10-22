@@ -52,6 +52,8 @@ final class TimerViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: editTimerVC)
         navigationController.presentationController?.delegate = editTimerVC
         present(navigationController, animated: true, completion: nil)
+        
+        // MARK: didTappedSaveButton
         editTimerVC.didTappedSaveButton = { [weak self] indexPath, customTimerComponent in
             guard let strongSelf = self else { return }
             strongSelf.customTimers[indexPath.item] = customTimerComponent
@@ -69,6 +71,7 @@ final class TimerViewController: UIViewController {
     
 }
 
+// MARK: - CustomTimerViewControllerDelegate
 extension TimerViewController: CustomTimerViewControllerDelegate {
     
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -79,6 +82,7 @@ extension TimerViewController: CustomTimerViewControllerDelegate {
     
 }
 
+// MARK: - UICollectionViewDelegate
 extension TimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
@@ -92,6 +96,7 @@ extension TimerViewController: UICollectionViewDelegate {
     
 }
 
+// MARK: - UICollectionView
 extension TimerViewController {
     
     private func createLayout() -> UICollectionViewLayout {
@@ -144,6 +149,7 @@ extension TimerViewController {
     
 }
 
+// MARK: - setup
 extension TimerViewController {
     
     private func setupLongPressRecognizer() {
