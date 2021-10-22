@@ -28,7 +28,7 @@ final class TimerViewController: UIViewController {
         
     }
     
-    @IBAction func addTimerButtonTapped(_ sender: Any) {
+    @IBAction func editTimerButtonTapped(_ sender: Any) {
         presentCustomTimerVC()
     }
     
