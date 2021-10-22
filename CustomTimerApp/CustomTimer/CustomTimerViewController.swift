@@ -256,6 +256,7 @@ extension CustomTimerViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDragDelegate
+// TODO: ドラッグの際に消してる背景が表示される
 extension CustomTimerViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         itemsForBeginning session: UIDragSession,
