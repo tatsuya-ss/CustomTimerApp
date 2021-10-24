@@ -14,22 +14,27 @@ final class TimerViewController: UIViewController {
     }
     
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var settingButton: UIBarButtonItem!
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
     private var customTimers: [CustomTimerComponent] = []
-    
+    private var editBarButton: UIBarButtonItem {
+        UIBarButtonItem(title: "編集", menu: makeEditMenu())
+    }
+    private var cancelBarButton: UIBarButtonItem {
+        UIBarButtonItem(title: "キャンセル",
+                        style: .plain,
+                        target: self,
+                        action: #selector(cancelBarButtonDidTapped))
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureHierarchy()
         configureDataSource()
         updateCollectionView()
         setupLongPressRecognizer()
-        
-    }
-    
-    @IBAction func editTimerButtonTapped(_ sender: Any) {
-        presentCustomTimerVC()
+        setupNavigation()
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
@@ -172,4 +177,36 @@ extension TimerViewController {
         }
     }
     
+    private func setupNavigation() {
+        navigationItem.rightBarButtonItem = editBarButton
+    }
+    
+    private func makeEditMenu() -> UIMenu {
+        let addTimerAction = UIAction(title: "タイマーを作成",
+                                      state: .off) { [weak self] _ in
+            self?.presentCustomTimerVC()
+        }
+        let editTimerAction = UIAction(title: "タイマーを編集",
+                                       state: .off) { [weak self] _ in
+            self?.navigationItem.title = "タイマーを編集"
+            self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
+            self?.settingButton.isEnabled = false
+        }
+        let deleteTimerAction = UIAction(title: "タイマーを削除",
+                                       state: .off) { [weak self] _ in
+            self?.navigationItem.title = "削除するタイマーを選択"
+            self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
+            self?.settingButton.isEnabled = false
+        }
+        let editMenu = UIMenu(children: [addTimerAction,
+                                         editTimerAction,
+                                         deleteTimerAction])
+        return editMenu
+    }
+    
+    @objc private func cancelBarButtonDidTapped() {
+        navigationItem.rightBarButtonItem = editBarButton
+        settingButton.isEnabled = true
+        navigationItem.title = "タイマー"
+    }
 }

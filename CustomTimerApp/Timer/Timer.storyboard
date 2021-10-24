@@ -54,14 +54,10 @@
                                 <action selector="settingButtonTapped:" destination="Y6W-OH-hqX" id="I3V-pM-aUM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="編集" id="hJ0-aY-GHM">
-                            <connections>
-                                <action selector="addTimerButtonTapped:" destination="Y6W-OH-hqX" id="Ekn-QY-Vq0"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="QGA-zg-Fy6" id="Siq-5J-oti"/>
+                        <outlet property="settingButton" destination="LKE-5D-Oxe" id="JVl-vO-YAi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
