@@ -16,8 +16,6 @@ final class TimerViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var settingButton: UIBarButtonItem!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
-    private var customTimers: [CustomTimerComponent] = []
     private var editBarButton: UIBarButtonItem {
         UIBarButtonItem(title: "編集", menu: makeEditMenu())
     }
@@ -27,6 +25,9 @@ final class TimerViewController: UIViewController {
                         target: self,
                         action: #selector(cancelBarButtonDidTapped))
     }
+
+    private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
+    private var customTimers: [CustomTimerComponent] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
