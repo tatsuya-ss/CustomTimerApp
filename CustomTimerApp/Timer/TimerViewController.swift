@@ -257,6 +257,11 @@ extension TimerViewController {
         navigationItem.title = "タイマー"
         toolBar.isHidden = true
         operationState.changeState(state: .timer)
+        selectedIndexPath.removeAll()
+        customTimers.enumerated()
+            .filter { $0.element.isSelected == true }
+            .forEach { customTimers[$0.offset].isSelected = false }
+        updateCollectionView()
     }
     
 }
