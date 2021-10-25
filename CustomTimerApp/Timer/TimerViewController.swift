@@ -13,29 +13,63 @@ final class TimerViewController: UIViewController {
         case mainTimer
     }
     
+    private enum OperationState {
+        case timer
+        case edit
+        case delete
+        
+        init(operationState: Self = .timer) {
+            self = operationState
+        }
+        
+        mutating func changeState(state: Self) {
+            self = state
+        }
+    }
+    
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var settingButton: UIBarButtonItem!
+    @IBOutlet private weak var toolBar: UIToolbar!
+    @IBOutlet private weak var deleteButton: UIBarButtonItem!
+    
+    private var editBarButton: UIBarButtonItem {
+        UIBarButtonItem(title: "編集", menu: makeEditMenu())
+    }
+    private var cancelBarButton: UIBarButtonItem {
+        UIBarButtonItem(title: "キャンセル",
+                        style: .plain,
+                        target: self,
+                        action: #selector(cancelBarButtonDidTapped))
+    }
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
     private var customTimers: [CustomTimerComponent] = []
+    private var operationState = OperationState()
+    // DiffableDataSourceの性質上,didselectRowAtやdidDeselectRowAtが上手くいかないので、ここで選択したindexを管理して、全部の処理をdidSelectItemAtで行う(他にいい方法あるかもしれないが)
+    private var selectedIndexPath: [IndexPath] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureHierarchy()
         configureDataSource()
         updateCollectionView()
         setupLongPressRecognizer()
-        
+        setupNavigation()
+        setupToolBar()
     }
     
-    @IBAction func addTimerButtonTapped(_ sender: Any) {
-        presentCustomTimerVC()
-    }
-    
-    @IBAction func settingButtonTapped(_ sender: Any) {
+    @IBAction private func settingButtonDidTapped(_ sender: Any) {
         let settingVC = SettingViewController.instantiate()
         let navigationController = UINavigationController(rootViewController: settingVC)
         present(navigationController, animated: true, completion: nil)
+    }
+    
+    @IBAction private func deleteButtonDidTapped(_ sender: Any) {
+        selectedIndexPath
+            .sorted { $1 < $0 }
+            .forEach { customTimers.remove(at: $0.item) }
+        updateCollectionView()
+        selectedIndexPath.removeAll()
     }
     
     private func presentCustomTimerVC() {
@@ -45,13 +79,15 @@ final class TimerViewController: UIViewController {
         navigationController.presentationController?.delegate = customTimerVC
         present(navigationController, animated: true, completion: nil)
     }
-
+    
     private func presentEditTimerVC(indexPath: IndexPath) {
         let editTimerVC = EditTimerViewController.instantiate()
         editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item], editingIndexPath: indexPath)
         let navigationController = UINavigationController(rootViewController: editTimerVC)
         navigationController.presentationController?.delegate = editTimerVC
         present(navigationController, animated: true, completion: nil)
+        
+        // MARK: didTappedSaveButton
         editTimerVC.didTappedSaveButton = { [weak self] indexPath, customTimerComponent in
             guard let strongSelf = self else { return }
             strongSelf.customTimers[indexPath.item] = customTimerComponent
@@ -67,8 +103,38 @@ final class TimerViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: animated)
     }
     
+    private func makeEditMenu() -> UIMenu {
+        let addTimerAction = UIAction(title: "タイマーを作成",
+                                      state: .off) { [weak self] _ in
+            self?.presentCustomTimerVC()
+        }
+        let editTimerAction = UIAction(title: "タイマーを編集",
+                                       state: .off) { [weak self] _ in
+            self?.navigationItem.title = "タイマーを編集"
+            self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
+            self?.settingButton.isEnabled = false
+            self?.operationState.changeState(state: .edit)
+        }
+        let deleteTimerAction = UIAction(title: "タイマーを削除",
+                                         state: .off) { [weak self] _ in
+            self?.navigationItem.title = "削除するタイマーを選択"
+            self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
+            self?.settingButton.isEnabled = false
+            self?.toolBar.isHidden = false
+            self?.deleteButton.isEnabled = false
+            self?.operationState.changeState(state: .delete)
+            guard let selectedIndexPath = self?.collectionView.indexPathsForSelectedItems else { return }
+            selectedIndexPath.forEach { self?.collectionView.deselectItem(at: $0, animated: true) }
+        }
+        let editMenu = UIMenu(children: [addTimerAction,
+                                         editTimerAction,
+                                         deleteTimerAction])
+        return editMenu
+    }
+    
 }
 
+// MARK: - CustomTimerViewControllerDelegate
 extension TimerViewController: CustomTimerViewControllerDelegate {
     
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -79,19 +145,35 @@ extension TimerViewController: CustomTimerViewControllerDelegate {
     
 }
 
+// MARK: - UICollectionViewDelegate
 extension TimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        let startTimerVC = StartTimerViewController.instantiate()
-        let navigationController = UINavigationController(rootViewController: startTimerVC)
-        startTimerVC.getCustomTimer(customTimer: customTimers[indexPath.item])
-        navigationController.presentationController?.delegate = startTimerVC
-        present(navigationController, animated: true, completion: nil)
+        switch operationState {
+        case .timer:
+            let startTimerVC = StartTimerViewController.instantiate()
+            let navigationController = UINavigationController(rootViewController: startTimerVC)
+            startTimerVC.getCustomTimer(customTimer: customTimers[indexPath.item])
+            navigationController.presentationController?.delegate = startTimerVC
+            present(navigationController, animated: true, completion: nil)
+        case .edit:
+            presentEditTimerVC(indexPath: indexPath)
+        case .delete:
+            customTimers[indexPath.item].isSelected.toggle()
+            updateCollectionView()
+            let isSelected = selectedIndexPath.contains(indexPath)
+            if isSelected { selectedIndexPath.removeAll(where: { $0 == indexPath }) }
+            else { selectedIndexPath.append(indexPath) }
+            if selectedIndexPath.isEmpty { deleteButton.isEnabled = false }
+            else { deleteButton.isEnabled = true }
+            print(selectedIndexPath)
+        }
     }
     
 }
 
+// MARK: - UICollectionView
 extension TimerViewController {
     
     private func createLayout() -> UICollectionViewLayout {
@@ -118,6 +200,7 @@ extension TimerViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
+        collectionView.allowsMultipleSelection = true
         collectionView.register(TimerCollectionViewCell.nib,
                                 forCellWithReuseIdentifier: TimerCollectionViewCell.identifier)
     }
@@ -128,14 +211,13 @@ extension TimerViewController {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TimerCollectionViewCell.identifier, for: indexPath
             ) as? TimerCollectionViewCell else { fatalError("セルが見つかりませんでした") }
-            if let data = customTimerComponent.timeInfomations.first?.photo {
-                let image = UIImage(data: data)
-                cell.configure(timerName: customTimerComponent.name,
-                               image: image)
-            } else {
-                cell.configure(timerName: customTimerComponent.name,
-                image: UIImage(systemName: "timer"))
-            }
+            let alpha = (self.customTimers[indexPath.item].isSelected == true) ? 0.5 : 1.0
+            let image = (customTimerComponent.timeInfomations.first?.photo == nil)
+            ? UIImage(systemName: "timer")
+            : UIImage(data: customTimerComponent.timeInfomations.first!.photo!)
+            cell.configure(timerName: customTimerComponent.name,
+                           image: image,
+                           alpha: alpha)
             cell.backgroundColor = .gray
             cell.layer.cornerRadius = 10
             return cell
@@ -144,6 +226,7 @@ extension TimerViewController {
     
 }
 
+// MARK: - setup
 extension TimerViewController {
     
     private func setupLongPressRecognizer() {
@@ -153,6 +236,19 @@ extension TimerViewController {
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPressRecognizer)
     }
+    
+    private func setupNavigation() {
+        navigationItem.rightBarButtonItem = editBarButton
+    }
+    
+    private func setupToolBar() {
+        toolBar.isHidden = true
+    }
+    
+}
+
+// MARK: - @objc
+extension TimerViewController {
     
     @objc private func longPressRecognizer(sender: UILongPressGestureRecognizer) {
         let point = sender.location(in: collectionView)
@@ -164,6 +260,19 @@ extension TimerViewController {
             default: break
             }
         }
+    }
+    
+    @objc private func cancelBarButtonDidTapped() {
+        navigationItem.rightBarButtonItem = editBarButton
+        settingButton.isEnabled = true
+        navigationItem.title = "タイマー"
+        toolBar.isHidden = true
+        operationState.changeState(state: .timer)
+        selectedIndexPath.removeAll()
+        customTimers.enumerated()
+            .filter { $0.element.isSelected == true }
+            .forEach { customTimers[$0.offset].isSelected = false }
+        updateCollectionView()
     }
     
 }

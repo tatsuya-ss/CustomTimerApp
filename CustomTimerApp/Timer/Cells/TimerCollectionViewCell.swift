@@ -21,9 +21,11 @@ final class TimerCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(timerName: String,
-                   image: UIImage?) {
+                   image: UIImage?,
+                   alpha: CGFloat) {
         timerNameLabel.text = timerName
         contentsImageView.image = image
+        contentsImageView.alpha = alpha
     }
 
 }

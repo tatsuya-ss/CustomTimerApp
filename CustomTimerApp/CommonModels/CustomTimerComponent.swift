@@ -10,6 +10,7 @@ import Foundation
 struct CustomTimerComponent: Hashable {
     var name: String
     var timeInfomations: [TimeInfomation]
+    var isSelected: Bool = false
 }
 
 struct TimeInfomation: Hashable {
