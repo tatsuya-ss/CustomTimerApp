@@ -38,11 +38,21 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tbm-j9-52K">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Aow-Gi-HK4"/>
+                                    <barButtonItem systemItem="trash" id="HVi-Ac-8Ne"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="QGA-zg-Fy6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1tX-iU-W22"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tbm-j9-52K" secondAttribute="bottom" id="2Tb-tx-E5k"/>
+                            <constraint firstAttribute="trailing" secondItem="tbm-j9-52K" secondAttribute="trailing" id="4M2-Dd-Fr6"/>
+                            <constraint firstItem="tbm-j9-52K" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Wdo-gx-ZIq"/>
                             <constraint firstItem="QGA-zg-Fy6" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="dEE-pU-H5U"/>
                             <constraint firstItem="QGA-zg-Fy6" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="fZ1-PI-3nx"/>
                             <constraint firstAttribute="trailing" secondItem="QGA-zg-Fy6" secondAttribute="trailing" id="s2S-4B-av5"/>
@@ -58,6 +68,7 @@
                     <connections>
                         <outlet property="collectionView" destination="QGA-zg-Fy6" id="Siq-5J-oti"/>
                         <outlet property="settingButton" destination="LKE-5D-Oxe" id="JVl-vO-YAi"/>
+                        <outlet property="toolBar" destination="tbm-j9-52K" id="NaW-8O-Vt2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

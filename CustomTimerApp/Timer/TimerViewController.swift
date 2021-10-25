@@ -15,6 +15,7 @@ final class TimerViewController: UIViewController {
     
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var settingButton: UIBarButtonItem!
+    @IBOutlet private weak var toolBar: UIToolbar!
     
     private var editBarButton: UIBarButtonItem {
         UIBarButtonItem(title: "編集", menu: makeEditMenu())
@@ -36,6 +37,7 @@ final class TimerViewController: UIViewController {
         updateCollectionView()
         setupLongPressRecognizer()
         setupNavigation()
+        setupToolBar()
     }
     
     @IBAction func settingButtonTapped(_ sender: Any) {
@@ -180,6 +182,10 @@ extension TimerViewController {
     
     private func setupNavigation() {
         navigationItem.rightBarButtonItem = editBarButton
+    }
+    
+    private func setupToolBar() {
+        toolBar.isHidden = true
     }
     
     private func makeEditMenu() -> UIMenu {
