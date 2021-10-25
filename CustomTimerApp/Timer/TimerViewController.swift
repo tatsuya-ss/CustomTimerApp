@@ -58,10 +58,18 @@ final class TimerViewController: UIViewController {
         setupToolBar()
     }
     
-    @IBAction func settingButtonTapped(_ sender: Any) {
+    @IBAction private func settingButtonDidTapped(_ sender: Any) {
         let settingVC = SettingViewController.instantiate()
         let navigationController = UINavigationController(rootViewController: settingVC)
         present(navigationController, animated: true, completion: nil)
+    }
+    
+    @IBAction private func deleteButtonDidTapped(_ sender: Any) {
+        selectedIndexPath
+            .sorted { $1 < $0 }
+            .forEach { customTimers.remove(at: $0.item) }
+        updateCollectionView()
+        selectedIndexPath.removeAll()
     }
     
     private func presentCustomTimerVC() {
@@ -157,6 +165,9 @@ extension TimerViewController: UICollectionViewDelegate {
             let isSelected = selectedIndexPath.contains(indexPath)
             if isSelected { selectedIndexPath.removeAll(where: { $0 == indexPath }) }
             else { selectedIndexPath.append(indexPath) }
+            if selectedIndexPath.isEmpty { deleteButton.isEnabled = false }
+            else { deleteButton.isEnabled = true }
+            print(selectedIndexPath)
         }
     }
     

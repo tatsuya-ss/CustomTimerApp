@@ -42,7 +42,11 @@
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Aow-Gi-HK4"/>
-                                    <barButtonItem systemItem="trash" id="HVi-Ac-8Ne"/>
+                                    <barButtonItem systemItem="trash" id="HVi-Ac-8Ne">
+                                        <connections>
+                                            <action selector="deleteButtonDidTapped:" destination="Y6W-OH-hqX" id="nCY-7g-3Ne"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
