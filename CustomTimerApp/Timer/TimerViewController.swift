@@ -12,6 +12,18 @@ final class TimerViewController: UIViewController {
     private enum Section {
         case mainTimer
     }
+    private enum OperationState {
+        case timer
+        case edit
+        case delete
+        init(operationState: Self = .timer) {
+            self = operationState
+        }
+        
+        mutating func changeState(state: Self) {
+            self = state
+        }
+    }
     
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var settingButton: UIBarButtonItem!
@@ -29,6 +41,7 @@ final class TimerViewController: UIViewController {
 
     private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
     private var customTimers: [CustomTimerComponent] = []
+    private var operationState = OperationState()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,11 +108,18 @@ extension TimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        let startTimerVC = StartTimerViewController.instantiate()
-        let navigationController = UINavigationController(rootViewController: startTimerVC)
-        startTimerVC.getCustomTimer(customTimer: customTimers[indexPath.item])
-        navigationController.presentationController?.delegate = startTimerVC
-        present(navigationController, animated: true, completion: nil)
+        switch operationState {
+        case .timer:
+            let startTimerVC = StartTimerViewController.instantiate()
+            let navigationController = UINavigationController(rootViewController: startTimerVC)
+            startTimerVC.getCustomTimer(customTimer: customTimers[indexPath.item])
+            navigationController.presentationController?.delegate = startTimerVC
+            present(navigationController, animated: true, completion: nil)
+        case .edit:
+            presentEditTimerVC(indexPath: indexPath)
+        case .delete:
+            print("削除")
+        }
     }
     
 }
@@ -198,12 +218,15 @@ extension TimerViewController {
             self?.navigationItem.title = "タイマーを編集"
             self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
             self?.settingButton.isEnabled = false
+            self?.operationState.changeState(state: .edit)
         }
         let deleteTimerAction = UIAction(title: "タイマーを削除",
                                        state: .off) { [weak self] _ in
             self?.navigationItem.title = "削除するタイマーを選択"
             self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
             self?.settingButton.isEnabled = false
+            self?.toolBar.isHidden = false
+            self?.operationState.changeState(state: .delete)
         }
         let editMenu = UIMenu(children: [addTimerAction,
                                          editTimerAction,
@@ -215,5 +238,7 @@ extension TimerViewController {
         navigationItem.rightBarButtonItem = editBarButton
         settingButton.isEnabled = true
         navigationItem.title = "タイマー"
+        toolBar.isHidden = true
+        operationState.changeState(state: .timer)
     }
 }
