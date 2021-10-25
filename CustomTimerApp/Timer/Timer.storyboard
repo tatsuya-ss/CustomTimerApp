@@ -67,6 +67,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="QGA-zg-Fy6" id="Siq-5J-oti"/>
+                        <outlet property="deleteButton" destination="HVi-Ac-8Ne" id="nLS-Br-QIR"/>
                         <outlet property="settingButton" destination="LKE-5D-Oxe" id="JVl-vO-YAi"/>
                         <outlet property="toolBar" destination="tbm-j9-52K" id="NaW-8O-Vt2"/>
                     </connections>

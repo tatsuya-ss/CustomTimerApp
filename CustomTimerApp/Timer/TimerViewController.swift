@@ -12,10 +12,12 @@ final class TimerViewController: UIViewController {
     private enum Section {
         case mainTimer
     }
+    
     private enum OperationState {
         case timer
         case edit
         case delete
+        
         init(operationState: Self = .timer) {
             self = operationState
         }
@@ -28,6 +30,7 @@ final class TimerViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var settingButton: UIBarButtonItem!
     @IBOutlet private weak var toolBar: UIToolbar!
+    @IBOutlet private weak var deleteButton: UIBarButtonItem!
     
     private var editBarButton: UIBarButtonItem {
         UIBarButtonItem(title: "編集", menu: makeEditMenu())
@@ -66,7 +69,7 @@ final class TimerViewController: UIViewController {
         navigationController.presentationController?.delegate = customTimerVC
         present(navigationController, animated: true, completion: nil)
     }
-
+    
     private func presentEditTimerVC(indexPath: IndexPath) {
         let editTimerVC = EditTimerViewController.instantiate()
         editTimerVC.receiveCustomTimerComponent(customTimerComponent: customTimers[indexPath.item], editingIndexPath: indexPath)
@@ -151,6 +154,7 @@ extension TimerViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
+        collectionView.allowsMultipleSelection = true
         collectionView.register(TimerCollectionViewCell.nib,
                                 forCellWithReuseIdentifier: TimerCollectionViewCell.identifier)
     }
@@ -187,6 +191,19 @@ extension TimerViewController {
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPressRecognizer)
     }
+    
+    private func setupNavigation() {
+        navigationItem.rightBarButtonItem = editBarButton
+    }
+    
+    private func setupToolBar() {
+        toolBar.isHidden = true
+    }
+    
+}
+
+// MARK: - @objc
+extension TimerViewController {
     
     @objc private func longPressRecognizer(sender: UILongPressGestureRecognizer) {
         let point = sender.location(in: collectionView)
@@ -241,4 +258,5 @@ extension TimerViewController {
         toolBar.isHidden = true
         operationState.changeState(state: .timer)
     }
+    
 }
