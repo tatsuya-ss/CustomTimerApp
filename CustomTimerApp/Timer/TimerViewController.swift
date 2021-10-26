@@ -211,15 +211,13 @@ extension TimerViewController {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TimerCollectionViewCell.identifier, for: indexPath
             ) as? TimerCollectionViewCell else { fatalError("セルが見つかりませんでした") }
-            let alpha = (self.customTimers[indexPath.item].isSelected == true) ? 0.5 : 1.0
+            let isHidden = (self.customTimers[indexPath.item].isSelected == true) ? false : true
             let image = (customTimerComponent.timeInfomations.first?.photo == nil)
             ? UIImage(systemName: "timer")
             : UIImage(data: customTimerComponent.timeInfomations.first!.photo!)
             cell.configure(timerName: customTimerComponent.name,
                            image: image,
-                           alpha: alpha)
-            cell.backgroundColor = .gray
-            cell.layer.cornerRadius = 10
+                           isHidden: isHidden)
             return cell
         })
     }
