@@ -218,8 +218,6 @@ extension TimerViewController {
             cell.configure(timerName: customTimerComponent.name,
                            image: image,
                            isHidden: isHidden)
-            cell.backgroundColor = .gray
-            cell.layer.cornerRadius = 10
             return cell
         })
     }

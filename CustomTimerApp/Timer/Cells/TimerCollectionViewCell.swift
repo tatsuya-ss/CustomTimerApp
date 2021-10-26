@@ -18,7 +18,8 @@ final class TimerCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        layer.cornerRadius = 10
+        backgroundColor = .gray
     }
     
     func configure(timerName: String,
