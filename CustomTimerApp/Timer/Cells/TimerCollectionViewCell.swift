@@ -11,6 +11,7 @@ final class TimerCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private weak var contentsImageView: UIImageView!
     @IBOutlet private weak var timerNameLabel: UILabel!
+    @IBOutlet private weak var checkImageView: UIImageView!
     
     static var identifier: String { String(describing: self) }
     static var nib: UINib { UINib(nibName: String(describing: self), bundle: nil) }
@@ -22,10 +23,10 @@ final class TimerCollectionViewCell: UICollectionViewCell {
     
     func configure(timerName: String,
                    image: UIImage?,
-                   alpha: CGFloat) {
+                   isHidden: Bool) {
         timerNameLabel.text = timerName
         contentsImageView.image = image
-        contentsImageView.alpha = alpha
+        checkImageView.isHidden = isHidden
     }
 
 }
