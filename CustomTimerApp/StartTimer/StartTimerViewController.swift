@@ -18,7 +18,7 @@ final class StartTimerViewController: UIViewController {
     
     private var timerBehavior: TimerBehavior!
     func getCustomTimer(customTimer: CustomTimerComponent) {
-        self.timerBehavior = TimerBehavior(customTimer: customTimer)
+        self.timerBehavior = TimerBehavior(customTimerComponent: customTimer)
     }
     private var audioPlayer: AVAudioPlayer?
     
@@ -90,7 +90,7 @@ extension StartTimerViewController {
     
     private func setupTimerBehavior() {
         timerBehavior.delegate = self
-        currentTimeLabel.text = "スタート"
+        currentTimeLabel.text = timerBehavior.startTimeString()
         guard let photoData = timerBehavior.makeInitialPhotoData()
         else { return }
         let photoImage = UIImage(data: photoData)
