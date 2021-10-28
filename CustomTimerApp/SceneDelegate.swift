@@ -27,8 +27,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in // granted = 認定
+            if let error = error { print(error) }
+            switch granted {
+            case true:
+                center.delegate = self
+                print("許可あり")
+            case false: print("許可なし")
+            }
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -50,3 +58,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+extension SceneDelegate: UNUserNotificationCenterDelegate {
+    
+}
