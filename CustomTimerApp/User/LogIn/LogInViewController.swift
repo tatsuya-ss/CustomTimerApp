@@ -21,7 +21,8 @@ final class LogInViewController: UIViewController {
         
     }
     @IBAction private func forgotPasswordButtonDidTapped(_ sender: Any) {
-        
+        let forgotPasswordVC = ForgotPasswordViewController.instantiate()
+        navigationController?.pushViewController(forgotPasswordVC, animated: true)
     }
     
 }
