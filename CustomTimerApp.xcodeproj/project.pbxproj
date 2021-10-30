@@ -22,6 +22,14 @@
 		75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */; };
 		75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */; };
 		75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */; };
+		7590EA75272CE2BE009137CD /* SignUpOrLogIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7590EA74272CE2BE009137CD /* SignUpOrLogIn.storyboard */; };
+		7590EA77272CE2EA009137CD /* SignUpOrLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590EA76272CE2EA009137CD /* SignUpOrLogInViewController.swift */; };
+		7590EA79272CE328009137CD /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7590EA78272CE328009137CD /* SignUp.storyboard */; };
+		7590EA7B272CE336009137CD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590EA7A272CE336009137CD /* SignUpViewController.swift */; };
+		7590EA7D272CE361009137CD /* LogIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7590EA7C272CE361009137CD /* LogIn.storyboard */; };
+		7590EA7F272CE36C009137CD /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590EA7E272CE36C009137CD /* LogInViewController.swift */; };
+		7590EA82272CEF77009137CD /* ForgotPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7590EA81272CEF77009137CD /* ForgotPassword.storyboard */; };
+		7590EA84272CEF85009137CD /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590EA83272CEF85009137CD /* ForgotPasswordViewController.swift */; };
 		75BCC7F827195D83001B5810 /* EditTimer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75BCC7F727195D83001B5810 /* EditTimer.storyboard */; };
 		75BCC7FA27195DD8001B5810 /* EditTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BCC7F927195DD8001B5810 /* EditTimerViewController.swift */; };
 		75BCC7FE27196912001B5810 /* EditTimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BCC7FC27196912001B5810 /* EditTimerCollectionViewCell.swift */; };
@@ -82,6 +90,14 @@
 		75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCollectionViewCell.swift; sourceTree = "<group>"; };
 		75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerCollectionViewCell.xib; sourceTree = "<group>"; };
 		75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerComponent.swift; sourceTree = "<group>"; };
+		7590EA74272CE2BE009137CD /* SignUpOrLogIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpOrLogIn.storyboard; sourceTree = "<group>"; };
+		7590EA76272CE2EA009137CD /* SignUpOrLogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrLogInViewController.swift; sourceTree = "<group>"; };
+		7590EA78272CE328009137CD /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		7590EA7A272CE336009137CD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		7590EA7C272CE361009137CD /* LogIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LogIn.storyboard; sourceTree = "<group>"; };
+		7590EA7E272CE36C009137CD /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		7590EA81272CEF77009137CD /* ForgotPassword.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ForgotPassword.storyboard; sourceTree = "<group>"; };
+		7590EA83272CEF85009137CD /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		75BCC7F727195D83001B5810 /* EditTimer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EditTimer.storyboard; sourceTree = "<group>"; };
 		75BCC7F927195DD8001B5810 /* EditTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTimerViewController.swift; sourceTree = "<group>"; };
 		75BCC7FC27196912001B5810 /* EditTimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTimerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -168,6 +184,7 @@
 				75DC7B5326CFD75C00A142BF /* CommonModels */,
 				7570113D26CCFCC200716E93 /* AppDelegate.swift */,
 				7570113F26CCFCC200716E93 /* SceneDelegate.swift */,
+				7590EA70272CE19B009137CD /* User */,
 				75EC65E7270ADE9E0001F464 /* Timer */,
 				75EC65E9270ADF520001F464 /* CustomTimer */,
 				75BCC7F627195D46001B5810 /* EditTimer */,
@@ -205,6 +222,53 @@
 				750031DF271D6EE000971701 /* PerformBatchUpdatesProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7590EA70272CE19B009137CD /* User */ = {
+			isa = PBXGroup;
+			children = (
+				7590EA71272CE240009137CD /* SignUpOrLogIn */,
+				7590EA72272CE265009137CD /* SignUp */,
+				7590EA73272CE26F009137CD /* LogIn */,
+				7590EA80272CEF46009137CD /* ForgotPassword */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		7590EA71272CE240009137CD /* SignUpOrLogIn */ = {
+			isa = PBXGroup;
+			children = (
+				7590EA74272CE2BE009137CD /* SignUpOrLogIn.storyboard */,
+				7590EA76272CE2EA009137CD /* SignUpOrLogInViewController.swift */,
+			);
+			path = SignUpOrLogIn;
+			sourceTree = "<group>";
+		};
+		7590EA72272CE265009137CD /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				7590EA78272CE328009137CD /* SignUp.storyboard */,
+				7590EA7A272CE336009137CD /* SignUpViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		7590EA73272CE26F009137CD /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				7590EA7C272CE361009137CD /* LogIn.storyboard */,
+				7590EA7E272CE36C009137CD /* LogInViewController.swift */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
+		7590EA80272CEF46009137CD /* ForgotPassword */ = {
+			isa = PBXGroup;
+			children = (
+				7590EA81272CEF77009137CD /* ForgotPassword.storyboard */,
+				7590EA83272CEF85009137CD /* ForgotPasswordViewController.swift */,
+			);
+			path = ForgotPassword;
 			sourceTree = "<group>";
 		};
 		75BCC7F627195D46001B5810 /* EditTimer */ = {
@@ -428,9 +492,13 @@
 				75BCC7FF27196912001B5810 /* EditTimerCollectionViewCell.xib in Resources */,
 				7570114726CCFCCC00716E93 /* Assets.xcassets in Resources */,
 				75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */,
+				7590EA82272CEF77009137CD /* ForgotPassword.storyboard in Resources */,
+				7590EA79272CE328009137CD /* SignUp.storyboard in Resources */,
+				7590EA75272CE2BE009137CD /* SignUpOrLogIn.storyboard in Resources */,
 				75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */,
 				75DC7B5C26CFD9E100A142BF /* CustomTimer.storyboard in Resources */,
 				75BCC7F827195D83001B5810 /* EditTimer.storyboard in Resources */,
+				7590EA7D272CE361009137CD /* LogIn.storyboard in Resources */,
 				754C291126F037000050252E /* CustomTimerCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,10 +529,13 @@
 				75BCC80127196948001B5810 /* EditTimerCollectionViewFlowLayout.swift in Sources */,
 				754C291026F037000050252E /* CustomTimerCollectionViewCell.swift in Sources */,
 				75DC7B5626CFD92200A142BF /* TimerViewController.swift in Sources */,
+				7590EA77272CE2EA009137CD /* SignUpOrLogInViewController.swift in Sources */,
+				7590EA7B272CE336009137CD /* SignUpViewController.swift in Sources */,
 				75D28F4A26F721D3000718DF /* UIImage+Extension.swift in Sources */,
 				7570113E26CCFCC200716E93 /* AppDelegate.swift in Sources */,
 				75D2905A270050FB000718DF /* TimeString.swift in Sources */,
 				75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */,
+				7590EA84272CEF85009137CD /* ForgotPasswordViewController.swift in Sources */,
 				75BCC7FE27196912001B5810 /* EditTimerCollectionViewCell.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
 				750031E0271D6EE000971701 /* PerformBatchUpdatesProtocol.swift in Sources */,
@@ -474,6 +545,7 @@
 				75D28FEB26F9D771000718DF /* TimePickerViewStructure.swift in Sources */,
 				75D28ED326F3118D000718DF /* CustomTimerCollectionViewFlowLayout.swift in Sources */,
 				75BCC7FA27195DD8001B5810 /* EditTimerViewController.swift in Sources */,
+				7590EA7F272CE36C009137CD /* LogInViewController.swift in Sources */,
 				75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */,
 				7570114026CCFCC200716E93 /* SceneDelegate.swift in Sources */,
 				751A36D02707229E00715E43 /* TimerBehavior.swift in Sources */,
