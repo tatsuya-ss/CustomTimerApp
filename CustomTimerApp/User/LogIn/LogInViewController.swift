@@ -9,9 +9,16 @@ import UIKit
 
 final class LogInViewController: UIViewController {
 
+    @IBOutlet private weak var mailAddressTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    @IBAction private func logInButtonDidTapped(_ sender: Any) {
+        
     }
     
 }
