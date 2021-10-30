@@ -20,31 +20,33 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4hE-qF-HxF">
                                 <rect key="frame" x="50" y="642" width="314" height="120"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="101-V0-QPg">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UjY-jP-DJv">
                                         <rect key="frame" x="0.0" y="0.0" width="314" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="6el-lM-caU"/>
+                                            <constraint firstAttribute="height" constant="50" id="Olp-nm-91k"/>
                                         </constraints>
-                                        <color key="tintColor" systemColor="systemTealColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
+                                        <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="新規登録する">
                                                     <attributes>
                                                         <font key="NSFont" size="18" name="HiraginoSans-W3"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="signUpButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="YEw-pI-OKW"/>
+                                            <action selector="signUpButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="37C-Lz-wLU"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGz-cq-5xj">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifn-rc-cbq">
                                         <rect key="frame" x="0.0" y="70" width="314" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
+                                        <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="ログインする">
                                                     <attributes>
@@ -54,12 +56,12 @@
                                             </attributedString>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="logInButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="BVR-Vw-0W7"/>
+                                            <action selector="logInButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="clH-Ae-21b"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="JGz-cq-5xj" firstAttribute="height" secondItem="101-V0-QPg" secondAttribute="height" id="7pp-aa-Ofz"/>
+                                    <constraint firstItem="ifn-rc-cbq" firstAttribute="height" secondItem="UjY-jP-DJv" secondAttribute="height" id="gsb-Kj-gLJ"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -99,6 +101,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

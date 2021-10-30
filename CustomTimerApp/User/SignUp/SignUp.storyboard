@@ -30,14 +30,15 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LaZ-YL-UzL">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="STu-Eu-bGC">
                                         <rect key="frame" x="0.0" y="108" width="314" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="s4l-hj-HT2"/>
+                                            <constraint firstAttribute="height" constant="50" id="gXW-p8-jba"/>
                                         </constraints>
-                                        <color key="tintColor" systemColor="systemTealColor"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled">
+                                        <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="新規登録">
                                                     <attributes>
@@ -47,7 +48,7 @@
                                             </attributedString>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="SignUpButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UYz-36-kDw"/>
+                                            <action selector="SignUpButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="G7A-mS-nve"/>
                                         </connections>
                                     </button>
                                 </subviews>
