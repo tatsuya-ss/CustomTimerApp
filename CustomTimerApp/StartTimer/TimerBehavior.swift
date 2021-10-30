@@ -16,48 +16,45 @@ protocol TimerBehaviorDelegate: AnyObject {
 
 final class TimerBehavior {
     
-    private var customTimer: CustomTimerComponent!
+    private var timeManagement: TimeManagement!
     private var timer = Timer()
-    private var timeIndex = 0
-    private var startDate = Date()
     
     weak var delegate: TimerBehaviorDelegate?
     
-    init(customTimer: CustomTimerComponent) {
-        self.customTimer = customTimer
+    init(timeManagement: TimeManagement) {
+        self.timeManagement = timeManagement
+    }
+    
+    var countTimes: [Int] {
+        timeManagement.countTimes
+    }
+    
+    var photoData: [Data?] {
+        timeManagement.customTimerConponent.timeInfomations.map { $0.photo }
+    }
+    
+    func makeInitialPhotoData() -> Data? {
+        timeManagement.customTimerConponent.timeInfomations.first?.photo
+    }
+    
+    func startTimeString() -> String {
+        timeManagement.makeTimeString()
     }
     
     func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 1,
                                      repeats: true,
                                      block: { [weak self] timer in
-            guard let startDate = self?.startDate,
-                  let timeIndex = self?.timeIndex,
-                  let timeInfomations = self?.customTimer.timeInfomations
-            else { return }
-            let timeManagement = TimeManagement(startDate: startDate,
-                                                time: timeInfomations[timeIndex].time)
+            guard let timeManagement = self?.timeManagement else { return }
             let timeString = timeManagement.makeTimeString()
-            let photoData = timeInfomations[timeIndex].photo
+            let photoData = timeManagement.customTimerConponent.timeInfomations[timeManagement.currentIndex].photo
             self?.delegate?.timerBehavior(didCountDown: timeString, with: photoData)
-
-            let isFinish = timeManagement.isFinish(now: Date())
-            let numberOfTimes = timeInfomations.count
-            if isFinish {
-                self?.delegate?.makeSound()
-                if timeIndex < numberOfTimes - 1 {
-                    self?.timeIndex += 1
-                    self?.startDate = Date()
-                } else {
-                    timer.invalidate()
-                    self?.delegate?.timeIsUp()
-                }
+            if timeManagement.timeLeft == 0 { self?.delegate?.makeSound() }
+            if timeManagement.isFinish() {
+                timer.invalidate()
+                self?.delegate?.timeIsUp()
             }
         })
-    }
-    
-    func makeInitialPhotoData() -> Data? {
-        customTimer.timeInfomations.first?.photo
     }
     
 }

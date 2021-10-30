@@ -16,17 +16,21 @@ final class StartTimerViewController: UIViewController {
     @IBOutlet private weak var CountDownView: UIView!
     @IBOutlet private weak var currentTimeLabel: UILabel!
     
-    private var timerBehavior: TimerBehavior!
-    func getCustomTimer(customTimer: CustomTimerComponent) {
-        self.timerBehavior = TimerBehavior(customTimer: customTimer)
-    }
     private var audioPlayer: AVAudioPlayer?
+    private var timerBehavior: TimerBehavior!
+    
+    func getCustomTimer(customTimerComponent: CustomTimerComponent) {
+        self.timerBehavior = TimerBehavior(
+            timeManagement: TimeManagement(customTimerConponent: customTimerComponent)
+        )
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupModelInPresentation()
         setupTimerBehavior()
         setupAVAudioPlayer()
+        setupTimerLocalNotification()
         timerBehavior.start()
     }
     
@@ -90,7 +94,7 @@ extension StartTimerViewController {
     
     private func setupTimerBehavior() {
         timerBehavior.delegate = self
-        currentTimeLabel.text = "スタート"
+        currentTimeLabel.text = timerBehavior.startTimeString()
         guard let photoData = timerBehavior.makeInitialPhotoData()
         else { return }
         let photoImage = UIImage(data: photoData)
@@ -113,6 +117,59 @@ extension StartTimerViewController {
             print(error)
         }
         audioPlayer?.prepareToPlay()
+    }
+    
+    // MARK: LocalNotification
+    private func setupTimerLocalNotification() {
+        timerBehavior.countTimes.enumerated().forEach {
+            let registerTime = timerBehavior.countTimes[0...$0.offset].reduce(0, +)
+            let nextTime = $0.offset == timerBehavior.countTimes.endIndex - 1
+            ? nil : timerBehavior.countTimes[$0.offset + 1]
+            let photoData = timerBehavior.photoData[$0.offset]
+            setTimerLocalNotification(registerTime: registerTime,
+                                      nextTime: nextTime,
+                                      photoData: photoData)
+        }
+    }
+    
+    private func setTimerLocalNotification(registerTime: Int,
+                                           nextTime: Int?,
+                                           photoData: Data?) {
+        let content = makeNotificationContent(time: nextTime)
+        let trigger = makeTimeIntervalNotificationTrigger(time: registerTime)
+        let request = makeNotificationRequest(content: content, trigger: trigger)
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.add(request) { error in
+            if let error = error {
+                print(error)
+            } else {
+                print("通知設定完了")
+            }
+        }
+    }
+    
+    private func makeNotificationContent(time: Int?) -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = "CustomTimerApp"
+        if let time = time { content.body = "次は\(time)秒です。" }
+        else { content.body = "タイマー終了です。お疲れ様でした。" }
+        return content
+    }
+    
+    private func makeTimeIntervalNotificationTrigger(time: Int) -> UNTimeIntervalNotificationTrigger {
+        UNTimeIntervalNotificationTrigger(
+            timeInterval: TimeInterval(time),
+            repeats: false
+        )
+    }
+    
+    private func makeNotificationRequest(content: UNMutableNotificationContent,
+                                         trigger: UNTimeIntervalNotificationTrigger) -> UNNotificationRequest {
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString,
+                                            content: content,
+                                            trigger: trigger)
+        return request
     }
     
 }

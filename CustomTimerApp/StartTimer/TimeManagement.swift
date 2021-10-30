@@ -8,20 +8,33 @@
 import Foundation
 
 struct TimeManagement {
-    var startDate: Date
-    var time: Time
-    var count: Int {
-        time.second + (time.minute * 60) + (time.hour * 60 * 60)
+    var customTimerConponent: CustomTimerComponent
+    var countTimes: [Int]{
+        customTimerConponent.timeInfomations.map {
+            $0.time.second + ($0.time.minute * 60) + $0.time.hour * 3600
+        }
     }
-    var endDate: Date {
-        startDate.addingTimeInterval(TimeInterval(count))
+    var startDate: Date = Date()
+    var endDate: [Date] {
+        countTimes.enumerated().map {
+            let time = countTimes[0...$0.offset].reduce(0, +)
+            return startDate.addingTimeInterval(TimeInterval(time))
+        }
+    }
+    var currentIndex: Int {
+        for a in endDate.enumerated() {
+            if a.element > Date() {
+                return a.offset
+            }
+        }
+        return 0
     }
     var timeLeft: Int {
-        Int(endDate.timeIntervalSince1970 - Date().timeIntervalSince1970 + 1)
+        Int(endDate[currentIndex].timeIntervalSince1970 - Date().timeIntervalSince1970)
     }
     
-    func isFinish(now: Date) -> Bool {
-        now > endDate
+    func isFinish(now: Date = Date()) -> Bool {
+        return now + 1 >= endDate.last ?? Date()
     }
     
     func makeTimeString() -> String {
