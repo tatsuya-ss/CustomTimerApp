@@ -13,5 +13,12 @@ final class SignUpOrLogInViewController: UIViewController {
         super.viewDidLoad()
 
     }
-
+    @IBAction private func signUpButtonDidTapped(_ sender: Any) {
+        
+    }
+    
+    @IBAction func logInButtonDidTapped(_ sender: Any) {
+        
+    }
+    
 }
