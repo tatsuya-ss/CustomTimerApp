@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ALc-dh-7lf">
-                                <rect key="frame" x="50" y="396" width="314" height="158"/>
+                                <rect key="frame" x="50" y="373" width="314" height="204"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="メールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vNz-9W-nQN">
                                         <rect key="frame" x="0.0" y="0.0" width="314" height="34"/>
@@ -49,6 +49,23 @@
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="logInButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="lYj-oq-Si9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxz-Qz-j2D">
+                                        <rect key="frame" x="0.0" y="178" width="314" height="26"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="パスワードを忘れた方はこちら">
+                                                    <attributes>
+                                                        <font key="NSFont" size="12" name="HiraginoSans-W3"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="forgotPasswordButtonDidTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9mu-c5-173"/>
                                         </connections>
                                     </button>
                                 </subviews>

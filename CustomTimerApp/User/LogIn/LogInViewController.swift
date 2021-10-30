@@ -20,5 +20,8 @@ final class LogInViewController: UIViewController {
     @IBAction private func logInButtonDidTapped(_ sender: Any) {
         
     }
+    @IBAction private func forgotPasswordButtonDidTapped(_ sender: Any) {
+        
+    }
     
 }

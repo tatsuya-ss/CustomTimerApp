@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8NG-UC-aHc">
-                                <rect key="frame" x="50" y="386.5" width="314" height="158"/>
+                                <rect key="frame" x="50" y="396" width="314" height="158"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="メールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lJU-k4-yg0">
                                         <rect key="frame" x="0.0" y="0.0" width="314" height="34"/>
@@ -56,8 +56,8 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="8NG-UC-aHc" secondAttribute="bottom" constant="317.5" id="Htm-KV-4cI"/>
                             <constraint firstItem="8NG-UC-aHc" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="Jr4-zL-eUD"/>
+                            <constraint firstItem="8NG-UC-aHc" firstAttribute="centerY" secondItem="vDu-zF-Fre" secondAttribute="centerY" id="cVm-eY-Ny8"/>
                             <constraint firstItem="8NG-UC-aHc" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="sM4-05-P66"/>
                         </constraints>
                     </view>
