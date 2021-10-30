@@ -122,15 +122,21 @@ extension StartTimerViewController {
     // MARK: LocalNotification
     private func setupTimerLocalNotification() {
         timerBehavior.countTimes.enumerated().forEach {
-            let time = timerBehavior.countTimes[0...$0.offset].reduce(0, +)
+            let registerTime = timerBehavior.countTimes[0...$0.offset].reduce(0, +)
+            let nextTime = $0.offset == timerBehavior.countTimes.endIndex - 1
+            ? nil : timerBehavior.countTimes[$0.offset + 1]
             let photoData = timerBehavior.photoData[$0.offset]
-            setTimerLocalNotification(time: time, photoData: photoData)
+            setTimerLocalNotification(registerTime: registerTime,
+                                      nextTime: nextTime,
+                                      photoData: photoData)
         }
     }
     
-    private func setTimerLocalNotification(time: Int, photoData: Data?) {
-        let content = makeNotificationContent()
-        let trigger = makeTimeIntervalNotificationTrigger(time: time)
+    private func setTimerLocalNotification(registerTime: Int,
+                                           nextTime: Int?,
+                                           photoData: Data?) {
+        let content = makeNotificationContent(time: nextTime)
+        let trigger = makeTimeIntervalNotificationTrigger(time: registerTime)
         let request = makeNotificationRequest(content: content, trigger: trigger)
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request) { error in
@@ -142,10 +148,11 @@ extension StartTimerViewController {
         }
     }
     
-    private func makeNotificationContent() -> UNMutableNotificationContent {
+    private func makeNotificationContent(time: Int?) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = "アプリ名"
-        content.body = "成功してるかな〜"
+        content.title = "CustomTimerApp"
+        if let time = time { content.body = "次は\(time)秒です。" }
+        else { content.body = "タイマー終了です。お疲れ様でした。" }
         return content
     }
     

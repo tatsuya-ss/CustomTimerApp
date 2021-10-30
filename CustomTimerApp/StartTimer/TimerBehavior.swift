@@ -21,8 +21,20 @@ final class TimerBehavior {
     
     weak var delegate: TimerBehaviorDelegate?
     
-    init(customTimerComponent: CustomTimerComponent) {
-        timeManagement = TimeManagement(customTimerConponent: customTimerComponent)
+    init(timeManagement: TimeManagement) {
+        self.timeManagement = timeManagement
+    }
+    
+    var countTimes: [Int] {
+        timeManagement.countTimes
+    }
+    
+    var photoData: [Data?] {
+        timeManagement.customTimerConponent.timeInfomations.map { $0.photo }
+    }
+    
+    func makeInitialPhotoData() -> Data? {
+        timeManagement.customTimerConponent.timeInfomations.first?.photo
     }
     
     func startTimeString() -> String {
@@ -37,17 +49,12 @@ final class TimerBehavior {
             let timeString = timeManagement.makeTimeString()
             let photoData = timeManagement.customTimerConponent.timeInfomations[timeManagement.currentIndex].photo
             self?.delegate?.timerBehavior(didCountDown: timeString, with: photoData)
-            if timeManagement.timeLeft == 0 { self?.delegate?.makeSound()
-            }
+            if timeManagement.timeLeft == 0 { self?.delegate?.makeSound() }
             if timeManagement.isFinish() {
                 timer.invalidate()
                 self?.delegate?.timeIsUp()
             }
         })
-    }
-    
-    func makeInitialPhotoData() -> Data? {
-        timeManagement.customTimerConponent.timeInfomations.first?.photo
     }
     
 }
