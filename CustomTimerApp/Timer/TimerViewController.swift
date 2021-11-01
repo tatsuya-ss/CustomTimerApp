@@ -227,6 +227,14 @@ extension TimerViewController {
 // MARK: - setup
 extension TimerViewController {
     
+    static func instantiate() -> TimerViewController {
+        guard let timerVC = UIStoryboard(name: "Timer", bundle: nil)
+                .instantiateViewController(withIdentifier: "TimerViewController")
+                as? TimerViewController
+        else { fatalError("TimerViewControllerが見つかりません。") }
+        return timerVC
+    }
+    
     private func setupLongPressRecognizer() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self,
                                                                action: #selector(longPressRecognizer))
