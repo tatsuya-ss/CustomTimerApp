@@ -8,14 +8,11 @@
 import Foundation
 
 protocol UserRepositoryProtocol {
-    func signUp(email: String,
-                password: String,
-                completion: @escaping ResultHandler<Any?>)
-    func logIn(email: String,
-               password: String,
-               completion: @escaping ResultHandler<Any?>)
+    func signUp(email: String, password: String, completion: @escaping ResultHandler<Any?>)
+    func logIn(email: String, password: String, completion: @escaping ResultHandler<Any?>)
     func signOut(completion: @escaping ResultHandler<Any?>)
     func logInStateListener(completion: @escaping ResultHandler<Any?>)
+    func sendPasswordReset(email: String, completion: @escaping ResultHandler<Any?>)
 }
 
 final class UserRepository: UserRepositoryProtocol {
@@ -50,4 +47,9 @@ final class UserRepository: UserRepositoryProtocol {
         dataStore.logInStateListener(completion: completion)
     }
     
+    func sendPasswordReset(email: String,
+                           completion: @escaping ResultHandler<Any?>) {
+        dataStore.sendPasswordReset(email: email,
+                                    completion: completion)
+    }
 }

@@ -11,14 +11,11 @@ import Firebase
 typealias ResultHandler<T> = (Result<T, Error>) -> Void
 
 protocol UserDataStoreProtocol {
-    func signUp(email: String,
-                password: String,
-                completion: @escaping ResultHandler<Any?>)
-    func logIn(email: String,
-               password: String,
-               completion: @escaping ResultHandler<Any?>)
+    func signUp(email: String, password: String, completion: @escaping ResultHandler<Any?>)
+    func logIn(email: String, password: String, completion: @escaping ResultHandler<Any?>)
     func signOut(completion: @escaping ResultHandler<Any?>)
     func logInStateListener(completion: @escaping ResultHandler<Any?>)
+    func sendPasswordReset(email: String, completion: @escaping ResultHandler<Any?>)
 }
 
 final class UserDataStore: UserDataStoreProtocol {
@@ -65,6 +62,18 @@ final class UserDataStore: UserDataStoreProtocol {
                 return
             }
             completion(.failure(LogInError.logOut))
+        }
+    }
+    
+    func sendPasswordReset(email: String,
+                           completion: @escaping ResultHandler<Any?>) {
+        Auth.auth().languageCode = "ja"
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            completion(.success(nil))
         }
     }
     
