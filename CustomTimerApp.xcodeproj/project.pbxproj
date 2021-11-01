@@ -425,35 +425,19 @@
 		75F6BD4E272FC018007309B7 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				75F6BD4F272FC030007309B7 /* DataStore */,
-				75F6BD52272FC3E4007309B7 /* Repository */,
-				75F6BD55272FC578007309B7 /* UseCase */,
+				75F6BD5827301341007309B7 /* User */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		75F6BD4F272FC030007309B7 /* DataStore */ = {
+		75F6BD5827301341007309B7 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				75F6BD50272FC056007309B7 /* UserDataStore.swift */,
-			);
-			path = DataStore;
-			sourceTree = "<group>";
-		};
-		75F6BD52272FC3E4007309B7 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
 				75F6BD53272FC3FA007309B7 /* UserRepository.swift */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		75F6BD55272FC578007309B7 /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
 				75F6BD56272FC5A0007309B7 /* UserUseCase.swift */,
 			);
-			path = UseCase;
+			path = User;
 			sourceTree = "<group>";
 		};
 		A0C5783752630EB20B70F8FD /* Frameworks */ = {
