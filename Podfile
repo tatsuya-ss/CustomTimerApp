@@ -9,6 +9,8 @@ target 'CustomTimerApp' do
   pod 'Firebase/Auth'
   pod 'Firebase/Crashlytics'
   
+  pod 'PKHUD'
+  
   # Pods for CustomTimerApp
   
   target 'CustomTimerAppTests' do

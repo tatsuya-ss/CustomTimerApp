@@ -55,6 +55,8 @@
 		75F6BD51272FC056007309B7 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD50272FC056007309B7 /* UserDataStore.swift */; };
 		75F6BD54272FC3FA007309B7 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD53272FC3FA007309B7 /* UserRepository.swift */; };
 		75F6BD57272FC5A0007309B7 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD56272FC5A0007309B7 /* UserUseCase.swift */; };
+		75F6BD5B27301B46007309B7 /* HUDIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD5A27301B46007309B7 /* HUDIndicator.swift */; };
+		75F6BD5D27301B69007309B7 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD5C27301B69007309B7 /* Indicator.swift */; };
 		EE5123E968B3067D30B57464 /* Pods_CustomTimerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675847D9EEA9974C416449C5 /* Pods_CustomTimerApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +135,8 @@
 		75F6BD50272FC056007309B7 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 		75F6BD53272FC3FA007309B7 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		75F6BD56272FC5A0007309B7 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
+		75F6BD5A27301B46007309B7 /* HUDIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDIndicator.swift; sourceTree = "<group>"; };
+		75F6BD5C27301B69007309B7 /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		97EA621A9F26672E348D4B12 /* Pods-CustomTimerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp.debug.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A6CB18D99146C04439CE8FAA /* Pods_CustomTimerAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F733A8E4E70FDFDDF5452D28 /* Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -342,6 +346,7 @@
 		75D28FE926F9D736000718DF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				75F6BD5927301AD1007309B7 /* HUD */,
 				75D28FEA26F9D771000718DF /* TimePickerViewStructure.swift */,
 				75D29059270050FB000718DF /* TimeString.swift */,
 			);
@@ -438,6 +443,15 @@
 				75F6BD56272FC5A0007309B7 /* UserUseCase.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		75F6BD5927301AD1007309B7 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				75F6BD5A27301B46007309B7 /* HUDIndicator.swift */,
+				75F6BD5C27301B69007309B7 /* Indicator.swift */,
+			);
+			path = HUD;
 			sourceTree = "<group>";
 		};
 		A0C5783752630EB20B70F8FD /* Frameworks */ = {
@@ -714,7 +728,9 @@
 				75D2905A270050FB000718DF /* TimeString.swift in Sources */,
 				75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */,
 				75F6BD54272FC3FA007309B7 /* UserRepository.swift in Sources */,
+				75F6BD5D27301B69007309B7 /* Indicator.swift in Sources */,
 				7590EA84272CEF85009137CD /* ForgotPasswordViewController.swift in Sources */,
+				75F6BD5B27301B46007309B7 /* HUDIndicator.swift in Sources */,
 				75F6BD51272FC056007309B7 /* UserDataStore.swift in Sources */,
 				75BCC7FE27196912001B5810 /* EditTimerCollectionViewCell.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,

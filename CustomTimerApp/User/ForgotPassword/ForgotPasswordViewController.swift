@@ -12,6 +12,7 @@ final class ForgotPasswordViewController: UIViewController {
     @IBOutlet private weak var mailAddressTextField: UITextField!
     
     private var userUseCase: UserUseCaseProtocol!
+    private let indicator = Indicator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,13 +21,17 @@ final class ForgotPasswordViewController: UIViewController {
     
     @IBAction private func sendButtonDidTapped(_ sender: Any) {
         guard let email = mailAddressTextField.text else { return }
+        indicator.show(flashType: .progress)
         userUseCase.sendPasswordReset(email: email) { [weak self] result in
             switch result {
             case .failure(let error):
-                print("\(error)")
+                self?.indicator.flash(flashType: .error) {
+                    print("\(error)")
+                }
             case .success:
-                self?.navigationController?.popViewController(animated: true)
-                print("送信完了")
+                self?.indicator.flash(flashType: .success) {
+                    self?.navigationController?.popViewController(animated: true)
+                }
             }
         }
     }
