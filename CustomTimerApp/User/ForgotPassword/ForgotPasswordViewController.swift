@@ -21,3 +21,15 @@ final class ForgotPasswordViewController: UIViewController {
     }
     
 }
+
+extension ForgotPasswordViewController {
+    
+    static func instantiate() -> ForgotPasswordViewController {
+        guard let forgotPasswordVC = UIStoryboard(name: "ForgotPassword", bundle: nil)
+                .instantiateViewController(withIdentifier: "ForgotPasswordViewController")
+                as? ForgotPasswordViewController
+        else { fatalError("ForgotPasswordViewControllerが見つかりません。") }
+        return forgotPasswordVC
+    }
+
+}

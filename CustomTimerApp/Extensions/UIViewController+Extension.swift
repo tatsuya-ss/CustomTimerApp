@@ -9,24 +9,6 @@ import UIKit
 
 extension UIViewController {
     
-    static func instantiate() -> Self {
-        var storyboardName = String(describing: self)
-        if let result = storyboardName.range(of: "ViewController") {
-            storyboardName.removeSubrange(result)
-        } else {
-            fatalError("Storyboardの名前が正しくない")
-        }
-        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        let vc = storyboard.instantiateViewController(
-            identifier: String(describing: self)
-        ) as! Self
-        return vc
-    }
-
-}
-
-extension UIViewController {
-    
     func showPhotosAuthorizationDeniedAlert() {
         let alert = UIAlertController(title: "写真へのアクセスを許可しますか？",
                                       message: nil,

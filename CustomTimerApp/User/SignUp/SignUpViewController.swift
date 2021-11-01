@@ -22,3 +22,14 @@ final class SignUpViewController: UIViewController {
     }
     
 }
+
+extension SignUpViewController {
+    static func instantiate(userUseCase: UserUseCaseProtocol = UserUseCase()) -> SignUpViewController {
+        guard let signUpVC = UIStoryboard(name: "SignUp", bundle: nil)
+                .instantiateViewController(withIdentifier: "SignUpViewController")
+                as? SignUpViewController
+        else { fatalError("SignUpViewControllerが見つかりません。") }
+        signUpVC.userUseCase = userUseCase
+        return signUpVC
+    }
+}

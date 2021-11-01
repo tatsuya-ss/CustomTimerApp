@@ -26,3 +26,15 @@ final class LogInViewController: UIViewController {
     }
     
 }
+
+extension LogInViewController {
+    
+    static func instantiate() -> LogInViewController {
+        guard let logInVC = UIStoryboard(name: "LogIn", bundle: nil)
+                .instantiateViewController(withIdentifier: "LogInViewController")
+                as? LogInViewController
+        else { fatalError("LogInViewControllerが見つかりません。") }
+        return logInVC
+    }
+
+}

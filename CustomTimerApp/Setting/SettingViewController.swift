@@ -62,6 +62,14 @@ final class SettingViewController: UIViewController {
         configureDataSource()
     }
     
+    static func instantiate() -> SettingViewController {
+        guard let settingVC = UIStoryboard(name: "Setting", bundle: nil)
+                .instantiateViewController(withIdentifier: "SettingViewController")
+                as? SettingViewController
+        else { fatalError("SettingViewControllerが見つかりません。") }
+        return settingVC
+    }
+
     @IBAction private func stopButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
