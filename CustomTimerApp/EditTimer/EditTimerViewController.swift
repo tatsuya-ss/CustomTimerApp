@@ -351,6 +351,14 @@ extension EditTimerViewController: UIPickerViewDelegate {
 // MARK: - setup
 extension EditTimerViewController {
     
+    static func instantiate() -> EditTimerViewController {
+        guard let editTimerVC = UIStoryboard(name: "EditTimer", bundle: nil)
+                .instantiateViewController(withIdentifier: "EditTimerViewController")
+                as? EditTimerViewController
+        else { fatalError("EditTimerViewControllerが見つかりません。") }
+        return editTimerVC
+    }
+    
     private func setupCollectionView() {
         collectionView.collectionViewLayout = EditTimerCollectionViewFlowLayout()
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

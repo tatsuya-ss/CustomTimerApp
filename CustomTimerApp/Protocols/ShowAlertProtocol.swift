@@ -8,6 +8,7 @@
 import UIKit
 
 protocol ShowAlertProtocol {
+    func showErrorAlert(title: String)
     func showAlert(title: String,
                    message: String?,
                    defaultTitle: String,
@@ -21,6 +22,16 @@ protocol ShowAlertProtocol {
 
 extension ShowAlertProtocol where Self: UIViewController {
     
+    func showErrorAlert(title: String) {
+        let alert = UIAlertController(title: title,
+                                      message: nil,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "閉じる",
+                                      style: .default,
+                                      handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
     func showAlert(title: String,
                    message: String? = nil,
                    defaultTitle: String,

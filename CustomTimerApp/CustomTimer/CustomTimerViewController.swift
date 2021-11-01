@@ -347,6 +347,14 @@ extension CustomTimerViewController: UITextFieldDelegate {
 // MARK: - setup
 extension CustomTimerViewController {
     
+    static func instantiate() -> CustomTimerViewController {
+        guard let customTimerVC = UIStoryboard(name: "CustomTimer", bundle: nil)
+                .instantiateViewController(withIdentifier: "CustomTimerViewController")
+                as? CustomTimerViewController
+        else { fatalError("CustomTimerViewControllerが見つかりません。") }
+        return customTimerVC
+    }
+    
     private func setupCollectionView() {
         collectionView.collectionViewLayout = CustomTimerCollectionViewFlowLayout()
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

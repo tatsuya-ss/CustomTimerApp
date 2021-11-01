@@ -42,6 +42,7 @@ final class TimerViewController: UIViewController {
                         action: #selector(cancelBarButtonDidTapped))
     }
     
+    private var userUseCase: UserUseCaseProtocol = UserUseCase()
     private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
     private var customTimers: [CustomTimerComponent] = []
     private var operationState = OperationState()
@@ -50,6 +51,7 @@ final class TimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLogInState()
         configureHierarchy()
         configureDataSource()
         updateCollectionView()
@@ -226,6 +228,29 @@ extension TimerViewController {
 
 // MARK: - setup
 extension TimerViewController {
+    
+    static func instantiate(userUseCase: UserUseCaseProtocol = UserUseCase()) -> TimerViewController {
+        guard let timerVC = UIStoryboard(name: "Timer", bundle: nil)
+                .instantiateViewController(withIdentifier: "TimerViewController")
+                as? TimerViewController
+        else { fatalError("TimerViewControllerが見つかりません。") }
+        return timerVC
+    }
+    
+    
+    private func setupLogInState() {
+        userUseCase.logInStateListener { [weak self] result in
+            switch result {
+            case .failure:
+                let signUpOrLogInVC = SignUpOrLogInViewController.instantiate()
+                let navigationController = UINavigationController(rootViewController: signUpOrLogInVC)
+                navigationController.modalPresentationStyle = .fullScreen
+                self?.present(navigationController, animated: true, completion: nil)
+            case .success:
+                print("ログイン済み")
+            }
+        }
+    }
     
     private func setupLongPressRecognizer() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self,

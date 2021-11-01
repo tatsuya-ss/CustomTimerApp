@@ -92,6 +92,14 @@ extension StartTimerViewController: TimerBehaviorDelegate {
 // MARK: - setup
 extension StartTimerViewController {
     
+    static func instantiate() -> StartTimerViewController {
+        guard let startTimerVC = UIStoryboard(name: "StartTimer", bundle: nil)
+                .instantiateViewController(withIdentifier: "StartTimerViewController")
+                as? StartTimerViewController
+        else { fatalError("StartTimerViewControllerが見つかりません。") }
+        return startTimerVC
+    }
+
     private func setupTimerBehavior() {
         timerBehavior.delegate = self
         currentTimeLabel.text = timerBehavior.startTimeString()
