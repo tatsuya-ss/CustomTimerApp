@@ -6,3 +6,36 @@
 //
 
 import Foundation
+
+protocol UserUseCaseProtocol {
+    func signUp(email: String, password: String,
+                completion: @escaping ResultHandler<Any?>)
+    func logIn()
+    func isLogIn() -> Bool
+}
+
+final class UserUseCase: UserUseCaseProtocol {
+    
+    private let repository: UserRepositoryProtocol
+    
+    init(repository: UserRepositoryProtocol = UserRepository()) {
+        self.repository = repository
+    }
+    
+    func signUp(email: String,
+                password: String,
+                completion: @escaping ResultHandler<Any?>) {
+        repository.signUp(email: email,
+                          password: password,
+                          completion: completion)
+    }
+    
+    func logIn() {
+        
+    }
+    
+    func isLogIn() -> Bool {
+        false
+    }
+    
+}
