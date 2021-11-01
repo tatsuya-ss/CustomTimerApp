@@ -12,13 +12,28 @@ final class SignUpViewController: UIViewController {
     @IBOutlet private weak var mailAddressTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     
+    private var userUseCase: UserUseCaseProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
     @IBAction private func SignUpButtonDidTapped(_ sender: Any) {
-        
+        guard let email = mailAddressTextField.text,
+              let password = passwordTextField.text
+        else { return }
+        userUseCase.signUp(email: email, password: password) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success:
+                let timerVC = TimerViewController.instantiate()
+                let navigationVC = UINavigationController(rootViewController: timerVC)
+                navigationVC.modalPresentationStyle = .fullScreen
+                self?.present(navigationVC, animated: true, completion: nil)
+            }
+        }
     }
     
 }
