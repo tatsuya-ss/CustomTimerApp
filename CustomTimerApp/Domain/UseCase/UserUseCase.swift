@@ -8,9 +8,12 @@
 import Foundation
 
 protocol UserUseCaseProtocol {
-    func signUp(email: String, password: String,
+    func signUp(email: String,
+                password: String,
                 completion: @escaping ResultHandler<Any?>)
-    func logIn()
+    func logIn(email: String,
+               password: String,
+               completion: @escaping ResultHandler<Any?>)
     func logInStateListener(completion: @escaping ResultHandler<Any?>)
 }
 
@@ -30,8 +33,12 @@ final class UserUseCase: UserUseCaseProtocol {
                           completion: completion)
     }
     
-    func logIn() {
-        
+    func logIn(email: String,
+               password: String,
+               completion: @escaping ResultHandler<Any?>) {
+        repository.logIn(email: email,
+                         password: password,
+                         completion: completion)
     }
     
     func logInStateListener(completion: @escaping ResultHandler<Any?>) {
