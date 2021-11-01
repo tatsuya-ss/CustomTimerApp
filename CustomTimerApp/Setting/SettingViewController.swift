@@ -20,10 +20,12 @@ final class SettingViewController: UIViewController {
     private enum Section: CaseIterable {
         case setting
         case app
+        case logOut
         var items: [Item] {
             switch self {
             case .setting: return SettingItem.allCases.map { $0.item }
-            case .app: return ApplicationItem.allCases.map { $0.item}
+            case .app: return ApplicationItem.allCases.map { $0.item }
+            case .logOut: return LogoutItem.allCases.map { $0.item }
             }
         }
     }
@@ -52,9 +54,19 @@ final class SettingViewController: UIViewController {
         }
     }
     
+    private enum LogoutItem: CaseIterable {
+        case logOut
+        var item: Item {
+            switch self {
+            case .logOut: return .title(TitleCellData(title: "ログアウトする"))
+            }
+        }
+    }
+    
     @IBOutlet private weak var collectionView: UICollectionView!
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
+    private var userUseCase: UserUseCaseProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +74,6 @@ final class SettingViewController: UIViewController {
         configureDataSource()
     }
     
-    static func instantiate() -> SettingViewController {
-        guard let settingVC = UIStoryboard(name: "Setting", bundle: nil)
-                .instantiateViewController(withIdentifier: "SettingViewController")
-                as? SettingViewController
-        else { fatalError("SettingViewControllerが見つかりません。") }
-        return settingVC
-    }
-
     @IBAction private func stopButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -86,8 +90,30 @@ final class SettingViewController: UIViewController {
     private func showRequestReviewManually() {
         // TODO: このアプリのURLに変更
         guard let writeReviewURL = URL(string: "https://apps.apple.com/jp/app/movie-reviews-%E6%98%A0%E7%94%BB%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E7%AE%A1%E7%90%86/id1578614989?action=write-review")
-            else { fatalError("Expected a valid URL") }
+        else { fatalError("Expected a valid URL") }
         UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+    }
+    
+    private func showLogOutAlert() {
+        let alert = UIAlertController(title: "ログアウトしますか？", message: nil, preferredStyle: .alert)
+        let logOutAction = UIAlertAction(title: "ログアウト", style: .destructive) { [weak self] _ in
+            self?.userUseCase.signOut { result in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success:
+                    print("ログアウトしました。")
+                    self?.dismiss(animated: true, completion: nil)
+                    let signUpOrLogInVC = SignUpOrLogInViewController.instantiate()
+                    let navigationController = UINavigationController(rootViewController: signUpOrLogInVC)
+                    navigationController.modalPresentationStyle = .fullScreen
+                    self?.present(navigationController, animated: true, completion: nil)
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel, handler: nil)
+        [cancelAction, logOutAction].forEach { alert.addAction($0) }
+        present(alert, animated: true, completion: nil)
     }
     
 }
@@ -108,6 +134,10 @@ extension SettingViewController: UICollectionViewDelegate {
             case .evaluation: showRequestReviewManually()
             case .inquiry: break
             case .share: showActivityVC()
+            }
+        case .logOut:
+            switch LogoutItem.allCases[indexPath.item] {
+            case .logOut: showLogOutAlert()
             }
         }
     }
@@ -154,4 +184,18 @@ extension SettingViewController {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
+}
+
+// MARK: - instantiate
+extension SettingViewController {
+    
+    static func instantiate(userUseCase: UserUseCaseProtocol = UserUseCase()) -> SettingViewController {
+        guard let settingVC = UIStoryboard(name: "Setting", bundle: nil)
+                .instantiateViewController(withIdentifier: "SettingViewController")
+                as? SettingViewController
+        else { fatalError("SettingViewControllerが見つかりません。") }
+        settingVC.userUseCase = userUseCase
+        return settingVC
+    }
+
 }

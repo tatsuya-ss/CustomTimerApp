@@ -17,6 +17,7 @@ protocol UserDataStoreProtocol {
     func logIn(email: String,
                password: String,
                completion: @escaping ResultHandler<Any?>)
+    func signOut(completion: @escaping ResultHandler<Any?>)
     func logInStateListener(completion: @escaping ResultHandler<Any?>)
 }
 
@@ -45,6 +46,15 @@ final class UserDataStore: UserDataStoreProtocol {
                 return
             }
             completion(.success(nil))
+        }
+    }
+    
+    func signOut(completion: @escaping ResultHandler<Any?>) {
+        do {
+            try Auth.auth().signOut()
+            completion(.success(nil))
+        } catch {
+            completion(.failure(error))
         }
     }
     

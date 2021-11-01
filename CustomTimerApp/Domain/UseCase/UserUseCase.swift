@@ -14,6 +14,7 @@ protocol UserUseCaseProtocol {
     func logIn(email: String,
                password: String,
                completion: @escaping ResultHandler<Any?>)
+    func signOut(completion: @escaping ResultHandler<Any?>)
     func logInStateListener(completion: @escaping ResultHandler<Any?>)
 }
 
@@ -39,6 +40,10 @@ final class UserUseCase: UserUseCaseProtocol {
         repository.logIn(email: email,
                          password: password,
                          completion: completion)
+    }
+    
+    func signOut(completion: @escaping ResultHandler<Any?>) {
+        repository.signOut(completion: completion)
     }
     
     func logInStateListener(completion: @escaping ResultHandler<Any?>) {

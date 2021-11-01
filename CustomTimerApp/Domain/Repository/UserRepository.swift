@@ -14,6 +14,7 @@ protocol UserRepositoryProtocol {
     func logIn(email: String,
                password: String,
                completion: @escaping ResultHandler<Any?>)
+    func signOut(completion: @escaping ResultHandler<Any?>)
     func logInStateListener(completion: @escaping ResultHandler<Any?>)
 }
 
@@ -39,6 +40,10 @@ final class UserRepository: UserRepositoryProtocol {
         dataStore.logIn(email: email,
                         password: password,
                         completion: completion)
+    }
+    
+    func signOut(completion: @escaping ResultHandler<Any?>) {
+        dataStore.signOut(completion: completion)
     }
     
     func logInStateListener(completion: @escaping ResultHandler<Any?>) {
