@@ -14,7 +14,7 @@ protocol UserDataStoreProtocol {
     func signUp(email: String, password: String,
                 completion: @escaping ResultHandler<Any?>)
     func logIn()
-    func isLogIn() -> Bool
+    func logInStateListener(completion: @escaping ResultHandler<Any?>)
 }
 
 final class UserDataStore: UserDataStoreProtocol {
@@ -36,8 +36,18 @@ final class UserDataStore: UserDataStoreProtocol {
         
     }
     
-    func isLogIn() -> Bool {
-        false
+    func logInStateListener(completion: @escaping ResultHandler<Any?>) {
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if let _ = user {
+                completion(.success(nil))
+                return
+            }
+            completion(.failure(LogInError.logOut))
+        }
     }
     
+}
+
+enum LogInError: Error {
+    case logOut
 }

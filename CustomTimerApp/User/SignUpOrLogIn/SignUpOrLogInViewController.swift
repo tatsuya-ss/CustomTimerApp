@@ -25,3 +25,15 @@ final class SignUpOrLogInViewController: UIViewController {
     }
     
 }
+
+extension SignUpOrLogInViewController {
+    
+    static func instantiate() -> SignUpOrLogInViewController {
+        guard let signUpOrLogInVC = UIStoryboard(name: "SignUpOrLogIn", bundle: nil)
+                .instantiateViewController(withIdentifier: "SignUpOrLogInViewController")
+                as? SignUpOrLogInViewController
+        else { fatalError("SignUpOrLogInViewControllerが見つかりません。") }
+        return signUpOrLogInVC
+    }
+
+}

@@ -11,7 +11,7 @@ protocol UserUseCaseProtocol {
     func signUp(email: String, password: String,
                 completion: @escaping ResultHandler<Any?>)
     func logIn()
-    func isLogIn() -> Bool
+    func logInStateListener(completion: @escaping ResultHandler<Any?>)
 }
 
 final class UserUseCase: UserUseCaseProtocol {
@@ -34,8 +34,8 @@ final class UserUseCase: UserUseCaseProtocol {
         
     }
     
-    func isLogIn() -> Bool {
-        false
+    func logInStateListener(completion: @escaping ResultHandler<Any?>) {
+        repository.logInStateListener(completion: completion)
     }
     
 }
