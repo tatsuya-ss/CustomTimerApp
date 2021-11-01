@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension ForgotPasswordViewController: ShowAlertProtocol { }
+
 final class ForgotPasswordViewController: UIViewController {
 
     @IBOutlet private weak var mailAddressTextField: UITextField!
@@ -26,7 +28,7 @@ final class ForgotPasswordViewController: UIViewController {
             switch result {
             case .failure(let error):
                 self?.indicator.flash(flashType: .error) {
-                    print("\(error)")
+                    self?.showErrorAlert(title: error.errorMessage)
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {

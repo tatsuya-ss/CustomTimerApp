@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension LogInViewController: ShowAlertProtocol { }
+
 final class LogInViewController: UIViewController {
 
     @IBOutlet private weak var mailAddressTextField: UITextField!
@@ -29,7 +31,7 @@ final class LogInViewController: UIViewController {
             switch result {
             case .failure(let error):
                 self?.indicator.flash(flashType: .error) {
-                    print("アラート表示 \(error)")
+                    self?.showErrorAlert(title: error.errorMessage)
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {
