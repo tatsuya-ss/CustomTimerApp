@@ -5,10 +5,15 @@ target 'CustomTimerApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   
+  # Firebase
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'   # Optionally, include the Swift extensions if you're using Swift.
+  pod 'Firebase/Storage'
   
+  # PKHUD
   pod 'PKHUD'
   
   # Pods for CustomTimerApp
