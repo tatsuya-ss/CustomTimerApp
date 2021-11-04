@@ -8,7 +8,8 @@
 import Foundation
 
 protocol TimerUseCaseProtocol {
-    func save(customTimer: CustomTimerComponent, completion: @escaping StoreResultHandler<Any?>)
+    func save(customTimer: CustomTimerComponent,
+              completion: @escaping (Result<Any?, DataBaseError>) -> Void)
 }
 
 final class TimerUseCase: TimerUseCaseProtocol {
@@ -20,7 +21,7 @@ final class TimerUseCase: TimerUseCaseProtocol {
     }
     
     func save(customTimer: CustomTimerComponent,
-              completion: @escaping StoreResultHandler<Any?>) {
+              completion: @escaping (Result<Any?, DataBaseError>) -> Void) {
         repository.save(customTimer: customTimer,
                         completion: completion)
     }
