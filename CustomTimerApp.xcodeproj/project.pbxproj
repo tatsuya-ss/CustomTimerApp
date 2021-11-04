@@ -43,6 +43,8 @@
 		75D28FEB26F9D771000718DF /* TimePickerViewStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D28FEA26F9D771000718DF /* TimePickerViewStructure.swift */; };
 		75D2905A270050FB000718DF /* TimeString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D29059270050FB000718DF /* TimeString.swift */; };
 		75DBEF5C273123DD007589F9 /* TimerDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DBEF5B273123DD007589F9 /* TimerDataStore.swift */; };
+		75DBEF5F2733A1A9007589F9 /* TimerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DBEF5E2733A1A9007589F9 /* TimerRepository.swift */; };
+		75DBEF612733A2FE007589F9 /* TimerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DBEF602733A2FE007589F9 /* TimerUseCase.swift */; };
 		75DC7B5626CFD92200A142BF /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B5526CFD92200A142BF /* TimerViewController.swift */; };
 		75DC7B5826CFD93900A142BF /* Timer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B5726CFD93900A142BF /* Timer.storyboard */; };
 		75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */; };
@@ -124,6 +126,8 @@
 		75D28FEA26F9D771000718DF /* TimePickerViewStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewStructure.swift; sourceTree = "<group>"; };
 		75D29059270050FB000718DF /* TimeString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeString.swift; sourceTree = "<group>"; };
 		75DBEF5B273123DD007589F9 /* TimerDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDataStore.swift; sourceTree = "<group>"; };
+		75DBEF5E2733A1A9007589F9 /* TimerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerRepository.swift; sourceTree = "<group>"; };
+		75DBEF602733A2FE007589F9 /* TimerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerUseCase.swift; sourceTree = "<group>"; };
 		75DC7B5526CFD92200A142BF /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		75DC7B5726CFD93900A142BF /* Timer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Timer.storyboard; sourceTree = "<group>"; };
 		75DC7B5926CFD9D500A142BF /* CustomTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerViewController.swift; sourceTree = "<group>"; };
@@ -357,10 +361,20 @@
 		75DBEF5A273121F3007589F9 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
-				75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */,
+				75DBEF5D2733A170007589F9 /* Entity */,
 				75DBEF5B273123DD007589F9 /* TimerDataStore.swift */,
+				75DBEF5E2733A1A9007589F9 /* TimerRepository.swift */,
+				75DBEF602733A2FE007589F9 /* TimerUseCase.swift */,
 			);
 			path = Timer;
+			sourceTree = "<group>";
+		};
+		75DBEF5D2733A170007589F9 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		75EC65E7270ADE9E0001F464 /* Timer */ = {
@@ -735,6 +749,7 @@
 				7590EA84272CEF85009137CD /* ForgotPasswordViewController.swift in Sources */,
 				75F6BD5B27301B46007309B7 /* HUDIndicator.swift in Sources */,
 				75F6BD51272FC056007309B7 /* UserDataStore.swift in Sources */,
+				75DBEF5F2733A1A9007589F9 /* TimerRepository.swift in Sources */,
 				75BCC7FE27196912001B5810 /* EditTimerCollectionViewCell.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
 				75DBEF5C273123DD007589F9 /* TimerDataStore.swift in Sources */,
@@ -742,6 +757,7 @@
 				75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */,
 				75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */,
 				757FEC242705B97D00E02B23 /* ShowAlertProtocol.swift in Sources */,
+				75DBEF612733A2FE007589F9 /* TimerUseCase.swift in Sources */,
 				75D28FEB26F9D771000718DF /* TimePickerViewStructure.swift in Sources */,
 				75D28ED326F3118D000718DF /* CustomTimerCollectionViewFlowLayout.swift in Sources */,
 				75BCC7FA27195DD8001B5810 /* EditTimerViewController.swift in Sources */,
