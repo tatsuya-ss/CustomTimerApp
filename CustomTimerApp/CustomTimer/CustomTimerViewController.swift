@@ -72,7 +72,7 @@ final class CustomTimerViewController: UIViewController {
             switch result {
             case .failure(let error):
                 self?.indicator.flash(flashType: .error) {
-                    print(error)
+                    self?.showErrorAlert(title: error.errorMessage)
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {
