@@ -33,6 +33,8 @@ final class CustomTimerViewController: UIViewController {
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     weak var delegate: CustomTimerViewControllerDelegate?
+    private let indicator = Indicator()
+    private var timerUseCase: TimerUseCaseProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,9 +65,21 @@ final class CustomTimerViewController: UIViewController {
                             defaultTitle: "閉じる")
                   return
               }
+        indicator.show(flashType: .progress)
         customTimerComponent.name = text
         delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
-        dismiss(animated: true, completion: nil)
+        timerUseCase.save(customTimer: customTimerComponent) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.indicator.flash(flashType: .error) {
+                    print(error)
+                }
+            case .success:
+                self?.indicator.flash(flashType: .success) {
+                    self?.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @IBAction private func cancelButtonTapped(_ sender: Any) {
@@ -131,15 +145,14 @@ final class CustomTimerViewController: UIViewController {
     
     private func getPhotosAuthorization() {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
-            guard let self = self else { return }
             switch status {
             case .authorized:
                 DispatchQueue.main.async {
-                    self.showImagePickerController()
+                    self?.showImagePickerController()
                 }
             case .denied:
                 DispatchQueue.main.async {
-                    self.showPhotosAuthorizationDeniedAlert()
+                    self?.showPhotosAuthorizationDeniedAlert()
                 }
             default:
                 break
@@ -347,11 +360,12 @@ extension CustomTimerViewController: UITextFieldDelegate {
 // MARK: - setup
 extension CustomTimerViewController {
     
-    static func instantiate() -> CustomTimerViewController {
+    static func instantiate(timerUseCase: TimerUseCaseProtocol = TimerUseCase()) -> CustomTimerViewController {
         guard let customTimerVC = UIStoryboard(name: "CustomTimer", bundle: nil)
                 .instantiateViewController(withIdentifier: "CustomTimerViewController")
                 as? CustomTimerViewController
         else { fatalError("CustomTimerViewControllerが見つかりません。") }
+        customTimerVC.timerUseCase = timerUseCase
         return customTimerVC
     }
     
