@@ -41,7 +41,8 @@ private extension DataBaseCustomTimer {
         let timeInfomations = customTimer.timeInfomations
             .map { DataBaseTimeInfomation(timeInfomation: $0) }
         self = DataBaseCustomTimer(name: customTimer.name,
-                                   timeInfomations: timeInfomations)
+                                   timeInfomations: timeInfomations,
+                                   id: customTimer.id.uuidString)
     }
 }
 

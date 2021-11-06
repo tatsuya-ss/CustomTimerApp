@@ -37,6 +37,7 @@ enum DataBaseError: Error {
 struct DataBaseCustomTimer: Encodable {
     var name: String
     var timeInfomations: [DataBaseTimeInfomation]
+    let id: String
 }
 
 struct DataBaseTimeInfomation: Encodable {
