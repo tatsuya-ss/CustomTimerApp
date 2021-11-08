@@ -42,8 +42,10 @@ struct DataBaseCustomTimer: Encodable {
 
 struct DataBaseTimeInfomation: Encodable {
     var time: DataBaseTime
+    var photo: Data?
     var text: String?
     var isRest: Bool
+    let id: String
 }
 
 struct DataBaseTime: Encodable {
@@ -56,6 +58,7 @@ typealias StoreResultHandler<T> = (Result<T, Error>) -> Void
 
 protocol TimerDataStoreProtocol {
     func save(customTimer: DataBaseCustomTimer, completion: @escaping StoreResultHandler<Any?>)
+    func savePhoto(customTimer: DataBaseCustomTimer, completion: @escaping StoreResultHandler<Any?>)
 }
 
 final class TimerDataStore: TimerDataStoreProtocol {
@@ -74,4 +77,59 @@ final class TimerDataStore: TimerDataStoreProtocol {
         }
     }
     
+    func savePhoto(customTimer: DataBaseCustomTimer,
+                   completion: @escaping StoreResultHandler<Any?>) {
+        guard let user = user else { return }
+        let storageRef = Storage.storage().reference()
+
+        let dispatchGroup = DispatchGroup()
+        
+        customTimer.timeInfomations.forEach {
+            if let photoData =  $0.photo {
+                dispatchGroup.enter()
+                print("\($0)の保存処理")
+                let photoRef =  storageRef.child("users/\(user.uid)/timers/\(customTimer.id)/\($0.id).jpg")
+                photoRef.putData(photoData, metadata: nil) { metadata, error in
+                    defer { dispatchGroup.leave() }
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            completion(.success(nil))
+        }
+        
+    }
+    
+}
+
+enum DataBaseError: Error {
+    case aborted
+    case alreadyExists
+    case cancelled
+    case deadlineExceeded
+    case notFound
+    case permissionDenied
+    case unauthenticated
+    case unknown
+    
+}
+
+enum StorageError: Error {
+    case unknown
+    case objectNotFound
+    case bucketNotFound
+    case projectNotFound
+    case quotaExceeded
+    case unauthenticated
+    case unauthorized
+    case retryLimitExceeded
+    case nonMatchingChecksum
+    case downloadSizeExceeded
+    case cancelled
+    case invalidArgument
 }
