@@ -9,31 +9,6 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-enum DataBaseError: Error {
-    case aborted
-    case alreadyExists
-    case cancelled
-    case deadlineExceeded
-    case notFound
-    case permissionDenied
-    case unauthenticated
-    case unknown
-    
-    var errorMessage: String {
-        switch self {
-        case .aborted: return "操作中止されました。"
-        case .alreadyExists: return "すでに保存されています。"
-        case .cancelled: return "捜査がキャンセルされました。"
-        case .deadlineExceeded: return "時間内に保存が完了しませんでした。"
-        case .notFound: return "ドキュメントが見つかりませんでした。"
-        case .permissionDenied: return "権限がありません。"
-        case .unauthenticated: return "有効な認証情報がありません。"
-        case .unknown: return "予期しないエラーが発生しました。"
-        }
-    }
-
-}
-
 struct DataBaseCustomTimer: Encodable {
     var name: String
     var timeInfomations: [DataBaseTimeInfomation]
@@ -42,7 +17,6 @@ struct DataBaseCustomTimer: Encodable {
 
 struct DataBaseTimeInfomation: Encodable {
     var time: DataBaseTime
-    var photo: Data?
     var text: String?
     var isRest: Bool
     let id: String
@@ -58,7 +32,7 @@ typealias StoreResultHandler<T> = (Result<T, Error>) -> Void
 
 protocol TimerDataStoreProtocol {
     func save(customTimer: DataBaseCustomTimer, completion: @escaping StoreResultHandler<Any?>)
-    func savePhoto(customTimer: DataBaseCustomTimer, completion: @escaping StoreResultHandler<Any?>)
+    func savePhoto(customTimer: CustomTimerComponent, completion: @escaping StoreResultHandler<Any?>)
 }
 
 final class TimerDataStore: TimerDataStoreProtocol {
@@ -77,23 +51,23 @@ final class TimerDataStore: TimerDataStoreProtocol {
         }
     }
     
-    func savePhoto(customTimer: DataBaseCustomTimer,
+    func savePhoto(customTimer: CustomTimerComponent,
                    completion: @escaping StoreResultHandler<Any?>) {
         guard let user = user else { return }
         let storageRef = Storage.storage().reference()
-
+        
         let dispatchGroup = DispatchGroup()
+        let dispatchQueue = DispatchQueue(label: "dataStoreSavePhoto", attributes: .concurrent)
         
         customTimer.timeInfomations.forEach {
             if let photoData =  $0.photo {
-                dispatchGroup.enter()
-                print("\($0)の保存処理")
                 let photoRef =  storageRef.child("users/\(user.uid)/timers/\(customTimer.id)/\($0.id).jpg")
-                photoRef.putData(photoData, metadata: nil) { metadata, error in
-                    defer { dispatchGroup.leave() }
-                    if let error = error {
-                        completion(.failure(error))
-                        return
+                dispatchQueue.async(group: dispatchGroup) {
+                    photoRef.putData(photoData, metadata: nil) { metadata, error in
+                        if let error = error {
+                            completion(.failure(error))
+                            return
+                        }
                     }
                 }
             }
@@ -105,31 +79,4 @@ final class TimerDataStore: TimerDataStoreProtocol {
         
     }
     
-}
-
-enum DataBaseError: Error {
-    case aborted
-    case alreadyExists
-    case cancelled
-    case deadlineExceeded
-    case notFound
-    case permissionDenied
-    case unauthenticated
-    case unknown
-    
-}
-
-enum StorageError: Error {
-    case unknown
-    case objectNotFound
-    case bucketNotFound
-    case projectNotFound
-    case quotaExceeded
-    case unauthenticated
-    case unauthorized
-    case retryLimitExceeded
-    case nonMatchingChecksum
-    case downloadSizeExceeded
-    case cancelled
-    case invalidArgument
 }
