@@ -3,4 +3,4 @@ Pods/*
 *UserInterfaceState.xcuserstate
 *xcdebugger
 !Podfile
-
+xcschemes/*
