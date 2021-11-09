@@ -11,6 +11,7 @@ struct CustomTimerComponent: Hashable {
     var name: String
     var timeInfomations: [TimeInfomation]
     var isSelected: Bool = false
+    let id = UUID()
 }
 
 struct TimeInfomation: Hashable {
