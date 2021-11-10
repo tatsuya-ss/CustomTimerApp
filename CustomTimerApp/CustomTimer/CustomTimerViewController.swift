@@ -28,7 +28,7 @@ final class CustomTimerViewController: UIViewController {
     
     private var customTimerComponent = CustomTimerComponent(
         name: "タイマー１",
-        timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0))]
+        timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), id: UUID().uuidString)], id: UUID().uuidString
     )
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
@@ -91,7 +91,7 @@ final class CustomTimerViewController: UIViewController {
         let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
-        customTimerComponent.timeInfomations.insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)), at: insertIndexPath.item)
+        customTimerComponent.timeInfomations.insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), id: UUID().uuidString), at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
@@ -107,7 +107,7 @@ final class CustomTimerViewController: UIViewController {
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
         customTimerComponent.timeInfomations
-            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), type: .rest),
+            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), type: .rest, id: UUID().uuidString),
                     at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
@@ -275,7 +275,7 @@ extension CustomTimerViewController: UICollectionViewDragDelegate {
                         itemsForBeginning session: UIDragSession,
                         at indexPath: IndexPath) -> [UIDragItem] {
         let timeInfomation = customTimerComponent.timeInfomations[indexPath.item]
-        let object = timeInfomation.id.uuidString as NSString
+        let object = timeInfomation.id as NSString
         let itemProvider = NSItemProvider(object: object)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         return [dragItem]

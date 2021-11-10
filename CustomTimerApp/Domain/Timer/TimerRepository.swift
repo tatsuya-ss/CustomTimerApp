@@ -101,7 +101,7 @@ private extension DataBaseCustomTimer {
             .map { DataBaseTimeInfomation(timeInfomation: $0) }
         self = DataBaseCustomTimer(name: customTimer.name,
                                    timeInfomations: timeInfomations,
-                                   id: customTimer.id.uuidString)
+                                   id: customTimer.id)
     }
 }
 
@@ -111,7 +111,7 @@ private extension DataBaseTimeInfomation {
             time: DataBaseTime(time: timeInfomation.time),
             text: timeInfomation.text,
             isRest: timeInfomation.type == .rest ? true : false,
-            id: timeInfomation.id.uuidString
+            id: timeInfomation.id
         )
     }
 }

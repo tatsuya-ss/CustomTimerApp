@@ -74,7 +74,7 @@ final class EditTimerViewController: UIViewController {
         let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
-        customTimerComponent.timeInfomations.insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0)), at: insertIndexPath.item)
+        customTimerComponent.timeInfomations.insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), id: UUID().uuidString), at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
                                 deselectedIndexPath: deselectedIndexPath)
@@ -90,7 +90,7 @@ final class EditTimerViewController: UIViewController {
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
         customTimerComponent.timeInfomations
-            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), type: .rest),
+            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), type: .rest, id: UUID().uuidString),
                     at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
@@ -274,7 +274,7 @@ extension EditTimerViewController: UICollectionViewDragDelegate {
                         itemsForBeginning session: UIDragSession,
                         at indexPath: IndexPath) -> [UIDragItem] {
         let timeInfomation = customTimerComponent.timeInfomations[indexPath.item]
-        let object = timeInfomation.id.uuidString as NSString
+        let object = timeInfomation.id as NSString
         let itemProvider = NSItemProvider(object: object)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         return [dragItem]
