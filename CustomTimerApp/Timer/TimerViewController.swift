@@ -91,10 +91,9 @@ final class TimerViewController: UIViewController {
         
         // MARK: didTappedSaveButton
         editTimerVC.didTappedSaveButton = { [weak self] indexPath, customTimerComponent in
-            guard let strongSelf = self else { return }
-            strongSelf.customTimers[indexPath.item] = customTimerComponent
-            strongSelf.updateCollectionView()
-            strongSelf.dismiss(animated: true, completion: nil)
+            self?.customTimers[indexPath.item] = customTimerComponent
+            self?.updateCollectionView()
+            self?.dismiss(animated: true, completion: nil)
         }
     }
     
