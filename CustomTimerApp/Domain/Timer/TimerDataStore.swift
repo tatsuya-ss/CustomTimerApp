@@ -9,20 +9,20 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-struct DataBaseCustomTimer: Encodable {
+struct DataBaseCustomTimer: Codable {
     var name: String
     var timeInfomations: [DataBaseTimeInfomation]
     let id: String
 }
 
-struct DataBaseTimeInfomation: Encodable {
+struct DataBaseTimeInfomation: Codable {
     var time: DataBaseTime
     var text: String?
     var isRest: Bool
     let id: String
 }
 
-struct DataBaseTime: Encodable {
+struct DataBaseTime: Codable {
     var hour: Int
     var minute: Int
     var second: Int
@@ -33,6 +33,8 @@ typealias StoreResultHandler<T> = (Result<T, Error>) -> Void
 protocol TimerDataStoreProtocol {
     func save(customTimer: DataBaseCustomTimer, completion: @escaping StoreResultHandler<Any?>)
     func savePhoto(customTimer: CustomTimerComponent, completion: @escaping StoreResultHandler<Any?>)
+    func fetch(completion: @escaping StoreResultHandler<[DataBaseCustomTimer]>)
+    func fetchPhotos(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>)
 }
 
 final class TimerDataStore: TimerDataStoreProtocol {
@@ -42,7 +44,10 @@ final class TimerDataStore: TimerDataStoreProtocol {
     
     func save(customTimer: DataBaseCustomTimer,
               completion: @escaping StoreResultHandler<Any?>) {
-        guard let user = user else { return }
+        guard let user = user else {
+            completion(.failure(DataBaseError.unknown))
+            return
+        }
         do {
             try db.collection("user").document(user.uid).collection("timer").addDocument(from: customTimer)
             completion(.success(nil))
