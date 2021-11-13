@@ -245,3 +245,29 @@ private extension DataBaseError {
         }
     }
 }
+
+// MARK: - errorMessage
+extension DataBaseError {
+    var errorMessage: String {
+        switch self {
+        case .aborted: return "操作中止されました。"
+        case .alreadyExists: return "すでに保存されています。"
+        case .cancelled: return "捜査がキャンセルされました。"
+        case .deadlineExceeded: return "時間内に保存が完了しませんでした。"
+        case .notFound: return "ドキュメントが見つかりませんでした。"
+        case .permissionDenied: return "権限がありません。"
+        case .unauthenticated: return "有効な認証情報がありません。"
+        case .unknown: return "予期しないエラーが発生しました。"
+      
+        case .objectNotFound: return "オブジェクトが存在しません。"
+        case .bucketNotFound: return "設定されているバケットはありません。"
+        case .projectNotFound: return "プロジェクトがありません。"
+        case .quotaExceeded: return "バケットのクオータが超過しました。"
+        case .unauthorized: return "実行権限がありません。"
+        case .retryLimitExceeded: return "操作の最大制限時間を超えました。"
+        case .nonMatchingChecksum: return "チェックサムが一致しません。"
+        case .downloadSizeExceeded: return "ダウンロードファイルのサイズがメモリ容量を超えています。"
+        case .invalidArgument: return "無効な引数が指定されました。"
+        }
+    }
+}
