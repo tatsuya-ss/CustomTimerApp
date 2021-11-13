@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension TimerViewController: ShowAlertProtocol { }
+
 final class TimerViewController: UIViewController {
     
     private enum Section {
@@ -43,11 +45,13 @@ final class TimerViewController: UIViewController {
     }
     
     private var userUseCase: UserUseCaseProtocol = UserUseCase()
+    private var timerUseCase: TimerUseCaseProtocol = TimerUseCase()
     private var dataSource: UICollectionViewDiffableDataSource<Section, CustomTimerComponent>! = nil
     private var customTimers: [CustomTimerComponent] = []
     private var operationState = OperationState()
     // DiffableDataSourceの性質上,didselectRowAtやdidDeselectRowAtが上手くいかないので、ここで選択したindexを管理して、全部の処理をdidSelectItemAtで行う(他にいい方法あるかもしれないが)
     private var selectedIndexPath: [IndexPath] = []
+    private let indicator = Indicator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +62,7 @@ final class TimerViewController: UIViewController {
         setupLongPressRecognizer()
         setupNavigation()
         setupToolBar()
+        fetchTimers()
     }
     
     @IBAction private func settingButtonDidTapped(_ sender: Any) {
@@ -73,7 +78,26 @@ final class TimerViewController: UIViewController {
         updateCollectionView()
         selectedIndexPath.removeAll()
     }
-    
+        
+    private func fetchTimers() {
+        indicator.show(flashType: .progress)
+        timerUseCase.fetch { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.indicator.flash(flashType: .error) {
+                    self?.showErrorAlert(title: error.errorMessage)
+                }
+            case .success(let customTimers):
+                self?.indicator.flash(flashType: .success) {
+                    DispatchQueue.main.async {
+                        self?.customTimers = customTimers
+                        self?.updateCollectionView()
+                    }
+                }
+            }
+        }
+    }
+
     private func presentCustomTimerVC() {
         let customTimerVC = CustomTimerViewController.instantiate()
         customTimerVC.delegate = self
@@ -91,10 +115,9 @@ final class TimerViewController: UIViewController {
         
         // MARK: didTappedSaveButton
         editTimerVC.didTappedSaveButton = { [weak self] indexPath, customTimerComponent in
-            guard let strongSelf = self else { return }
-            strongSelf.customTimers[indexPath.item] = customTimerComponent
-            strongSelf.updateCollectionView()
-            strongSelf.dismiss(animated: true, completion: nil)
+            self?.customTimers[indexPath.item] = customTimerComponent
+            self?.updateCollectionView()
+            self?.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -299,3 +322,4 @@ extension TimerViewController {
     }
     
 }
+

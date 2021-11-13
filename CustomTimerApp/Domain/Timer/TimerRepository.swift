@@ -34,6 +34,7 @@ enum DataBaseError: Error {
 protocol TimerRepositoryProtocol {
     func save(customTimer: CustomTimerComponent,
               completion: @escaping (Result<Any?, DataBaseError>) -> Void)
+    func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void)
 }
 
 final class TimerRepository: TimerRepositoryProtocol {
@@ -92,16 +93,94 @@ final class TimerRepository: TimerRepositoryProtocol {
         
     }
     
+    func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void) {
+        var fetchedCustomTimerComponents: [CustomTimerComponent] = []
+        var dataBaseError: DataBaseError?
+        
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        dataStore.fetch() { result in
+            defer { dispatchGroup.leave() }
+            switch result {
+            case .failure(let error):
+                dataBaseError = DataBaseError(firestore: error)
+            case .success(let timer):
+                fetchedCustomTimerComponents = timer.map { CustomTimerComponent(dataBaseCustomTimer: $0) }
+                fetchedCustomTimerComponents.enumerated().forEach { timer in
+                    timer.element.timeInfomations.enumerated().forEach { [weak self] timeInfomation in
+                        dispatchGroup.enter()
+                        self?.dataStore.fetchPhotos(timerId: timer.element.id, photoId: timeInfomation.element.id) { result in
+                            defer { dispatchGroup.leave() }
+                            switch result {
+                            case .failure(let error):
+                                dataBaseError = DataBaseError(storage: error)
+                            case .success(let url):
+                                if let photoData = try? Data(contentsOf: url) {
+                                    // URL
+                                    // file:///var/mobile/Containers/Data/Application/6E4D032D-64EB-4DD4-BA1B-BCC7E2B3E427/Library/Caches/73276074-D0E3-4B0D-B576-A5AE7BABF25F.jpg
+                                    fetchedCustomTimerComponents[timer.offset].timeInfomations[timeInfomation.offset].photo = photoData
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+                
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            if let dataBaseError = dataBaseError {
+                completion(.failure(dataBaseError))
+            } else {
+                completion(.success(fetchedCustomTimerComponents))
+            }
+        }
+        
+    }
+    
 }
 
-// MARK: - 共通の型へ変換
+private extension String {
+    static let fetchPhotosQueueLabel = "CustomTimerApp.FetchPhotosQueueLabel"
+}
+
+// MARK: - DataBaseCustomTimerから共通の型へ変換
+private extension CustomTimerComponent {
+    init(dataBaseCustomTimer: DataBaseCustomTimer) {
+        let timeInfomations = dataBaseCustomTimer.timeInfomations
+            .map { TimeInfomation(dataBaseTimeInfomation: $0) }
+        self = CustomTimerComponent(name: dataBaseCustomTimer.name,
+                                    timeInfomations: timeInfomations,
+                                    id: dataBaseCustomTimer.id)
+    }
+}
+
+private extension TimeInfomation {
+    init(dataBaseTimeInfomation: DataBaseTimeInfomation) {
+        self = TimeInfomation(time: Time(dataBaseTime: dataBaseTimeInfomation.time),
+                              photo: nil,
+                              text: dataBaseTimeInfomation.text,
+                              type: dataBaseTimeInfomation.isRest ? .rest : .action,
+                              id: dataBaseTimeInfomation.id)
+    }
+}
+
+private extension Time {
+    init(dataBaseTime: DataBaseTime) {
+        self = Time(hour: dataBaseTime.hour,
+                    minute: dataBaseTime.minute,
+                    second: dataBaseTime.second)
+    }
+}
+// MARK: - 共通の型からDataBaseCustomTimerへ変換
 private extension DataBaseCustomTimer {
     init(customTimer: CustomTimerComponent) {
         let timeInfomations = customTimer.timeInfomations
             .map { DataBaseTimeInfomation(timeInfomation: $0) }
         self = DataBaseCustomTimer(name: customTimer.name,
                                    timeInfomations: timeInfomations,
-                                   id: customTimer.id.uuidString)
+                                   id: customTimer.id)
     }
 }
 
@@ -111,7 +190,7 @@ private extension DataBaseTimeInfomation {
             time: DataBaseTime(time: timeInfomation.time),
             text: timeInfomation.text,
             isRest: timeInfomation.type == .rest ? true : false,
-            id: timeInfomation.id.uuidString
+            id: timeInfomation.id
         )
     }
 }
@@ -163,6 +242,32 @@ private extension DataBaseError {
             }
         } else {
             self = .unknown
+        }
+    }
+}
+
+// MARK: - errorMessage
+extension DataBaseError {
+    var errorMessage: String {
+        switch self {
+        case .aborted: return "操作中止されました。"
+        case .alreadyExists: return "すでに保存されています。"
+        case .cancelled: return "捜査がキャンセルされました。"
+        case .deadlineExceeded: return "時間内に保存が完了しませんでした。"
+        case .notFound: return "ドキュメントが見つかりませんでした。"
+        case .permissionDenied: return "権限がありません。"
+        case .unauthenticated: return "有効な認証情報がありません。"
+        case .unknown: return "予期しないエラーが発生しました。"
+      
+        case .objectNotFound: return "オブジェクトが存在しません。"
+        case .bucketNotFound: return "設定されているバケットはありません。"
+        case .projectNotFound: return "プロジェクトがありません。"
+        case .quotaExceeded: return "バケットのクオータが超過しました。"
+        case .unauthorized: return "実行権限がありません。"
+        case .retryLimitExceeded: return "操作の最大制限時間を超えました。"
+        case .nonMatchingChecksum: return "チェックサムが一致しません。"
+        case .downloadSizeExceeded: return "ダウンロードファイルのサイズがメモリ容量を超えています。"
+        case .invalidArgument: return "無効な引数が指定されました。"
         }
     }
 }

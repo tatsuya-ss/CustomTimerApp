@@ -10,6 +10,7 @@ import Foundation
 protocol TimerUseCaseProtocol {
     func save(customTimer: CustomTimerComponent,
               completion: @escaping (Result<Any?, DataBaseError>) -> Void)
+    func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void)
 }
 
 final class TimerUseCase: TimerUseCaseProtocol {
@@ -24,6 +25,10 @@ final class TimerUseCase: TimerUseCaseProtocol {
               completion: @escaping (Result<Any?, DataBaseError>) -> Void) {
         repository.save(customTimer: customTimer,
                         completion: completion)
+    }
+    
+    func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void) {
+        repository.fetch(completion: completion)
     }
     
 }
