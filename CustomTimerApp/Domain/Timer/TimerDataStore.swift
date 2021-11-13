@@ -31,10 +31,10 @@ struct DataBaseTime: Codable {
 typealias StoreResultHandler<T> = (Result<T, Error>) -> Void
 
 protocol TimerDataStoreProtocol {
-    func save(customTimer: DataBaseCustomTimer, completion: @escaping StoreResultHandler<Any?>)
+    func saveData(customTimer: DataBaseCustomTimer, completion: @escaping StoreResultHandler<Any?>)
     func savePhoto(customTimer: CustomTimerComponent, completion: @escaping StoreResultHandler<Any?>)
-    func fetch(completion: @escaping StoreResultHandler<[DataBaseCustomTimer]>)
-    func fetchPhotos(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>)
+    func fetchData(completion: @escaping StoreResultHandler<[DataBaseCustomTimer]>)
+    func fetchPhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>)
 }
 
 final class TimerDataStore: TimerDataStoreProtocol {
@@ -42,7 +42,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser
     
-    func save(customTimer: DataBaseCustomTimer,
+    func saveData(customTimer: DataBaseCustomTimer,
               completion: @escaping StoreResultHandler<Any?>) {
         guard let user = user else {
             completion(.failure(DataBaseError.unknown))
@@ -88,7 +88,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
         
     }
     
-    func fetch(completion: @escaping StoreResultHandler<[DataBaseCustomTimer]>) {
+    func fetchData(completion: @escaping StoreResultHandler<[DataBaseCustomTimer]>) {
         guard let user = user else {
             completion(.failure(DataBaseError.unknown))
             return
@@ -136,7 +136,8 @@ final class TimerDataStore: TimerDataStoreProtocol {
         }
     }
     
-    func fetchPhotos(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>) {
+    // TODO: たまにweakSelf.fetcherCompletion(data, error);の箇所でThread 1: EXC_BAD_ACCESS (code=1, address=0x10)の実行時エラーが出る。
+    func fetchPhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>) {
         guard let user = user else {
             completion(.failure(DataBaseError.unknown))
             return
@@ -159,6 +160,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
     
 }
 
+// MARK: - extension String
 private extension String {
     static let savePhotoQueueLabel = "CustomTimerApp.SavaPhotoQueue"
     static let fetchTimerDataQueueLabel = "CustomTimerApp.FetchTimerDataQueue"

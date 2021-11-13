@@ -55,7 +55,7 @@ final class TimerRepository: TimerRepositoryProtocol {
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
-        dataStore.save(customTimer: dataBaseCustomTimer) { result in
+        dataStore.saveData(customTimer: dataBaseCustomTimer) { result in
             defer { dispatchGroup.leave() }
             switch result {
             case .failure(let error):
@@ -99,7 +99,7 @@ final class TimerRepository: TimerRepositoryProtocol {
         
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
-        dataStore.fetch() { result in
+        dataStore.fetchData() { result in
             defer { dispatchGroup.leave() }
             switch result {
             case .failure(let error):
@@ -109,7 +109,7 @@ final class TimerRepository: TimerRepositoryProtocol {
                 fetchedCustomTimerComponents.enumerated().forEach { timer in
                     timer.element.timeInfomations.enumerated().forEach { [weak self] timeInfomation in
                         dispatchGroup.enter()
-                        self?.dataStore.fetchPhotos(timerId: timer.element.id, photoId: timeInfomation.element.id) { result in
+                        self?.dataStore.fetchPhoto(timerId: timer.element.id, photoId: timeInfomation.element.id) { result in
                             defer { dispatchGroup.leave() }
                             switch result {
                             case .failure(let error):
@@ -141,6 +141,7 @@ final class TimerRepository: TimerRepositoryProtocol {
     
 }
 
+// MARK: - extension String
 private extension String {
     static let fetchPhotosQueueLabel = "CustomTimerApp.FetchPhotosQueueLabel"
 }
