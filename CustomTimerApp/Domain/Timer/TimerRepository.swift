@@ -98,6 +98,9 @@ final class TimerRepository: TimerRepositoryProtocol {
         var dataBaseError: DataBaseError?
         
         let dispatchGroup = DispatchGroup()
+        let dispatchQueue = DispatchQueue(label: .fetchPhotosQueueLabel,
+                                          attributes: .concurrent)
+
         dispatchGroup.enter()
         dataStore.fetchData() { result in
             defer { dispatchGroup.leave() }
@@ -109,17 +112,19 @@ final class TimerRepository: TimerRepositoryProtocol {
                 fetchedCustomTimerComponents.enumerated().forEach { timer in
                     timer.element.timeInfomations.enumerated().forEach { [weak self] timeInfomation in
                         dispatchGroup.enter()
-                        self?.dataStore.fetchPhoto(timerId: timer.element.id, photoId: timeInfomation.element.id) { result in
-                            defer { dispatchGroup.leave() }
-                            switch result {
-                            case .failure(let error):
-                                let error = DataBaseError(storage: error)
-                                if error != .objectNotFound { dataBaseError = error }
-                            case .success(let url):
-                                if let photoData = try? Data(contentsOf: url) {
-                                    // URL
-                                    // file:///var/mobile/Containers/Data/Application/6E4D032D-64EB-4DD4-BA1B-BCC7E2B3E427/Library/Caches/73276074-D0E3-4B0D-B576-A5AE7BABF25F.jpg
-                                    fetchedCustomTimerComponents[timer.offset].timeInfomations[timeInfomation.offset].photo = photoData
+                        dispatchQueue.async(group: dispatchGroup) {
+                            self?.dataStore.fetchPhoto(timerId: timer.element.id, photoId: timeInfomation.element.id) { result in
+                                defer { dispatchGroup.leave() }
+                                switch result {
+                                case .failure(let error):
+                                    let error = DataBaseError(storage: error)
+                                    if error != .objectNotFound { dataBaseError = error }
+                                case .success(let url):
+                                    if let photoData = try? Data(contentsOf: url) {
+                                        // URL
+                                        // file:///var/mobile/Containers/Data/Application/6E4D032D-64EB-4DD4-BA1B-BCC7E2B3E427/Library/Caches/73276074-D0E3-4B0D-B576-A5AE7BABF25F.jpg
+                                        fetchedCustomTimerComponents[timer.offset].timeInfomations[timeInfomation.offset].photo = photoData
+                                    }
                                 }
                             }
                         }
