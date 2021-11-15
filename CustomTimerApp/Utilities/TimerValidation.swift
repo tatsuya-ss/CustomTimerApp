@@ -30,7 +30,7 @@ private extension CustomTimerComponent {
 
     func checkTimeIsNotZero() -> Bool {
         return timeInfomations.allSatisfy {
-            $0.time.hour != 0 && $0.time.minute != 0 && $0.time.second != 0
+            $0.time.hour + $0.time.minute + $0.time.second != 0
         }
     }
     
