@@ -23,6 +23,7 @@
 		75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */; };
 		75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */; };
 		75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */; };
+		758EE0532741FE080060DF78 /* TimerValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758EE0522741FE080060DF78 /* TimerValidation.swift */; };
 		7590EA75272CE2BE009137CD /* SignUpOrLogIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7590EA74272CE2BE009137CD /* SignUpOrLogIn.storyboard */; };
 		7590EA77272CE2EA009137CD /* SignUpOrLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590EA76272CE2EA009137CD /* SignUpOrLogInViewController.swift */; };
 		7590EA79272CE328009137CD /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7590EA78272CE328009137CD /* SignUp.storyboard */; };
@@ -107,6 +108,7 @@
 		75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCollectionViewCell.swift; sourceTree = "<group>"; };
 		75888FB226E859B900F1A545 /* TimerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerCollectionViewCell.xib; sourceTree = "<group>"; };
 		75888FB526E85C9300F1A545 /* CustomTimerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerComponent.swift; sourceTree = "<group>"; };
+		758EE0522741FE080060DF78 /* TimerValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerValidation.swift; sourceTree = "<group>"; };
 		7590EA74272CE2BE009137CD /* SignUpOrLogIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpOrLogIn.storyboard; sourceTree = "<group>"; };
 		7590EA76272CE2EA009137CD /* SignUpOrLogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOrLogInViewController.swift; sourceTree = "<group>"; };
 		7590EA78272CE328009137CD /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				75F6BD5927301AD1007309B7 /* HUD */,
 				75D28FEA26F9D771000718DF /* TimePickerViewStructure.swift */,
 				75D29059270050FB000718DF /* TimeString.swift */,
+				758EE0522741FE080060DF78 /* TimerValidation.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -732,6 +735,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				758EE0532741FE080060DF78 /* TimerValidation.swift in Sources */,
 				75EC6617270D803E0001F464 /* TimeManagement.swift in Sources */,
 				754C290C26F035DA0050252E /* UIViewController+Extension.swift in Sources */,
 				75BCC80127196948001B5810 /* EditTimerCollectionViewFlowLayout.swift in Sources */,

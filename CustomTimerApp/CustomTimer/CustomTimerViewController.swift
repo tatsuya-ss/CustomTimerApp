@@ -59,12 +59,16 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBAction private func saveTimerButtonDidTapped(_ sender: Any) {
+        let timerValidation = TimerValidation(customTimer: customTimerComponent)
         guard let text = timerNameTextField.text,
               !text.isEmpty else {
-                  showAlert(title: "タイマー名を設定してください",
-                            defaultTitle: "閉じる")
+                  showAlert(title: "タイマー名を設定してください", defaultTitle: "閉じる")
                   return
               }
+        if let errorMessage = timerValidation.validateAndReturnErrorOnFailure() {
+            showAlert(title: errorMessage, defaultTitle: "閉じる")
+            return
+        }
         indicator.show(flashType: .progress)
         customTimerComponent.name = text
         delegate?.didTapSaveButton(self, customTimerComponent: customTimerComponent)
@@ -129,6 +133,7 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
+    // MARK: - func
     private func adjustSelectedIndexWhenLastIndex() {
         let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
         if isLastIndex { selectedIndexPath.item -= 1 }
