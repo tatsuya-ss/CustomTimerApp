@@ -49,7 +49,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
             return
         }
         do {
-            try db.collection("user").document(user.uid).collection("timer").addDocument(from: customTimer)
+            try db.collection("user").document(user.uid).collection("timer").document(customTimer.id).setData(from: customTimer)
             completion(.success(nil))
         } catch {
             completion(.failure(error))
