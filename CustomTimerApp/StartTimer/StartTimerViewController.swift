@@ -161,14 +161,11 @@ extension StartTimerViewController {
         }
         let nextTime = timerBehavior.countTimes[nextIndex]
         content.body = "次は\(nextTime)秒です。"
-        let cachesDirectoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
-                                                                      .userDomainMask,
-                                                                      true)[0]
-        let timerId = timerBehavior.getTimerId()
         let photoId = timerBehavior.getTimeInfomations()[nextIndex].id
-        let photoURL = URL(fileURLWithPath: "\(cachesDirectoryPath)/\(timerId)/\(photoId).jpg")
+        let fileName = photoId.makeJPGFileName()
+        let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
         content.attachments = [try! UNNotificationAttachment(identifier: UUID().uuidString,
-                                                             url: photoURL,
+                                                             url: cachesDirectoryPathURL,
                                                              options: nil)]
         return content
     }

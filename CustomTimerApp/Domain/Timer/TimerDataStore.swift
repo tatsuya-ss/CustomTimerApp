@@ -143,15 +143,13 @@ final class TimerDataStore: TimerDataStoreProtocol {
             return
         }
         let photoRef =  Storage.storage().reference().child("users/\(user.uid)/timers/\(timerId)/\(photoId).jpg")
-        let cachesDirectoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
-                                                                      .userDomainMask,
-                                                                      true)[0]
-        let cachesURL = URL(fileURLWithPath: "\(cachesDirectoryPath)/\(timerId)/\(photoId).jpg")
-        let downloadTask = photoRef.write(toFile: cachesURL) { url, error in
+        let fileName = photoId.makeJPGFileName()
+        let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
+        let downloadTask = photoRef.write(toFile: cachesDirectoryPathURL) { url, error in
             if let error = error {
                 completion(.failure(error))
             } else {
-                completion(.success(cachesURL))
+                completion(.success(cachesDirectoryPathURL))
             }
         }
         downloadTask.resume()
