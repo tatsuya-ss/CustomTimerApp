@@ -131,19 +131,15 @@ extension StartTimerViewController {
     private func setupTimerLocalNotification() {
         timerBehavior.countTimes.enumerated().forEach {
             let registerTime = timerBehavior.countTimes[0...$0.offset].reduce(0, +)
-            let nextTime = $0.offset == timerBehavior.countTimes.endIndex - 1
-            ? nil : timerBehavior.countTimes[$0.offset + 1]
-            let photoData = timerBehavior.photoData[$0.offset]
+            let nextIndex = ($0.offset == timerBehavior.countTimes.endIndex - 1) ? nil : $0.offset + 1
             setTimerLocalNotification(registerTime: registerTime,
-                                      nextTime: nextTime,
-                                      photoData: photoData)
+                                      nextIndex: nextIndex)
         }
     }
     
     private func setTimerLocalNotification(registerTime: Int,
-                                           nextTime: Int?,
-                                           photoData: Data?) {
-        let content = makeNotificationContent(time: nextTime)
+                                           nextIndex: Int?) {
+        let content = makeNotificationContent(nextIndex: nextIndex)
         let trigger = makeTimeIntervalNotificationTrigger(time: registerTime)
         let request = makeNotificationRequest(content: content, trigger: trigger)
         let notificationCenter = UNUserNotificationCenter.current()
@@ -156,11 +152,24 @@ extension StartTimerViewController {
         }
     }
     
-    private func makeNotificationContent(time: Int?) -> UNMutableNotificationContent {
+    private func makeNotificationContent(nextIndex: Int?) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "CustomTimerApp"
-        if let time = time { content.body = "次は\(time)秒です。" }
-        else { content.body = "タイマー終了です。お疲れ様でした。" }
+        guard let nextIndex = nextIndex else {
+            content.body = "タイマー終了です。お疲れ様でした。"
+            return content
+        }
+        let nextTime = timerBehavior.countTimes[nextIndex]
+        content.body = "次は\(nextTime)秒です。"
+        let cachesDirectoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
+                                                                      .userDomainMask,
+                                                                      true)[0]
+        let timerId = timerBehavior.getTimerId()
+        let photoId = timerBehavior.getTimeInfomations()[nextIndex].id
+        let photoURL = URL(fileURLWithPath: "\(cachesDirectoryPath)/\(timerId)/\(photoId).jpg")
+        content.attachments = [try! UNNotificationAttachment(identifier: UUID().uuidString,
+                                                             url: photoURL,
+                                                             options: nil)]
         return content
     }
     

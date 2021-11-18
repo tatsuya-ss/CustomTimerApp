@@ -122,7 +122,7 @@ final class TimerRepository: TimerRepositoryProtocol {
                                 case .success(let url):
                                     if let photoData = try? Data(contentsOf: url) {
                                         // URL
-                                        // file:///var/mobile/Containers/Data/Application/6E4D032D-64EB-4DD4-BA1B-BCC7E2B3E427/Library/Caches/73276074-D0E3-4B0D-B576-A5AE7BABF25F.jpg
+                                        // file:///var/mobile/Containers/Data/Application/BD8AA597-DB71-4F68-B1B9-32AD4CB565B0/Library/Caches/E1A204E4-21E8-43BE-97A8-8C9D6F7D8AB2/99F72466-EEE2-49AF-B99D-E37332570B5A.jpg
                                         fetchedCustomTimerComponents[timer.offset].timeInfomations[timeInfomation.offset].photo = photoData
                                     }
                                 }
