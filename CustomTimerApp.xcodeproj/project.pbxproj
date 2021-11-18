@@ -18,6 +18,8 @@
 		7570114A26CCFCCC00716E93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7570114826CCFCCC00716E93 /* LaunchScreen.storyboard */; };
 		7570115526CCFCCD00716E93 /* CustomTimerAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570115426CCFCCD00716E93 /* CustomTimerAppTests.swift */; };
 		7570116026CCFCCD00716E93 /* CustomTimerAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570115F26CCFCCD00716E93 /* CustomTimerAppUITests.swift */; };
+		7570591927463CAF000CA4FD /* DirectoryManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570591827463CAF000CA4FD /* DirectoryManagement.swift */; };
+		7570591B2746420D000CA4FD /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570591A2746420D000CA4FD /* String+Extension.swift */; };
 		757AF5FA272FBA0700C85C70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 757AF5F9272FBA0700C85C70 /* GoogleService-Info.plist */; };
 		757FEC242705B97D00E02B23 /* ShowAlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757FEC232705B97D00E02B23 /* ShowAlertProtocol.swift */; };
 		75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */; };
@@ -103,6 +105,8 @@
 		7570115B26CCFCCD00716E93 /* CustomTimerAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomTimerAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7570115F26CCFCCD00716E93 /* CustomTimerAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerAppUITests.swift; sourceTree = "<group>"; };
 		7570116126CCFCCD00716E93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7570591827463CAF000CA4FD /* DirectoryManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryManagement.swift; sourceTree = "<group>"; };
+		7570591A2746420D000CA4FD /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		757AF5F9272FBA0700C85C70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		757FEC232705B97D00E02B23 /* ShowAlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertProtocol.swift; sourceTree = "<group>"; };
 		75888FB126E859B900F1A545 /* TimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -207,6 +211,7 @@
 			children = (
 				754C290B26F035DA0050252E /* UIViewController+Extension.swift */,
 				75D28F4926F721D3000718DF /* UIImage+Extension.swift */,
+				7570591A2746420D000CA4FD /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				75D28FEA26F9D771000718DF /* TimePickerViewStructure.swift */,
 				75D29059270050FB000718DF /* TimeString.swift */,
 				758EE0522741FE080060DF78 /* TimerValidation.swift */,
+				7570591827463CAF000CA4FD /* DirectoryManagement.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -738,6 +744,7 @@
 				758EE0532741FE080060DF78 /* TimerValidation.swift in Sources */,
 				75EC6617270D803E0001F464 /* TimeManagement.swift in Sources */,
 				754C290C26F035DA0050252E /* UIViewController+Extension.swift in Sources */,
+				7570591927463CAF000CA4FD /* DirectoryManagement.swift in Sources */,
 				75BCC80127196948001B5810 /* EditTimerCollectionViewFlowLayout.swift in Sources */,
 				754C291026F037000050252E /* CustomTimerCollectionViewCell.swift in Sources */,
 				75DC7B5626CFD92200A142BF /* TimerViewController.swift in Sources */,
@@ -762,6 +769,7 @@
 				75888FB326E859B900F1A545 /* TimerCollectionViewCell.swift in Sources */,
 				757FEC242705B97D00E02B23 /* ShowAlertProtocol.swift in Sources */,
 				75DBEF612733A2FE007589F9 /* TimerUseCase.swift in Sources */,
+				7570591B2746420D000CA4FD /* String+Extension.swift in Sources */,
 				75D28FEB26F9D771000718DF /* TimePickerViewStructure.swift in Sources */,
 				75D28ED326F3118D000718DF /* CustomTimerCollectionViewFlowLayout.swift in Sources */,
 				75BCC7FA27195DD8001B5810 /* EditTimerViewController.swift in Sources */,
