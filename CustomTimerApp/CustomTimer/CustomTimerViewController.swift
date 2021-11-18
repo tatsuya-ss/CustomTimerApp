@@ -80,8 +80,22 @@ final class CustomTimerViewController: UIViewController {
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {
+                    self?.writePhotoDataToCached()
                     self?.dismiss(animated: true, completion: nil)
                 }
+            }
+        }
+    }
+    
+    
+    private func writePhotoDataToCached() {
+        customTimerComponent.timeInfomations.forEach {
+            let fileName = $0.id.makeJPGFileName()
+            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
+            do {
+                try $0.photo?.write(to: cachesDirectoryPathURL)
+            } catch {
+                print(error)
             }
         }
     }
