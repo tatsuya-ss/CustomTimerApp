@@ -33,6 +33,14 @@ final class TimerBehavior {
         timeManagement.customTimerConponent.timeInfomations.map { $0.photo }
     }
     
+    func getTimerId () -> String {
+        timeManagement.customTimerConponent.id
+    }
+    
+    func getTimeInfomations() -> [TimeInfomation] {
+        timeManagement.customTimerConponent.timeInfomations
+    }
+    
     func makeInitialPhotoData() -> Data? {
         timeManagement.customTimerConponent.timeInfomations.first?.photo
     }
