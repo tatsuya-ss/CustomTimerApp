@@ -156,7 +156,8 @@ extension StartTimerViewController {
         let content = UNMutableNotificationContent()
         content.title = "CustomTimerApp"
         guard let nextIndex = nextIndex else {
-            content.body = "タイマー終了です。お疲れ様でした。"
+            let timerName = timerBehavior.getTimerName()
+            content.body = "\(timerName)終了です。お疲れ様でした。"
             return content
         }
         let nextTime = timerBehavior.countTimes[nextIndex]

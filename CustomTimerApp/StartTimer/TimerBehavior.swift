@@ -37,6 +37,10 @@ final class TimerBehavior {
         timeManagement.customTimerConponent.id
     }
     
+    func getTimerName() -> String {
+        timeManagement.customTimerConponent.name
+    }
+    
     func getTimeInfomations() -> [TimeInfomation] {
         timeManagement.customTimerConponent.timeInfomations
     }
