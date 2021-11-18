@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+extension String {
+    
+    func makeJPGFileName() -> String {
+        self + ".jpg"
+    }
+    
+}
