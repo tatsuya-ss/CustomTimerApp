@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+struct DirectoryManagement {
+    
+    func makeCacheDirectoryPathURL(fileName: String) -> URL {
+        let cachesDirectoryPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let cachesDirectoryPathURL = cachesDirectoryPath.appendingPathComponent(fileName)
+        
+        return cachesDirectoryPathURL
+    }
+    
+}
