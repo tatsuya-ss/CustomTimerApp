@@ -27,7 +27,7 @@ final class CustomTimerViewController: UIViewController {
     @IBOutlet private weak var photoButton: UIButton!
     
     private var customTimerComponent = CustomTimerComponent(
-        name: "タイマー１",
+        name: "",
         timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), id: UUID().uuidString)], id: UUID().uuidString
     )
     private var selectedIndexPath: IndexPath = [0, 0]
@@ -106,6 +106,7 @@ final class CustomTimerViewController: UIViewController {
     
     // TODO: plusを押してすぐdeleteを押すと出るエラー修正 "Attempted to scroll the collection view to an out-of-bounds item (0) when there are only 0 items in section 0."
     @IBAction func plusButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
@@ -117,10 +118,12 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         getPhotosAuthorization()
     }
     
     @IBAction private func restButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
@@ -134,6 +137,7 @@ final class CustomTimerViewController: UIViewController {
     }
     
     @IBAction func deleteButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         guard !customTimerComponent.timeInfomations.isEmpty else { return }
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
@@ -273,6 +277,7 @@ extension CustomTimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+        timerNameTextField.resignFirstResponder()
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = indexPath
         collectionView.performBatchUpdates {
