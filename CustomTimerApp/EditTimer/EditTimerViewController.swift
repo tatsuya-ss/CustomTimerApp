@@ -71,6 +71,7 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func plusButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
@@ -82,10 +83,12 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         getPhotosAuthorization()
     }
     
     @IBAction private func restButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         let insertIndexPath = IndexPath(item: selectedIndexPath.item + 1, section: 0)
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
@@ -99,6 +102,7 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func deleteButtonDidTapped(_ sender: Any) {
+        timerNameTextField.resignFirstResponder()
         guard !customTimerComponent.timeInfomations.isEmpty else { return }
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
@@ -254,6 +258,7 @@ extension EditTimerViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+        timerNameTextField.resignFirstResponder()
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = indexPath
         collectionView.performBatchUpdates {

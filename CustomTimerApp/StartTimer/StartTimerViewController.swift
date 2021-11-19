@@ -156,19 +156,17 @@ extension StartTimerViewController {
         let content = UNMutableNotificationContent()
         content.title = "CustomTimerApp"
         guard let nextIndex = nextIndex else {
-            content.body = "タイマー終了です。お疲れ様でした。"
+            let timerName = timerBehavior.getTimerName()
+            content.body = "\(timerName)終了です。お疲れ様でした。"
             return content
         }
         let nextTime = timerBehavior.countTimes[nextIndex]
         content.body = "次は\(nextTime)秒です。"
-        let cachesDirectoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
-                                                                      .userDomainMask,
-                                                                      true)[0]
-        let timerId = timerBehavior.getTimerId()
         let photoId = timerBehavior.getTimeInfomations()[nextIndex].id
-        let photoURL = URL(fileURLWithPath: "\(cachesDirectoryPath)/\(timerId)/\(photoId).jpg")
+        let fileName = photoId.makeJPGFileName()
+        let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
         content.attachments = [try! UNNotificationAttachment(identifier: UUID().uuidString,
-                                                             url: photoURL,
+                                                             url: cachesDirectoryPathURL,
                                                              options: nil)]
         return content
     }
