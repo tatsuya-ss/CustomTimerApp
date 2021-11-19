@@ -208,6 +208,7 @@ extension TimerViewController: UICollectionViewDelegate {
             present(navigationController, animated: true, completion: nil)
             collectionView.deselectItem(at: indexPath, animated: true)
         case .edit:
+            collectionView.deselectItem(at: indexPath, animated: true)
             presentEditTimerVC(indexPath: indexPath)
         case .delete:
             customTimers[indexPath.item].isSelected.toggle()
