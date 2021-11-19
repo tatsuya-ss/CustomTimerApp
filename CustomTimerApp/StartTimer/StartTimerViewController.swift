@@ -132,8 +132,7 @@ extension StartTimerViewController {
         timerBehavior.countTimes.enumerated().forEach {
             let registerTime = timerBehavior.countTimes[0...$0.offset].reduce(0, +)
             let nextIndex = ($0.offset == timerBehavior.countTimes.endIndex - 1) ? nil : $0.offset + 1
-            setTimerLocalNotification(registerTime: registerTime,
-                                      nextIndex: nextIndex)
+            setTimerLocalNotification(registerTime: registerTime, nextIndex: nextIndex)
         }
     }
     
@@ -161,12 +160,19 @@ extension StartTimerViewController {
             return content
         }
         let nextTime = timerBehavior.countTimes[nextIndex]
-        content.body = "次は\(nextTime)秒です。"
         let photoId = timerBehavior.getTimeInfomations()[nextIndex].id
         let fileName = photoId.makeJPGFileName()
-        let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
+        let directoryManagement = DirectoryManagement()
+        let cachesDirectoryPathURL = directoryManagement.makeCacheDirectoryPathURL(fileName: fileName)
+        let temporaryDirectoryPathURL = directoryManagement.makeTemporaryDirectoryPathURL(fileName: fileName)
+        do {
+            try FileManager.default.copyItem(at: cachesDirectoryPathURL, to: temporaryDirectoryPathURL)
+        } catch {
+            print(error)
+        }
+        content.body = "次は\(nextTime)秒です。"
         content.attachments = [try! UNNotificationAttachment(identifier: UUID().uuidString,
-                                                             url: cachesDirectoryPathURL,
+                                                             url: temporaryDirectoryPathURL,
                                                              options: nil)]
         return content
     }

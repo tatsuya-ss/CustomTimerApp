@@ -16,4 +16,9 @@ struct DirectoryManagement {
         return cachesDirectoryPathURL
     }
     
+    func makeTemporaryDirectoryPathURL(fileName: String) -> URL {
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let temporaryDirectoryPath = temporaryDirectoryURL.appendingPathComponent(fileName)
+        return temporaryDirectoryPath
+    }
 }
