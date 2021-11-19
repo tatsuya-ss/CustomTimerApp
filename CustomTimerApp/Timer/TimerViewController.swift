@@ -72,11 +72,24 @@ final class TimerViewController: UIViewController {
     }
     
     @IBAction private func deleteButtonDidTapped(_ sender: Any) {
-        selectedIndexPath
-            .sorted { $1 < $0 }
-            .forEach { customTimers.remove(at: $0.item) }
-        updateCollectionView()
-        selectedIndexPath.removeAll()
+        indicator.show(flashType: .progress)
+        let deleteTimers = selectedIndexPath.map { customTimers[$0.item] }
+        timerUseCase.delete(customTimer: deleteTimers) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.indicator.flash(flashType: .error) {
+                    print(error)
+                }
+            case .success:
+                self?.indicator.flash(flashType: .success) {
+                    self?.selectedIndexPath
+                        .sorted { $1 < $0 }
+                        .forEach { self?.customTimers.remove(at: $0.item) }
+                    self?.updateCollectionView()
+                    self?.selectedIndexPath.removeAll()
+                }
+            }
+        }
     }
         
     private func fetchTimers() {
@@ -190,8 +203,7 @@ extension TimerViewController: UICollectionViewDelegate {
             let isSelected = selectedIndexPath.contains(indexPath)
             if isSelected { selectedIndexPath.removeAll(where: { $0 == indexPath }) }
             else { selectedIndexPath.append(indexPath) }
-            if selectedIndexPath.isEmpty { deleteButton.isEnabled = false }
-            else { deleteButton.isEnabled = true }
+            deleteButton.isEnabled = !selectedIndexPath.isEmpty
             print(selectedIndexPath)
         }
     }

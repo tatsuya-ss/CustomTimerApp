@@ -35,13 +35,16 @@ protocol TimerDataStoreProtocol {
     func savePhoto(customTimer: CustomTimerComponent, completion: @escaping StoreResultHandler<Any?>)
     func fetchData(completion: @escaping StoreResultHandler<[DataBaseCustomTimer]>)
     func fetchPhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>)
+    func deleteData(timerId: String, completion: @escaping StoreResultHandler<Any?>)
+    func deletePhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<Any?>)
 }
 
 final class TimerDataStore: TimerDataStoreProtocol {
     
     let db = Firestore.firestore()
     let user = Auth.auth().currentUser
-    
+    let storageRef = Storage.storage().reference()
+
     func saveData(customTimer: DataBaseCustomTimer,
               completion: @escaping StoreResultHandler<Any?>) {
         guard let user = user else {
@@ -62,7 +65,6 @@ final class TimerDataStore: TimerDataStoreProtocol {
             completion(.failure(DataBaseError.unknown))
             return
         }
-        let storageRef = Storage.storage().reference()
         
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: .savePhotoQueueLabel,
@@ -70,7 +72,8 @@ final class TimerDataStore: TimerDataStoreProtocol {
         
         customTimer.timeInfomations.forEach {
             if let photoData =  $0.photo {
-                let photoRef =  storageRef.child("users/\(user.uid)/timers/\(customTimer.id)/\($0.id).jpg")
+                let fileName = $0.id.makeJPGFileName()
+                let photoRef =  storageRef.child("users/\(user.uid)/timers/\(customTimer.id)/\(fileName)")
                 dispatchQueue.async(group: dispatchGroup) {
                     photoRef.putData(photoData, metadata: nil) { metadata, error in
                         if let error = error {
@@ -142,8 +145,8 @@ final class TimerDataStore: TimerDataStoreProtocol {
             completion(.failure(DataBaseError.unknown))
             return
         }
-        let photoRef =  Storage.storage().reference().child("users/\(user.uid)/timers/\(timerId)/\(photoId).jpg")
         let fileName = photoId.makeJPGFileName()
+        let photoRef =  Storage.storage().reference().child("users/\(user.uid)/timers/\(timerId)/\(fileName)")
         let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
         let downloadTask = photoRef.write(toFile: cachesDirectoryPathURL) { url, error in
             if let error = error {
@@ -153,6 +156,36 @@ final class TimerDataStore: TimerDataStoreProtocol {
             }
         }
         downloadTask.resume()
+    }
+    
+    func deleteData(timerId: String, completion: @escaping StoreResultHandler<Any?>) {
+        guard let user = user else {
+            completion(.failure(DataBaseError.unknown))
+            return
+        }
+        db.collection("user").document(user.uid).collection("timer").document(timerId).delete { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(nil))
+            }
+        }
+    }
+    
+    func deletePhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<Any?>) {
+        guard let user = user else {
+            completion(.failure(DataBaseError.unknown))
+            return
+        }
+        let fileName = photoId.makeJPGFileName()
+        let photoRef =  storageRef.child("users/\(user.uid)/timers/\(timerId)/\(fileName)")
+        photoRef.delete { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(nil))
+            }
+        }
     }
     
 }

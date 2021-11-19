@@ -35,6 +35,7 @@ protocol TimerRepositoryProtocol {
     func save(customTimer: CustomTimerComponent,
               completion: @escaping (Result<Any?, DataBaseError>) -> Void)
     func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void)
+    func delete(customTimer: [CustomTimerComponent], completion: @escaping (Result<Any?, DataBaseError>) -> Void)
 }
 
 final class TimerRepository: TimerRepositoryProtocol {
@@ -131,7 +132,6 @@ final class TimerRepository: TimerRepositoryProtocol {
                     }
                     
                 }
-                
             }
         }
         
@@ -145,6 +145,46 @@ final class TimerRepository: TimerRepositoryProtocol {
         
     }
     
+    func delete(customTimer: [CustomTimerComponent], completion: @escaping (Result<Any?, DataBaseError>) -> Void) {
+        var dataBaseError: DataBaseError?
+        let dispatchGroup = DispatchGroup()
+        
+        customTimer.forEach { timer in
+            dispatchGroup.enter()
+            dataStore.deleteData(timerId: timer.id) { result in
+                defer { dispatchGroup.leave() }
+                switch result {
+                case .failure(let error):
+                    dataBaseError = DataBaseError(firestore: error)
+                case .success:
+                    break
+                }
+            }
+        }
+        
+        customTimer.forEach { timer in
+            timer.timeInfomations.forEach { timeInfomation in
+                dispatchGroup.enter()
+                dataStore.deletePhoto(timerId: timer.id, photoId: timeInfomation.id) { result in
+                    defer { dispatchGroup.leave() }
+                    switch result {
+                    case .failure(let error):
+                        dataBaseError = DataBaseError(storage: error)
+                    case .success:
+                        break
+                    }
+                }
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            if let dataBaseError = dataBaseError {
+                completion(.failure(dataBaseError))
+            } else {
+                completion(.success(nil))
+            }
+        }
+    }
 }
 
 // MARK: - extension String
