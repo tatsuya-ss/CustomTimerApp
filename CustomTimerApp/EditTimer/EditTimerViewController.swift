@@ -23,12 +23,13 @@ final class EditTimerViewController: UIViewController {
     
     private var customTimerComponent: CustomTimerComponent!
     private var editingIndexPath: IndexPath!
+    private var timerUseCase: TimerUseCaseProtocol!
     func receiveCustomTimerComponent(customTimerComponent: CustomTimerComponent,
                                      editingIndexPath: IndexPath) {
         self.customTimerComponent = customTimerComponent
         self.editingIndexPath = editingIndexPath
     }
-    
+    private let indicator = Indicator()
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]
     private var selectedIndexPath: IndexPath = [0, 0]
     var didTappedSaveButton: ((IndexPath, CustomTimerComponent) -> Void)?
@@ -62,8 +63,26 @@ final class EditTimerViewController: UIViewController {
                   showTimerNameEmptyAlert()
                   return
               }
+        indicator.show(flashType: .progress)
         customTimerComponent.name = text
-        didTappedSaveButton?(editingIndexPath, customTimerComponent)
+        timerUseCase.save(customTimer: customTimerComponent) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.indicator.flash(flashType: .error) {
+                    self?.showErrorAlert(title: error.errorMessage)
+                }
+            case .success:
+                self?.indicator.flash(flashType: .success) {
+                    self?.writePhotoDataToCached()
+                    guard let editingIndexPath = self?.editingIndexPath,
+                          let customTimerComponent = self?.customTimerComponent else {
+                              self?.dismiss(animated: true, completion: nil)
+                              return
+                          }
+                    self?.didTappedSaveButton?(editingIndexPath, customTimerComponent)
+                }
+            }
+        }
     }
     
     @IBAction private func cancelButtonDidTapped(_ sender: Any) {
@@ -113,6 +132,18 @@ final class EditTimerViewController: UIViewController {
             self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
                                               at: .centeredHorizontally,
                                               animated: true)
+        }
+    }
+    
+    private func writePhotoDataToCached() {
+        customTimerComponent.timeInfomations.forEach {
+            let fileName = $0.id.makeJPGFileName()
+            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
+            do {
+                try $0.photo?.write(to: cachesDirectoryPathURL)
+            } catch {
+                print(error, "失敗")
+            }
         }
     }
     
@@ -356,11 +387,12 @@ extension EditTimerViewController: UIPickerViewDelegate {
 // MARK: - setup
 extension EditTimerViewController {
     
-    static func instantiate() -> EditTimerViewController {
+    static func instantiate(timerUseCase: TimerUseCaseProtocol = TimerUseCase()) -> EditTimerViewController {
         guard let editTimerVC = UIStoryboard(name: "EditTimer", bundle: nil)
                 .instantiateViewController(withIdentifier: "EditTimerViewController")
                 as? EditTimerViewController
         else { fatalError("EditTimerViewControllerが見つかりません。") }
+        editTimerVC.timerUseCase = timerUseCase
         return editTimerVC
     }
     
