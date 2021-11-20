@@ -116,22 +116,25 @@ final class TimerViewController: UIViewController {
             case .success(let customTimers):
                 self?.indicator.flash(flashType: .success) {
                     DispatchQueue.main.async {
-                        self?.customTimers = customTimers
-                        self?.customTimers.sort { l,r -> Bool in
-                            switch (l.createdDate, r.createdDate) {
-                            case (.some(let l), .some(let r)):
-                                return l < r
-                            case (.some, .none):
-                                return true
-                            case (.none, .some):
-                                return false
-                            case (.none, .none):
-                                return false
-                            }
-                        }
+                        self?.customTimers = self?.sortCreatedDate(customTimers: customTimers) ?? customTimers
                         self?.updateCollectionView()
                     }
                 }
+            }
+        }
+    }
+    
+    private func sortCreatedDate(customTimers: [CustomTimerComponent]) -> [CustomTimerComponent] {
+        customTimers.sorted { l,r -> Bool in
+            switch (l.createdDate, r.createdDate) {
+            case (.some(let l), .some(let r)):
+                return l < r
+            case (.some, .none):
+                return true
+            case (.none, .some):
+                return false
+            case (.none, .none):
+                return false
             }
         }
     }
