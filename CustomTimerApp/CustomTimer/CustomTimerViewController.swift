@@ -28,7 +28,8 @@ final class CustomTimerViewController: UIViewController {
     
     private var customTimerComponent = CustomTimerComponent(
         name: "",
-        timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), id: UUID().uuidString)], id: UUID().uuidString
+        timeInfomations: [TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), id: UUID().uuidString)],
+        id: UUID().uuidString
     )
     private var selectedIndexPath: IndexPath = [0, 0]
     private let TimeStructures: [TimePickerViewStructure] = [Hour(), Minute(), Second()]

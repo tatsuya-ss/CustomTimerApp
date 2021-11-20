@@ -12,6 +12,7 @@ struct CustomTimerComponent: Hashable {
     var timeInfomations: [TimeInfomation]
     var isSelected: Bool = false
     let id: String
+    var createdDate: Date?
 }
 
 struct TimeInfomation: Hashable {

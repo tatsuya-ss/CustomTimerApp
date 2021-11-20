@@ -197,9 +197,11 @@ private extension CustomTimerComponent {
     init(dataBaseCustomTimer: DataBaseCustomTimer) {
         let timeInfomations = dataBaseCustomTimer.timeInfomations
             .map { TimeInfomation(dataBaseTimeInfomation: $0) }
+        let createDate = dataBaseCustomTimer.createdDate?.dateValue()
         self = CustomTimerComponent(name: dataBaseCustomTimer.name,
                                     timeInfomations: timeInfomations,
-                                    id: dataBaseCustomTimer.id)
+                                    id: dataBaseCustomTimer.id,
+                                    createdDate: createDate)
     }
 }
 
@@ -225,9 +227,11 @@ private extension DataBaseCustomTimer {
     init(customTimer: CustomTimerComponent) {
         let timeInfomations = customTimer.timeInfomations
             .map { DataBaseTimeInfomation(timeInfomation: $0) }
+        let createdDate = (customTimer.createdDate == nil) ? nil : Timestamp(date: customTimer.createdDate!)
         self = DataBaseCustomTimer(name: customTimer.name,
                                    timeInfomations: timeInfomations,
-                                   id: customTimer.id)
+                                   id: customTimer.id,
+                                   createdDate: createdDate)
     }
 }
 

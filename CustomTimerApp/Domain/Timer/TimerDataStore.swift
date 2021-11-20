@@ -9,10 +9,12 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
+// https://stackoverflow.com/questions/64872729/firebase-firestore-using-servertimestamp-in-a-custom-object-in-swift
 struct DataBaseCustomTimer: Codable {
     var name: String
     var timeInfomations: [DataBaseTimeInfomation]
     let id: String
+    @ServerTimestamp var createdDate: Timestamp?
 }
 
 struct DataBaseTimeInfomation: Codable {
