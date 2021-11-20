@@ -103,6 +103,8 @@ final class TimerViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // オプショナル値のsortのやり方。以下の記事参考にした。
+    // https://qiita.com/mishimay/items/59fba10170ed2ff7690a
     private func fetchTimers() {
         indicator.show(flashType: .progress)
         timerUseCase.fetch { [weak self] result in
@@ -115,6 +117,18 @@ final class TimerViewController: UIViewController {
                 self?.indicator.flash(flashType: .success) {
                     DispatchQueue.main.async {
                         self?.customTimers = customTimers
+                        self?.customTimers.sort { l,r -> Bool in
+                            switch (l.createdDate, r.createdDate) {
+                            case (.some(let l), .some(let r)):
+                                return l < r
+                            case (.some, .none):
+                                return true
+                            case (.none, .some):
+                                return false
+                            case (.none, .none):
+                                return false
+                            }
+                        }
                         self?.updateCollectionView()
                     }
                 }
