@@ -21,14 +21,9 @@ final class StartTimerViewController: UIViewController {
     private let notificationCenter = UNUserNotificationCenter.current()
     private var notificationIdentifiers: [String] = []
     
-    func getCustomTimer(customTimerComponent: CustomTimerComponent) {
-        self.timerBehavior = TimerBehavior(
-            timeManagement: TimeManagement(customTimerConponent: customTimerComponent)
-        )
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLayout()
         setupModelInPresentation()
         setupTimerBehavior()
         setupAVAudioPlayer()
@@ -105,21 +100,27 @@ extension StartTimerViewController: TimerBehaviorDelegate {
 // MARK: - setup
 extension StartTimerViewController {
     
-    static func instantiate() -> StartTimerViewController {
+    static func instantiate(customTimerComponent: CustomTimerComponent) -> StartTimerViewController {
         guard let startTimerVC = UIStoryboard(name: "StartTimer", bundle: nil)
                 .instantiateViewController(withIdentifier: "StartTimerViewController")
                 as? StartTimerViewController
         else { fatalError("StartTimerViewControllerが見つかりません。") }
+        let timeManagement = TimeManagement(customTimerConponent: customTimerComponent)
+        startTimerVC.timerBehavior = TimerBehavior(timeManagement: timeManagement)
         return startTimerVC
+    }
+    
+    private func setupLayout() {
+        CountDownView.layer.cornerRadius = 20
+        CountDownView.layer.borderWidth = 1
+        CountDownView.layer.borderColor = UIColor.black.cgColor
     }
     
     private func setupTimerBehavior() {
         timerBehavior.delegate = self
         currentTimeLabel.text = timerBehavior.startTimeString()
-        guard let photoData = timerBehavior.makeInitialPhotoData()
-        else { return }
-        let photoImage = UIImage(data: photoData)
-        timerContentsImageView.image = photoImage
+        guard let photoData = timerBehavior.makeInitialPhotoData() else { return }
+        timerContentsImageView.image = UIImage(data: photoData)
     }
     
     private func setupModelInPresentation() {

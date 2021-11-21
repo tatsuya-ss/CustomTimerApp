@@ -75,6 +75,11 @@ final class TimerViewController: UIViewController {
         showDeleteAlert()
     }
     
+}
+
+// MARK: - func
+extension TimerViewController {
+    
     private func showDeleteAlert() {
         let alert = UIAlertController(title: "選択したタイマーを削除しますか？", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
@@ -103,8 +108,6 @@ final class TimerViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    // オプショナル値のsortのやり方。以下の記事参考にした。
-    // https://qiita.com/mishimay/items/59fba10170ed2ff7690a
     private func fetchTimers() {
         indicator.show(flashType: .progress)
         timerUseCase.fetch { [weak self] result in
@@ -124,6 +127,8 @@ final class TimerViewController: UIViewController {
         }
     }
     
+    // オプショナル値のsortのやり方。以下の記事参考にした。
+    // https://qiita.com/mishimay/items/59fba10170ed2ff7690a
     private func sortCreatedDate(customTimers: [CustomTimerComponent]) -> [CustomTimerComponent] {
         customTimers.sorted { l,r -> Bool in
             switch (l.createdDate, r.createdDate) {
@@ -218,9 +223,8 @@ extension TimerViewController: UICollectionViewDelegate {
                         didSelectItemAt indexPath: IndexPath) {
         switch operationState {
         case .timer:
-            let startTimerVC = StartTimerViewController.instantiate()
+            let startTimerVC = StartTimerViewController.instantiate(customTimerComponent: customTimers[indexPath.item])
             let navigationController = UINavigationController(rootViewController: startTimerVC)
-            startTimerVC.getCustomTimer(customTimerComponent: customTimers[indexPath.item])
             navigationController.presentationController?.delegate = startTimerVC
             present(navigationController, animated: true, completion: nil)
             collectionView.deselectItem(at: indexPath, animated: true)
@@ -279,12 +283,14 @@ extension TimerViewController {
                 withReuseIdentifier: TimerCollectionViewCell.identifier, for: indexPath
             ) as? TimerCollectionViewCell else { fatalError("セルが見つかりませんでした") }
             let isHidden = (self.customTimers[indexPath.item].isSelected == true) ? false : true
+            let alpha = isHidden ? 1.0 : 0.5
             let image = (customTimerComponent.timeInfomations.first?.photo == nil)
             ? UIImage(systemName: "timer")
             : UIImage(data: customTimerComponent.timeInfomations.first!.photo!)
             cell.configure(timerName: customTimerComponent.name,
                            image: image,
-                           isHidden: isHidden)
+                           isHidden: isHidden,
+                           alpha: alpha)
             return cell
         })
     }
