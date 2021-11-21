@@ -166,6 +166,7 @@ extension StartTimerViewController {
     private func makeNotificationContent(nextIndex: Int?) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "CustomTimerApp"
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "BellSound.mp3"))
         guard let nextIndex = nextIndex else {
             let timerName = timerBehavior.getTimerName()
             content.body = "\(timerName)終了です。お疲れ様でした。"
