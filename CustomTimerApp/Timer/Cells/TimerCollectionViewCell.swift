@@ -25,10 +25,13 @@ final class TimerCollectionViewCell: UICollectionViewCell {
     
     func configure(timerName: String,
                    image: UIImage?,
-                   isHidden: Bool) {
+                   isHidden: Bool,
+                   alpha: Double) {
         timerNameLabel.text = timerName
         contentsImageView.image = image
         checkImageView.isHidden = isHidden
+        timerNameLabel.alpha = alpha
+        contentsImageView.alpha = alpha
     }
 
 }

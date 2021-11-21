@@ -279,12 +279,14 @@ extension TimerViewController {
                 withReuseIdentifier: TimerCollectionViewCell.identifier, for: indexPath
             ) as? TimerCollectionViewCell else { fatalError("セルが見つかりませんでした") }
             let isHidden = (self.customTimers[indexPath.item].isSelected == true) ? false : true
+            let alpha = isHidden ? 1.0 : 0.5
             let image = (customTimerComponent.timeInfomations.first?.photo == nil)
             ? UIImage(systemName: "timer")
             : UIImage(data: customTimerComponent.timeInfomations.first!.photo!)
             cell.configure(timerName: customTimerComponent.name,
                            image: image,
-                           isHidden: isHidden)
+                           isHidden: isHidden,
+                           alpha: alpha)
             return cell
         })
     }
