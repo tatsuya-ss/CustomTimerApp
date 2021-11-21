@@ -18,6 +18,8 @@ final class StartTimerViewController: UIViewController {
     
     private var audioPlayer: AVAudioPlayer?
     private var timerBehavior: TimerBehavior!
+    private let notificationCenter = UNUserNotificationCenter.current()
+    private var notificationIdentifiers: [String] = []
     
     func getCustomTimer(customTimerComponent: CustomTimerComponent) {
         self.timerBehavior = TimerBehavior(
@@ -38,11 +40,21 @@ final class StartTimerViewController: UIViewController {
         showStopTimerAlert()
     }
     
+}
+
+// MARK: - func
+extension StartTimerViewController {
+    
+    private func removeNotificationRequests() {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: notificationIdentifiers)
+    }
+    
     private func showStopTimerAlert() {
         showTwoChoicesAlert(alertTitle: "タイマーを終了しますか？",
                             cancelMessage: "キャンセル",
                             destructiveTitle: "終了する",
                             handler: { [weak self] _ in
+            self?.removeNotificationRequests()
             self?.dismiss(animated: true, completion: nil)
         })
     }
@@ -53,6 +65,7 @@ final class StartTimerViewController: UIViewController {
             self?.dismiss(animated: true, completion: nil)
         }
     }
+    
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
@@ -99,7 +112,7 @@ extension StartTimerViewController {
         else { fatalError("StartTimerViewControllerが見つかりません。") }
         return startTimerVC
     }
-
+    
     private func setupTimerBehavior() {
         timerBehavior.delegate = self
         currentTimeLabel.text = timerBehavior.startTimeString()
@@ -141,7 +154,6 @@ extension StartTimerViewController {
         let content = makeNotificationContent(nextIndex: nextIndex)
         let trigger = makeTimeIntervalNotificationTrigger(time: registerTime)
         let request = makeNotificationRequest(content: content, trigger: trigger)
-        let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.add(request) { error in
             if let error = error {
                 print(error)
@@ -154,6 +166,7 @@ extension StartTimerViewController {
     private func makeNotificationContent(nextIndex: Int?) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "CustomTimerApp"
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "BellSound.mp3"))
         guard let nextIndex = nextIndex else {
             let timerName = timerBehavior.getTimerName()
             content.body = "\(timerName)終了です。お疲れ様でした。"
@@ -186,8 +199,9 @@ extension StartTimerViewController {
     
     private func makeNotificationRequest(content: UNMutableNotificationContent,
                                          trigger: UNTimeIntervalNotificationTrigger) -> UNNotificationRequest {
-        let uuidString = UUID().uuidString
-        let request = UNNotificationRequest(identifier: uuidString,
+        let notificationIdentifier = UUID().uuidString
+        notificationIdentifiers.append(notificationIdentifier)
+        let request = UNNotificationRequest(identifier: notificationIdentifier,
                                             content: content,
                                             trigger: trigger)
         return request
