@@ -422,39 +422,39 @@ extension EditTimerViewController {
     private func setupPickerView() {
         timePickerView.dataSource = self
         timePickerView.delegate = self
-        setupPickerViewUnits()
+//        setupPickerViewUnits()
         showSelectedTimeInPicker()
     }
     
-    private func setupPickerViewUnits() {
-        // 後に表示修正
-        var unitlabels: [UILabel] = []
-        let fontSize = CGFloat(15)
-        let labelTop = timePickerView.bounds.origin.y + timePickerView.bounds.height / 2 - fontSize
-        let labelHeight = timePickerView.rowSize(forComponent: 0).height
-        var labelOffset = timePickerView.bounds.origin.x
-        // 変更
-        TimeStructures.forEach {
-            let row = $0.row
-            if unitlabels.count == row {
-                let label = UILabel()
-                label.backgroundColor = .systemBlue
-                label.text = $0.unit
-                label.font = UIFont.boldSystemFont(ofSize: fontSize)
-                label.sizeToFit()
-                
-                timePickerView.addSubview(label)
-                unitlabels.append(label)
-            }
-            let labelWidth = unitlabels[row].frame.width
-            labelOffset += timePickerView.rowSize(forComponent: row).width
-            print(labelWidth, labelOffset)
-            unitlabels[row].frame = CGRect(x: labelOffset - labelWidth,
-                                           y: labelTop,
-                                           width: labelWidth,
-                                           height: labelHeight)
-        }
-    }
+//    private func setupPickerViewUnits() {
+//        // 後に表示修正
+//        var unitlabels: [UILabel] = []
+//        let fontSize = CGFloat(15)
+//        let labelTop = timePickerView.bounds.origin.y + timePickerView.bounds.height / 2 - fontSize
+//        let labelHeight = timePickerView.rowSize(forComponent: 0).height
+//        var labelOffset = timePickerView.bounds.origin.x
+//        // 変更
+//        TimeStructures.forEach {
+//            let row = $0.row
+//            if unitlabels.count == row {
+//                let label = UILabel()
+//                label.backgroundColor = .systemBlue
+//                label.text = $0.unit
+//                label.font = UIFont.boldSystemFont(ofSize: fontSize)
+//                label.sizeToFit()
+//
+//                timePickerView.addSubview(label)
+//                unitlabels.append(label)
+//            }
+//            let labelWidth = unitlabels[row].frame.width
+//            labelOffset += timePickerView.rowSize(forComponent: row).width
+//            print(labelWidth, labelOffset)
+//            unitlabels[row].frame = CGRect(x: labelOffset - labelWidth,
+//                                           y: labelTop,
+//                                           width: labelWidth,
+//                                           height: labelHeight)
+//        }
+//    }
     
     private func setupButton() {
         [photoButton, restButton, deleteButton, plusButton]
