@@ -38,6 +38,7 @@ struct TimeManagement {
     }
     
     func makeTimeString() -> String {
+        if timeLeft < 1 { return "00:00:00" }
         return TimeString().makeTimeString(hour: timeLeft / 3600,
                                            minute: (timeLeft % 3600) / 60,
                                            second: (timeLeft % 3600) % 60)
