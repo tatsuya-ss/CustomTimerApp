@@ -88,19 +88,6 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
-    
-    private func writePhotoDataToCached() {
-        customTimerComponent.timeInfomations.forEach {
-            let fileName = $0.id.makeJPGFileName()
-            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
-            do {
-                try $0.photo?.write(to: cachesDirectoryPathURL)
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
     @IBAction private func cancelButtonTapped(_ sender: Any) {
         showDiscardChangesAlert()
     }
@@ -153,6 +140,19 @@ final class CustomTimerViewController: UIViewController {
     }
     
     // MARK: - func
+    
+    private func writePhotoDataToCached() {
+        customTimerComponent.timeInfomations.forEach {
+            let fileName = $0.id.makeJPGFileName()
+            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
+            do {
+                try $0.photo?.write(to: cachesDirectoryPathURL)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     private func adjustSelectedIndexWhenLastIndex() {
         let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
         if isLastIndex { selectedIndexPath.item -= 1 }
