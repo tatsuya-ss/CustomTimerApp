@@ -15,29 +15,30 @@ struct TimeManagement {
         }
     }
     var startDate: Date = Date()
-    var endDate: [Date] {
+    var endDates: [Date] {
         countTimes.enumerated().map {
             let time = countTimes[0...$0.offset].reduce(0, +)
             return startDate.addingTimeInterval(TimeInterval(time))
         }
     }
     var currentIndex: Int {
-        for a in endDate.enumerated() {
-            if a.element > Date() {
-                return a.offset
+        for endDate in endDates.enumerated() {
+            if endDate.element > Date() {
+                return endDate.offset
             }
         }
-        return 0
+        return endDates.endIndex - 1
     }
     var timeLeft: Int {
-        Int(endDate[currentIndex].timeIntervalSince1970 - Date().timeIntervalSince1970)
+        Int(endDates[currentIndex].timeIntervalSince1970 - Date().timeIntervalSince1970)
     }
     
     func isFinish(now: Date = Date()) -> Bool {
-        return now + 1 >= endDate.last ?? Date()
+        return now + 1 >= endDates.last ?? Date()
     }
     
     func makeTimeString() -> String {
+        if timeLeft < 1 { return "00:00:00" }
         return TimeString().makeTimeString(hour: timeLeft / 3600,
                                            minute: (timeLeft % 3600) / 60,
                                            second: (timeLeft % 3600) % 60)
