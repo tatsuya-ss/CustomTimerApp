@@ -29,6 +29,7 @@ final class StartTimerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLayout()
         setupModelInPresentation()
         setupTimerBehavior()
         setupAVAudioPlayer()
@@ -113,13 +114,17 @@ extension StartTimerViewController {
         return startTimerVC
     }
     
+    private func setupLayout() {
+        CountDownView.layer.cornerRadius = 20
+        CountDownView.layer.borderWidth = 1
+        CountDownView.layer.borderColor = UIColor.black.cgColor
+    }
+    
     private func setupTimerBehavior() {
         timerBehavior.delegate = self
         currentTimeLabel.text = timerBehavior.startTimeString()
-        guard let photoData = timerBehavior.makeInitialPhotoData()
-        else { return }
-        let photoImage = UIImage(data: photoData)
-        timerContentsImageView.image = photoImage
+        guard let photoData = timerBehavior.makeInitialPhotoData() else { return }
+        timerContentsImageView.image = UIImage(data: photoData)
     }
     
     private func setupModelInPresentation() {
