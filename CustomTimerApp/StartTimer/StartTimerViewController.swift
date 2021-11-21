@@ -21,12 +21,6 @@ final class StartTimerViewController: UIViewController {
     private let notificationCenter = UNUserNotificationCenter.current()
     private var notificationIdentifiers: [String] = []
     
-    func getCustomTimer(customTimerComponent: CustomTimerComponent) {
-        self.timerBehavior = TimerBehavior(
-            timeManagement: TimeManagement(customTimerConponent: customTimerComponent)
-        )
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -106,11 +100,13 @@ extension StartTimerViewController: TimerBehaviorDelegate {
 // MARK: - setup
 extension StartTimerViewController {
     
-    static func instantiate() -> StartTimerViewController {
+    static func instantiate(customTimerComponent: CustomTimerComponent) -> StartTimerViewController {
         guard let startTimerVC = UIStoryboard(name: "StartTimer", bundle: nil)
                 .instantiateViewController(withIdentifier: "StartTimerViewController")
                 as? StartTimerViewController
         else { fatalError("StartTimerViewControllerが見つかりません。") }
+        let timeManagement = TimeManagement(customTimerConponent: customTimerComponent)
+        startTimerVC.timerBehavior = TimerBehavior(timeManagement: timeManagement)
         return startTimerVC
     }
     

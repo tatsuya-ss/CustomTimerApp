@@ -75,6 +75,11 @@ final class TimerViewController: UIViewController {
         showDeleteAlert()
     }
     
+}
+
+// MARK: - func
+extension TimerViewController {
+    
     private func showDeleteAlert() {
         let alert = UIAlertController(title: "選択したタイマーを削除しますか？", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
@@ -121,7 +126,7 @@ final class TimerViewController: UIViewController {
             }
         }
     }
-
+    
     // オプショナル値のsortのやり方。以下の記事参考にした。
     // https://qiita.com/mishimay/items/59fba10170ed2ff7690a
     private func sortCreatedDate(customTimers: [CustomTimerComponent]) -> [CustomTimerComponent] {
@@ -218,9 +223,8 @@ extension TimerViewController: UICollectionViewDelegate {
                         didSelectItemAt indexPath: IndexPath) {
         switch operationState {
         case .timer:
-            let startTimerVC = StartTimerViewController.instantiate()
+            let startTimerVC = StartTimerViewController.instantiate(customTimerComponent: customTimers[indexPath.item])
             let navigationController = UINavigationController(rootViewController: startTimerVC)
-            startTimerVC.getCustomTimer(customTimerComponent: customTimers[indexPath.item])
             navigationController.presentationController?.delegate = startTimerVC
             present(navigationController, animated: true, completion: nil)
             collectionView.deselectItem(at: indexPath, animated: true)
