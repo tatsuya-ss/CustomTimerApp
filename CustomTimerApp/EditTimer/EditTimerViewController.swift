@@ -198,9 +198,9 @@ final class EditTimerViewController: UIViewController {
     }
     
     private func showDiscardChangesAlert() {
-        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
+        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーの変更内容は反映されません。画面を閉じますか？",
                             cancelMessage: "キャンセル",
-                            destructiveTitle: "破棄する",
+                            destructiveTitle: "閉じる",
                             handler: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
         })
