@@ -8,6 +8,9 @@
 import UIKit
 import AVFoundation
 
+// 効果音サイト
+// https://soundeffect-lab.info/sound/button/
+
 extension StartTimerViewController: ShowAlertProtocol { }
 
 final class StartTimerViewController: UIViewController {
