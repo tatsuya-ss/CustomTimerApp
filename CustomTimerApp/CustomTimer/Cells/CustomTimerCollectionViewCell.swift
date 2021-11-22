@@ -28,29 +28,15 @@ final class CustomTimerCollectionViewCell: UICollectionViewCell {
     }
         
     func configure(image: UIImage?,
-                   timeString: String = "00:00:00") {
+                   timeString: String = "00:00:00",
+                   contentMode: ContentMode, cellState: SelectCellState) {
         photoImageView.image = image
         timeLabel.text = timeString
-    }
-    
-    func changeBackgroungOfImageView(color: UIColor) {
-        photoImageView.backgroundColor = color
-    }
-    
-    func selectedCell() {
+        photoImageView.contentMode = contentMode
         layer.masksToBounds = false
-        layer.shadowOffset = CGSize(width: -4.0,
-                                    height: 4.0)
-        layer.shadowOpacity = 1.0
-        layer.shadowRadius = 5
-    }
-    
-    func unselectedCell() {
-        layer.masksToBounds = false
-        layer.shadowOffset = CGSize(width: 0.0,
-                                    height: 0)
-        layer.shadowOpacity = 0
-        layer.shadowRadius = 0
+        layer.shadowOffset = cellState.shadowOffset
+        layer.shadowOpacity = cellState.shadowOpacity
+        layer.shadowRadius = cellState.shadowRadius
     }
     
 }
