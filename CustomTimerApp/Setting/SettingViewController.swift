@@ -18,26 +18,26 @@ enum Item: Hashable {
 final class SettingViewController: UIViewController {
     
     private enum Section: CaseIterable {
-        case setting
+//        case setting
         case app
         case logOut
         var items: [Item] {
             switch self {
-            case .setting: return SettingItem.allCases.map { $0.item }
+//            case .setting: return SettingItem.allCases.map { $0.item }
             case .app: return ApplicationItem.allCases.map { $0.item }
             case .logOut: return LogoutItem.allCases.map { $0.item }
             }
         }
     }
     
-    private enum SettingItem: CaseIterable {
-        case setting
-        var item: Item {
-            switch self {
-            case .setting: return .title(TitleCellData(title: "設定"))
-            }
-        }
-    }
+//    private enum SettingItem: CaseIterable {
+//        case setting
+//        var item: Item {
+//            switch self {
+//            case .setting: return .title(TitleCellData(title: "設定"))
+//            }
+//        }
+//    }
     
     private enum ApplicationItem: Int, CaseIterable {
         case operation
@@ -137,10 +137,10 @@ extension SettingViewController: UICollectionViewDelegate {
                         didSelectItemAt indexPath: IndexPath) {
         let section = Section.allCases[indexPath.section]
         switch section {
-        case .setting:
-            switch SettingItem.allCases[indexPath.item] {
-            case .setting: break
-            }
+//        case .setting:
+//            switch SettingItem.allCases[indexPath.item] {
+//            case .setting: break
+//            }
         case .app:
             switch ApplicationItem.allCases[indexPath.item] {
             case .operation: break
