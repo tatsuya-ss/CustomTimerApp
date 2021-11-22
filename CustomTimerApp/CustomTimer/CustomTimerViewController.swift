@@ -139,7 +139,10 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
+}
+
     // MARK: - func
+extension CustomTimerViewController {
     
     private func writePhotoDataToCached() {
         customTimerComponent.timeInfomations.forEach {
@@ -205,7 +208,7 @@ final class CustomTimerViewController: UIViewController {
               let image = UIImage(data: imageData) else {
                   switch timeInfomation.type {
                   case .action: return UIImage(systemName: "timer")
-                  case .rest: return UIImage(systemName: "stop.circle")
+                  case .rest: return UIImage(named: "yasumi")
                   }
               }
         return image
@@ -217,7 +220,7 @@ final class CustomTimerViewController: UIViewController {
         timePickerView.selectRow(currentTime.minute, inComponent: 1, animated: true)
         timePickerView.selectRow(currentTime.second, inComponent: 2, animated: true)
     }
-    
+
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
