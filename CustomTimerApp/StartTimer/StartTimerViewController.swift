@@ -24,6 +24,7 @@ final class StartTimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupNavigation()
         setupModelInPresentation()
         setupTimerBehavior()
         setupAVAudioPlayer()
@@ -121,6 +122,10 @@ extension StartTimerViewController {
         currentTimeLabel.text = timerBehavior.startTimeString()
         guard let photoData = timerBehavior.makeInitialPhotoData() else { return }
         timerContentsImageView.image = UIImage(data: photoData)
+    }
+    
+    private func setupNavigation() {
+        navigationItem.title = timerBehavior.getTimerName()
     }
     
     private func setupModelInPresentation() {
