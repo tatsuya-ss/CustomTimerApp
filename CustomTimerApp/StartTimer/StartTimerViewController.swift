@@ -153,7 +153,9 @@ extension StartTimerViewController {
     private func setTimerLocalNotification(registerTime: Int,
                                            nextIndex: Int?) {
         let content = makeNotificationContent(nextIndex: nextIndex)
-        let trigger = makeTimeIntervalNotificationTrigger(time: registerTime)
+        // TODO: 通知の時間が1秒ずれるのでここで修正（よくないかも知れないのでメモ）
+        let adjustedRegisterTime = registerTime - 1
+        let trigger = makeTimeIntervalNotificationTrigger(time: adjustedRegisterTime)
         let request = makeNotificationRequest(content: content, trigger: trigger)
         notificationCenter.add(request) { error in
             if let error = error {

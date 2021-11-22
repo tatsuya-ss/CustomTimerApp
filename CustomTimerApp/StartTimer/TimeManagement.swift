@@ -9,7 +9,7 @@ import Foundation
 
 struct TimeManagement {
     var customTimerConponent: CustomTimerComponent
-    var countTimes: [Int]{
+    var countTimes: [Int] {
         customTimerConponent.timeInfomations.map {
             $0.time.second + ($0.time.minute * 60) + $0.time.hour * 3600
         }
