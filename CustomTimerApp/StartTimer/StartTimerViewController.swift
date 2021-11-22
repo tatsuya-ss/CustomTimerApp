@@ -189,16 +189,37 @@ extension StartTimerViewController {
         let directoryManagement = DirectoryManagement()
         let cachesDirectoryPathURL = directoryManagement.makeCacheDirectoryPathURL(fileName: fileName)
         let temporaryDirectoryPathURL = directoryManagement.makeTemporaryDirectoryPathURL(fileName: fileName)
-        do {
-            try FileManager.default.copyItem(at: cachesDirectoryPathURL, to: temporaryDirectoryPathURL)
-        } catch {
-            print(error)
+        
+        // MARK: 休憩で休憩画像がなければ
+        if timerBehavior.photoData[nextIndex] == nil
+            && timerBehavior.getType(index: nextIndex) == .rest {
+            content.body = "休憩\(nextTime)秒です。"
+            makeRestDataTotemporaryDirectory(temporaryURL: temporaryDirectoryPathURL)
+        } else {
+            content.body = "次は\(nextTime)秒です。"
+            makeCopyOfDataTotemporaryDirectory(at: cachesDirectoryPathURL, to: temporaryDirectoryPathURL)
         }
-        content.body = "次は\(nextTime)秒です。"
         content.attachments = [try! UNNotificationAttachment(identifier: UUID().uuidString,
                                                              url: temporaryDirectoryPathURL,
                                                              options: nil)]
         return content
+    }
+    
+    private func makeRestDataTotemporaryDirectory(temporaryURL: URL) {
+        let data = UIImage(named: "yasumi")?.convertImageToData()
+        do {
+            try data?.write(to: temporaryURL)
+        } catch {
+            print(error, "失敗")
+        }
+    }
+    
+    private func makeCopyOfDataTotemporaryDirectory(at caches: URL, to temporary: URL) {
+        do {
+            try FileManager.default.copyItem(at: caches, to: temporary)
+        } catch {
+            print(error)
+        }
     }
     
     private func makeTimeIntervalNotificationTrigger(time: Int) -> UNTimeIntervalNotificationTrigger {

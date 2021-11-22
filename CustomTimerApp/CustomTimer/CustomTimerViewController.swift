@@ -107,10 +107,6 @@ final class CustomTimerViewController: UIViewController {
     
     @IBAction private func selectPhotoButtonDidTapped(_ sender: Any) {
         timerNameTextField.resignFirstResponder()
-        guard customTimerComponent.timeInfomations[selectedIndexPath.item].type == .action else {
-            showAlertWhenChangingPhotoOfRestCell()
-            return
-        }
         getPhotosAuthorization()
     }
     
@@ -120,7 +116,9 @@ final class CustomTimerViewController: UIViewController {
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
         customTimerComponent.timeInfomations
-            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), type: .rest, id: UUID().uuidString),
+            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0),
+                                   type: .rest,
+                                   id: UUID().uuidString),
                     at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
@@ -172,13 +170,6 @@ extension CustomTimerViewController {
                             handler: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
         })
-    }
-    
-    private func showAlertWhenChangingPhotoOfRestCell() {
-        let alert = UIAlertController(title: "休み用の画像は変更できません。", message: nil, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
     }
     
     private func getPhotosAuthorization() {
