@@ -134,7 +134,7 @@ extension StartTimerViewController {
     }
     
     private func setupAVAudioPlayer() {
-        guard let soundFilePath = Bundle.main.path(forResource: "BellSound",
+        guard let soundFilePath = Bundle.main.path(forResource: "TimeUp",
                                                    ofType: "mp3")
         else { return }
         let soundURL = URL(fileURLWithPath: soundFilePath)
@@ -174,7 +174,7 @@ extension StartTimerViewController {
     private func makeNotificationContent(nextIndex: Int?) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "CustomTimerApp"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "BellSound.mp3"))
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "TimeUp.mp3"))
         guard let nextIndex = nextIndex else {
             let timerName = timerBehavior.getTimerName()
             content.body = "\(timerName)終了です。お疲れ様でした。"
