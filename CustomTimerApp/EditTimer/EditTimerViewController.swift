@@ -58,11 +58,16 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func saveButtonDidTapped(_ sender: Any) {
+        let timerValidation = TimerValidation(customTimer: customTimerComponent)
         guard let text = timerNameTextField.text,
               !text.isEmpty else {
                   showTimerNameEmptyAlert()
                   return
               }
+        if let errorMessage = timerValidation.validateAndReturnErrorOnFailure() {
+            showAlert(title: errorMessage, defaultTitle: "閉じる")
+            return
+        }
         indicator.show(flashType: .progress)
         customTimerComponent.name = text
         timerUseCase.save(customTimer: customTimerComponent) { [weak self] result in
