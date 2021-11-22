@@ -78,6 +78,11 @@ final class SettingViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+// MARK: - func
+extension SettingViewController {
+    
     private func showActivityVC() {
         // TODO: このアプリのURLに変更
         guard let shareUrl = URL(string: "https://apps.apple.com/jp/app/movie-reviews-%E6%98%A0%E7%94%BB%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E7%AE%A1%E7%90%86/id1578614989")
@@ -116,8 +121,16 @@ final class SettingViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    private func makeInquiryURL() -> URL? {
+        let os = "\(UIDevice.current.systemName)%20\(UIDevice.current.systemVersion)"
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "取得できませんでした。"
+        let inquiryURL = URL(string:"https://docs.google.com/forms/d/e/1FAIpQLSeWMUWKuTXAVffb3ezyIhnVdY-J-I7pP00Q7K-EKM8NQJR7dg/viewform?usp=pp_url&entry.474786857=\(os)&entry.689210288=\(version)")
+        return inquiryURL
+    }
+    
 }
 
+// MARK: - UICollectionViewDelegate
 extension SettingViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
@@ -132,7 +145,9 @@ extension SettingViewController: UICollectionViewDelegate {
             switch ApplicationItem.allCases[indexPath.item] {
             case .operation: break
             case .evaluation: showRequestReviewManually()
-            case .inquiry: break
+            case .inquiry:
+                guard let inquiryURL = makeInquiryURL() else { return }
+                UIApplication.shared.open(inquiryURL)
             case .share: showActivityVC()
             }
         case .logOut:
@@ -197,5 +212,5 @@ extension SettingViewController {
         settingVC.userUseCase = userUseCase
         return settingVC
     }
-
+    
 }
