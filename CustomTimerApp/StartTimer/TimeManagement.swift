@@ -32,6 +32,12 @@ struct TimeManagement {
     var timeLeft: Int {
         Int(endDates[currentIndex].timeIntervalSince1970 - Date().timeIntervalSince1970)
     }
+    var currentType: TimerType {
+        customTimerConponent.timeInfomations[currentIndex].type
+    }
+    var currentPhoto: Data? {
+        customTimerConponent.timeInfomations[currentIndex].photo
+    }
     
     func isFinish(now: Date = Date()) -> Bool {
         return now + 1 >= endDates.last ?? Date()

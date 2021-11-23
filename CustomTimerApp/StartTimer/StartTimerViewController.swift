@@ -80,13 +80,15 @@ extension StartTimerViewController: UIAdaptivePresentationControllerDelegate {
 extension StartTimerViewController: TimerBehaviorDelegate {
     
     func timerBehavior(didCountDown timeString: String,
-                       with photoData: Data?) {
+                       with photoData: Data?,
+                       timerType: TimerType) {
         currentTimeLabel.text = timeString
         if let photoData = photoData {
             let photoImage = UIImage(data: photoData)
-            if timerContentsImageView.image != photoImage {
-                timerContentsImageView.image = photoImage
-            }
+            let isNotSameImage = (timerContentsImageView.image != photoImage)
+            if isNotSameImage { timerContentsImageView.image = photoImage }
+        } else {
+            if timerType == .rest { timerContentsImageView.image = UIImage(named: "yasumi") }
         }
     }
     
