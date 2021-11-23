@@ -10,6 +10,7 @@ import Photos
 
 extension EditTimerViewController: ShowAlertProtocol { }
 extension EditTimerViewController: PerformBatchUpdatesProtocol { }
+extension EditTimerViewController: CustomTimerProtocol { }
 
 final class EditTimerViewController: UIViewController {
     
@@ -78,7 +79,7 @@ final class EditTimerViewController: UIViewController {
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {
-                    self?.writePhotoDataToCached()
+                    self?.writePhotoDataToCached(timeInfomations: self?.customTimerComponent.timeInfomations ?? [])
                     guard let editingIndexPath = self?.editingIndexPath,
                           let customTimerComponent = self?.customTimerComponent else {
                               self?.dismiss(animated: true, completion: nil)
@@ -131,7 +132,7 @@ final class EditTimerViewController: UIViewController {
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
             collectionView.deleteItems(at: [selectedIndexPath])
-            adjustSelectedIndexWhenLastIndex()
+            adjustSelectedIndexWhenDeleteLastIndex()
         } completion: { [weak self] _ in
             self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
             self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
@@ -140,19 +141,7 @@ final class EditTimerViewController: UIViewController {
         }
     }
     
-    private func writePhotoDataToCached() {
-        customTimerComponent.timeInfomations.forEach {
-            let fileName = $0.id.makeJPGFileName()
-            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
-            do {
-                try $0.photo?.write(to: cachesDirectoryPathURL)
-            } catch {
-                print(error, "失敗")
-            }
-        }
-    }
-    
-    private func adjustSelectedIndexWhenLastIndex() {
+    private func adjustSelectedIndexWhenDeleteLastIndex() {
         let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
         if isLastIndex { selectedIndexPath.item -= 1 }
     }
@@ -189,17 +178,6 @@ final class EditTimerViewController: UIViewController {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
-        guard let imageData = timeInfomation.photo,
-              let image = UIImage(data: imageData) else {
-                  switch timeInfomation.type {
-                  case .action: return UIImage(systemName: "timer")
-                  case .rest: return UIImage(named: "yasumi")
-                  }
-              }
-        return image
     }
     
     private func showDiscardChangesAlert() {

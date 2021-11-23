@@ -10,6 +10,7 @@ import Photos
 
 extension CustomTimerViewController: ShowAlertProtocol { }
 extension CustomTimerViewController: PerformBatchUpdatesProtocol { }
+extension CustomTimerViewController: CustomTimerProtocol { }
 
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -81,7 +82,7 @@ final class CustomTimerViewController: UIViewController {
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {
-                    self?.writePhotoDataToCached()
+                    self?.writePhotoDataToCached(timeInfomations: self?.customTimerComponent.timeInfomations ?? [])
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
@@ -132,7 +133,7 @@ final class CustomTimerViewController: UIViewController {
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
             collectionView.deleteItems(at: [selectedIndexPath])
-            adjustSelectedIndexWhenLastIndex()
+            adjustSelectedIndexWhenDeleteLastIndex()
         } completion: { [weak self] _ in
             self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
             self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
@@ -146,19 +147,7 @@ final class CustomTimerViewController: UIViewController {
     // MARK: - func
 extension CustomTimerViewController {
     
-    private func writePhotoDataToCached() {
-        customTimerComponent.timeInfomations.forEach {
-            let fileName = $0.id.makeJPGFileName()
-            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
-            do {
-                try $0.photo?.write(to: cachesDirectoryPathURL)
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    private func adjustSelectedIndexWhenLastIndex() {
+    private func adjustSelectedIndexWhenDeleteLastIndex() {
         let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
         if isLastIndex { selectedIndexPath.item -= 1 }
     }
@@ -203,17 +192,6 @@ extension CustomTimerViewController {
         default:
             break
         }
-    }
-    
-    private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
-        guard let imageData = timeInfomation.photo,
-              let image = UIImage(data: imageData) else {
-                  switch timeInfomation.type {
-                  case .action: return UIImage(systemName: "timer")
-                  case .rest: return UIImage(named: "yasumi")
-                  }
-              }
-        return image
     }
     
     private func showSelectedTimeInPicker(indexPath: IndexPath = [0, 0]) {
