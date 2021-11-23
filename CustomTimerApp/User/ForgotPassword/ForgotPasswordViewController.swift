@@ -8,17 +8,19 @@
 import UIKit
 
 extension ForgotPasswordViewController: ShowAlertProtocol { }
+extension ForgotPasswordViewController: UIButtonLayoutProtocol { }
 
 final class ForgotPasswordViewController: UIViewController {
 
     @IBOutlet private weak var mailAddressTextField: UITextField!
+    @IBOutlet private weak var sendButton: UIButton!
     
     private var userUseCase: UserUseCaseProtocol!
     private let indicator = Indicator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupButton(button: sendButton, layout: SendButtonLayout())
     }
     
     @IBAction private func sendButtonDidTapped(_ sender: Any) {
@@ -40,6 +42,7 @@ final class ForgotPasswordViewController: UIViewController {
     
 }
 
+// MARK: - instantiate
 extension ForgotPasswordViewController {
     
     static func instantiate(userUseCase: UserUseCaseProtocol = UserUseCase()) -> ForgotPasswordViewController {

@@ -8,18 +8,20 @@
 import UIKit
 
 extension SignUpViewController: ShowAlertProtocol { }
+extension SignUpViewController: UIButtonLayoutProtocol { }
 
 final class SignUpViewController: UIViewController {
     
     @IBOutlet private weak var mailAddressTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var signUpButton: UIButton!
     
     private var userUseCase: UserUseCaseProtocol!
     private let indicator = Indicator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupButton(button: signUpButton, layout: SignUpButtonLayout())
     }
     
     @IBAction private func SignUpButtonDidTapped(_ sender: Any) {
@@ -45,6 +47,7 @@ final class SignUpViewController: UIViewController {
     
 }
 
+// MARK: - instantiate
 extension SignUpViewController {
     static func instantiate(userUseCase: UserUseCaseProtocol = UserUseCase()) -> SignUpViewController {
         guard let signUpVC = UIStoryboard(name: "SignUp", bundle: nil)

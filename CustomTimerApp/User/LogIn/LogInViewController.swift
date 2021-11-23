@@ -8,18 +8,20 @@
 import UIKit
 
 extension LogInViewController: ShowAlertProtocol { }
+extension LogInViewController: UIButtonLayoutProtocol { }
 
 final class LogInViewController: UIViewController {
 
     @IBOutlet private weak var mailAddressTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var logInButton: UIButton!
     
     private var userUseCase: UserUseCaseProtocol!
     private let indicator = Indicator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupButton(button: logInButton, layout: LogInButtonLayout())
     }
     
     @IBAction private func logInButtonDidTapped(_ sender: Any) {
@@ -48,6 +50,7 @@ final class LogInViewController: UIViewController {
     
 }
 
+// MARK: - instantiate
 extension LogInViewController {
     
     static func instantiate(userUseCase: UserUseCaseProtocol = UserUseCase()) -> LogInViewController {

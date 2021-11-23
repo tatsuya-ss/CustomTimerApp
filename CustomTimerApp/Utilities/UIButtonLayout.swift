@@ -7,19 +7,25 @@
 
 import UIKit
 
-protocol UIButtonLayoutProtocol {
+protocol UIButtonLayout {
     var cornerRadius: CGFloat { get }
     var borderWidth: CGFloat { get }
     var borderColor: CGColor { get }
 }
 
-struct SignUpButtonLayout: UIButtonLayoutProtocol {
+struct SignUpButtonLayout: UIButtonLayout {
     var cornerRadius: CGFloat = 10
     var borderWidth: CGFloat = 0.5
     var borderColor: CGColor = UIColor.white.cgColor
 }
 
-struct LogInButtonLayout: UIButtonLayoutProtocol {
+struct LogInButtonLayout: UIButtonLayout {
+    var cornerRadius: CGFloat = 10
+    var borderWidth: CGFloat = 0.5
+    var borderColor: CGColor = UIColor.black.cgColor
+}
+
+struct SendButtonLayout: UIButtonLayout {
     var cornerRadius: CGFloat = 10
     var borderWidth: CGFloat = 0.5
     var borderColor: CGColor = UIColor.black.cgColor

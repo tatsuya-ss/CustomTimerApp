@@ -7,6 +7,8 @@
 
 import UIKit
 
+extension SignUpOrLogInViewController: UIButtonLayoutProtocol { }
+
 final class SignUpOrLogInViewController: UIViewController {
 
     @IBOutlet private weak var signUpButton: UIButton!
@@ -26,17 +28,6 @@ final class SignUpOrLogInViewController: UIViewController {
     @IBAction func logInButtonDidTapped(_ sender: Any) {
         let logInVC = LogInViewController.instantiate()
         navigationController?.pushViewController(logInVC, animated: true)
-    }
-    
-}
-
-// MARK: - setup
-extension SignUpOrLogInViewController {
-    
-    private func setupButton(button: UIButton, layout: UIButtonLayoutProtocol) {
-        button.layer.cornerRadius = layout.cornerRadius
-        button.layer.borderWidth = layout.borderWidth
-        button.layer.borderColor = layout.borderColor
     }
     
 }
