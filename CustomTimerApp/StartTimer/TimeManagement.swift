@@ -9,7 +9,7 @@ import Foundation
 
 struct TimeManagement {
     var customTimerConponent: CustomTimerComponent
-    var countTimes: [Int]{
+    var countTimes: [Int] {
         customTimerConponent.timeInfomations.map {
             $0.time.second + ($0.time.minute * 60) + $0.time.hour * 3600
         }
@@ -31,6 +31,12 @@ struct TimeManagement {
     }
     var timeLeft: Int {
         Int(endDates[currentIndex].timeIntervalSince1970 - Date().timeIntervalSince1970)
+    }
+    var currentType: TimerType {
+        customTimerConponent.timeInfomations[currentIndex].type
+    }
+    var currentPhoto: Data? {
+        customTimerConponent.timeInfomations[currentIndex].photo
     }
     
     func isFinish(now: Date = Date()) -> Bool {

@@ -8,6 +8,9 @@
 import UIKit
 import AVFoundation
 
+// 効果音サイト
+// https://soundeffect-lab.info/sound/button/
+
 extension StartTimerViewController: ShowAlertProtocol { }
 
 final class StartTimerViewController: UIViewController {
@@ -24,6 +27,7 @@ final class StartTimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupNavigation()
         setupModelInPresentation()
         setupTimerBehavior()
         setupAVAudioPlayer()
@@ -76,13 +80,15 @@ extension StartTimerViewController: UIAdaptivePresentationControllerDelegate {
 extension StartTimerViewController: TimerBehaviorDelegate {
     
     func timerBehavior(didCountDown timeString: String,
-                       with photoData: Data?) {
+                       with photoData: Data?,
+                       timerType: TimerType) {
         currentTimeLabel.text = timeString
         if let photoData = photoData {
             let photoImage = UIImage(data: photoData)
-            if timerContentsImageView.image != photoImage {
-                timerContentsImageView.image = photoImage
-            }
+            let isNotSameImage = (timerContentsImageView.image != photoImage)
+            if isNotSameImage { timerContentsImageView.image = photoImage }
+        } else {
+            if timerType == .rest { timerContentsImageView.image = UIImage(named: "yasumi") }
         }
     }
     
@@ -123,13 +129,17 @@ extension StartTimerViewController {
         timerContentsImageView.image = UIImage(data: photoData)
     }
     
+    private func setupNavigation() {
+        navigationItem.title = timerBehavior.getTimerName()
+    }
+    
     private func setupModelInPresentation() {
         // プルダウンジェスチャーによる解除を無効
         isModalInPresentation = true
     }
     
     private func setupAVAudioPlayer() {
-        guard let soundFilePath = Bundle.main.path(forResource: "BellSound",
+        guard let soundFilePath = Bundle.main.path(forResource: "TimeUp",
                                                    ofType: "mp3")
         else { return }
         let soundURL = URL(fileURLWithPath: soundFilePath)
@@ -153,7 +163,9 @@ extension StartTimerViewController {
     private func setTimerLocalNotification(registerTime: Int,
                                            nextIndex: Int?) {
         let content = makeNotificationContent(nextIndex: nextIndex)
-        let trigger = makeTimeIntervalNotificationTrigger(time: registerTime)
+        // TODO: 通知の時間が1秒ずれるのでここで修正（よくないかも知れないのでメモ）
+        let adjustedRegisterTime = registerTime - 1
+        let trigger = makeTimeIntervalNotificationTrigger(time: adjustedRegisterTime)
         let request = makeNotificationRequest(content: content, trigger: trigger)
         notificationCenter.add(request) { error in
             if let error = error {
@@ -167,7 +179,7 @@ extension StartTimerViewController {
     private func makeNotificationContent(nextIndex: Int?) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "CustomTimerApp"
-        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "BellSound.mp3"))
+        content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "TimeUp.mp3"))
         guard let nextIndex = nextIndex else {
             let timerName = timerBehavior.getTimerName()
             content.body = "\(timerName)終了です。お疲れ様でした。"
@@ -179,16 +191,37 @@ extension StartTimerViewController {
         let directoryManagement = DirectoryManagement()
         let cachesDirectoryPathURL = directoryManagement.makeCacheDirectoryPathURL(fileName: fileName)
         let temporaryDirectoryPathURL = directoryManagement.makeTemporaryDirectoryPathURL(fileName: fileName)
-        do {
-            try FileManager.default.copyItem(at: cachesDirectoryPathURL, to: temporaryDirectoryPathURL)
-        } catch {
-            print(error)
+        
+        // MARK: 休憩で休憩画像がなければ
+        if timerBehavior.photoData[nextIndex] == nil
+            && timerBehavior.getType(index: nextIndex) == .rest {
+            content.body = "休憩\(nextTime)秒です。"
+            makeRestDataTotemporaryDirectory(temporaryURL: temporaryDirectoryPathURL)
+        } else {
+            content.body = "次は\(nextTime)秒です。"
+            makeCopyOfDataTotemporaryDirectory(at: cachesDirectoryPathURL, to: temporaryDirectoryPathURL)
         }
-        content.body = "次は\(nextTime)秒です。"
         content.attachments = [try! UNNotificationAttachment(identifier: UUID().uuidString,
                                                              url: temporaryDirectoryPathURL,
                                                              options: nil)]
         return content
+    }
+    
+    private func makeRestDataTotemporaryDirectory(temporaryURL: URL) {
+        let data = UIImage(named: "yasumi")?.convertImageToData()
+        do {
+            try data?.write(to: temporaryURL)
+        } catch {
+            print(error, "失敗")
+        }
+    }
+    
+    private func makeCopyOfDataTotemporaryDirectory(at caches: URL, to temporary: URL) {
+        do {
+            try FileManager.default.copyItem(at: caches, to: temporary)
+        } catch {
+            print(error)
+        }
     }
     
     private func makeTimeIntervalNotificationTrigger(time: Int) -> UNTimeIntervalNotificationTrigger {

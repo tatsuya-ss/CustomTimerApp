@@ -118,8 +118,9 @@ final class TimerRepository: TimerRepositoryProtocol {
                                 defer { dispatchGroup.leave() }
                                 switch result {
                                 case .failure(let error):
-                                    dataBaseError = DataBaseError(storage: error)
-//                                    if error != .objectNotFound { dataBaseError = error }
+                                    let error = DataBaseError(storage: error)
+                                    // 画像がない場合はエラー投げない
+                                    if error != .objectNotFound { dataBaseError = error }
                                 case .success(let url):
                                     if let photoData = try? Data(contentsOf: url) {
                                         // URL

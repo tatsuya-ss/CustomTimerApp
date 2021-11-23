@@ -8,8 +8,7 @@
 import Foundation
 
 protocol TimerBehaviorDelegate: AnyObject {
-    func timerBehavior(didCountDown timeString: String,
-                       with photoData: Data?)
+    func timerBehavior(didCountDown timeString: String, with photoData: Data?, timerType: TimerType)
     func makeSound()
     func timeIsUp()
 }
@@ -31,6 +30,10 @@ final class TimerBehavior {
     
     var photoData: [Data?] {
         timeManagement.customTimerConponent.timeInfomations.map { $0.photo }
+    }
+    
+    func getType(index: Int) -> TimerType {
+        timeManagement.customTimerConponent.timeInfomations[index].type
     }
     
     func getTimerId () -> String {
@@ -59,8 +62,9 @@ final class TimerBehavior {
                                      block: { [weak self] timer in
             guard let timeManagement = self?.timeManagement else { return }
             let timeString = timeManagement.makeTimeString()
-            let photoData = timeManagement.customTimerConponent.timeInfomations[timeManagement.currentIndex].photo
-            self?.delegate?.timerBehavior(didCountDown: timeString, with: photoData)
+            let photoData = timeManagement.currentPhoto
+            let timerType = timeManagement.currentType
+            self?.delegate?.timerBehavior(didCountDown: timeString, with: photoData, timerType: timerType)
             if timeManagement.timeLeft == 0 { self?.delegate?.makeSound() }
             if timeManagement.isFinish() {
                 timer.invalidate()

@@ -10,6 +10,7 @@ import Photos
 
 extension EditTimerViewController: ShowAlertProtocol { }
 extension EditTimerViewController: PerformBatchUpdatesProtocol { }
+extension EditTimerViewController: CustomTimerProtocol { }
 
 final class EditTimerViewController: UIViewController {
     
@@ -58,11 +59,16 @@ final class EditTimerViewController: UIViewController {
     }
     
     @IBAction private func saveButtonDidTapped(_ sender: Any) {
+        let timerValidation = TimerValidation(customTimer: customTimerComponent)
         guard let text = timerNameTextField.text,
               !text.isEmpty else {
                   showTimerNameEmptyAlert()
                   return
               }
+        if let errorMessage = timerValidation.validateAndReturnErrorOnFailure() {
+            showAlert(title: errorMessage, defaultTitle: "閉じる")
+            return
+        }
         indicator.show(flashType: .progress)
         customTimerComponent.name = text
         timerUseCase.save(customTimer: customTimerComponent) { [weak self] result in
@@ -73,7 +79,7 @@ final class EditTimerViewController: UIViewController {
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {
-                    self?.writePhotoDataToCached()
+                    self?.writePhotoDataToCached(timeInfomations: self?.customTimerComponent.timeInfomations ?? [])
                     guard let editingIndexPath = self?.editingIndexPath,
                           let customTimerComponent = self?.customTimerComponent else {
                               self?.dismiss(animated: true, completion: nil)
@@ -126,7 +132,7 @@ final class EditTimerViewController: UIViewController {
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
             collectionView.deleteItems(at: [selectedIndexPath])
-            adjustSelectedIndexWhenLastIndex()
+            adjustSelectedIndexWhenDeleteLastIndex()
         } completion: { [weak self] _ in
             self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
             self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
@@ -135,19 +141,7 @@ final class EditTimerViewController: UIViewController {
         }
     }
     
-    private func writePhotoDataToCached() {
-        customTimerComponent.timeInfomations.forEach {
-            let fileName = $0.id.makeJPGFileName()
-            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
-            do {
-                try $0.photo?.write(to: cachesDirectoryPathURL)
-            } catch {
-                print(error, "失敗")
-            }
-        }
-    }
-    
-    private func adjustSelectedIndexWhenLastIndex() {
+    private func adjustSelectedIndexWhenDeleteLastIndex() {
         let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
         if isLastIndex { selectedIndexPath.item -= 1 }
     }
@@ -186,21 +180,10 @@ final class EditTimerViewController: UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
     
-    private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
-        guard let imageData = timeInfomation.photo,
-              let image = UIImage(data: imageData) else {
-                  switch timeInfomation.type {
-                  case .action: return UIImage(systemName: "timer")
-                  case .rest: return UIImage(systemName: "stop.circle")
-                  }
-              }
-        return image
-    }
-    
     private func showDiscardChangesAlert() {
-        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーは破棄されます。よろしいですか？",
+        showTwoChoicesAlert(alertTitle: "画面を閉じると編集中のタイマーの変更内容は反映されません。画面を閉じますか？",
                             cancelMessage: "キャンセル",
-                            destructiveTitle: "破棄する",
+                            destructiveTitle: "閉じる",
                             handler: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
         })
@@ -271,14 +254,10 @@ extension EditTimerViewController: UICollectionViewDataSource {
         ) as? EditTimerCollectionViewCell else { fatalError("セルが見つかりません") }
         let timeString = customTimerComponent.timeInfomations[indexPath.item].time.makeTimeString()
         let image = makePhotoImage(timeInfomation: customTimerComponent.timeInfomations[indexPath.item])
-        switch customTimerComponent.timeInfomations[indexPath.item].type {
-        case .action: cell.changeBackgroungOfImageView(color: .systemBackground)
-        case .rest: cell.changeBackgroungOfImageView(color: .systemGreen)
-        }
-        cell.configure(image: image, timeString: timeString)
-        indexPath == selectedIndexPath
-        ? cell.selectedCell()
-        : cell.unselectedCell()
+        let isYasumiImage = (image == UIImage(named: "yasumi"))
+        let contentMode: UIView.ContentMode = isYasumiImage ? .scaleAspectFit : .scaleAspectFill
+        let cellState: SelectCellState = (indexPath == selectedIndexPath) ? SelectedCell() : UnSelectedCell()
+        cell.configure(image: image, timeString: timeString, contentMode: contentMode, cellState: cellState)
         return cell
     }
     

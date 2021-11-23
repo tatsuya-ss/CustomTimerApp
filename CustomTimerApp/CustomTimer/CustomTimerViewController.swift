@@ -10,6 +10,7 @@ import Photos
 
 extension CustomTimerViewController: ShowAlertProtocol { }
 extension CustomTimerViewController: PerformBatchUpdatesProtocol { }
+extension CustomTimerViewController: CustomTimerProtocol { }
 
 protocol CustomTimerViewControllerDelegate: AnyObject {
     func didTapSaveButton(_ customTimerViewController: CustomTimerViewController,
@@ -81,7 +82,7 @@ final class CustomTimerViewController: UIViewController {
                 }
             case .success:
                 self?.indicator.flash(flashType: .success) {
-                    self?.writePhotoDataToCached()
+                    self?.writePhotoDataToCached(timeInfomations: self?.customTimerComponent.timeInfomations ?? [])
                     self?.dismiss(animated: true, completion: nil)
                 }
             }
@@ -116,7 +117,9 @@ final class CustomTimerViewController: UIViewController {
         let deselectedIndexPath = selectedIndexPath
         selectedIndexPath = insertIndexPath
         customTimerComponent.timeInfomations
-            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0), type: .rest, id: UUID().uuidString),
+            .insert(TimeInfomation(time: Time(hour: 0, minute: 0, second: 0),
+                                   type: .rest,
+                                   id: UUID().uuidString),
                     at: insertIndexPath.item)
         insertCellWithAnimation(collectionView: collectionView,
                                 insertIndexPath: insertIndexPath,
@@ -130,7 +133,7 @@ final class CustomTimerViewController: UIViewController {
         customTimerComponent.timeInfomations.remove(at: selectedIndexPath.item)
         collectionView.performBatchUpdates {
             collectionView.deleteItems(at: [selectedIndexPath])
-            adjustSelectedIndexWhenLastIndex()
+            adjustSelectedIndexWhenDeleteLastIndex()
         } completion: { [weak self] _ in
             self?.collectionView.reloadItems(at: [self?.selectedIndexPath ?? [0, 0]])
             self?.collectionView.scrollToItem(at: self?.selectedIndexPath ?? [0,0],
@@ -139,21 +142,12 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
+}
+
     // MARK: - func
+extension CustomTimerViewController {
     
-    private func writePhotoDataToCached() {
-        customTimerComponent.timeInfomations.forEach {
-            let fileName = $0.id.makeJPGFileName()
-            let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
-            do {
-                try $0.photo?.write(to: cachesDirectoryPathURL)
-            } catch {
-                print(error)
-            }
-        }
-    }
-    
-    private func adjustSelectedIndexWhenLastIndex() {
+    private func adjustSelectedIndexWhenDeleteLastIndex() {
         let isLastIndex = (selectedIndexPath.item == customTimerComponent.timeInfomations.count)
         if isLastIndex { selectedIndexPath.item -= 1 }
     }
@@ -200,24 +194,13 @@ final class CustomTimerViewController: UIViewController {
         }
     }
     
-    private func makePhotoImage(timeInfomation: TimeInfomation) -> UIImage? {
-        guard let imageData = timeInfomation.photo,
-              let image = UIImage(data: imageData) else {
-                  switch timeInfomation.type {
-                  case .action: return UIImage(systemName: "timer")
-                  case .rest: return UIImage(systemName: "stop.circle")
-                  }
-              }
-        return image
-    }
-    
     private func showSelectedTimeInPicker(indexPath: IndexPath = [0, 0]) {
         let currentTime = customTimerComponent.timeInfomations[indexPath.item].time
         timePickerView.selectRow(currentTime.hour, inComponent: 0, animated: true)
         timePickerView.selectRow(currentTime.minute, inComponent: 1, animated: true)
         timePickerView.selectRow(currentTime.second, inComponent: 2, animated: true)
     }
-    
+
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
@@ -260,14 +243,10 @@ extension CustomTimerViewController: UICollectionViewDataSource {
         
         let timeString = customTimerComponent.timeInfomations[indexPath.item].time.makeTimeString()
         let image = makePhotoImage(timeInfomation: customTimerComponent.timeInfomations[indexPath.item])
-        switch customTimerComponent.timeInfomations[indexPath.item].type {
-        case .action: cell.changeBackgroungOfImageView(color: .systemBackground)
-        case .rest: cell.changeBackgroungOfImageView(color: .systemGreen)
-        }
-        cell.configure(image: image, timeString: timeString)
-        indexPath == selectedIndexPath
-        ? cell.selectedCell()
-        : cell.unselectedCell()
+        let isYasumiImage = (image == UIImage(named: "yasumi"))
+        let contentMode: UIView.ContentMode = isYasumiImage ? .scaleAspectFit : .scaleAspectFill
+        let cellState: SelectCellState = (indexPath == selectedIndexPath) ? SelectedCell() : UnSelectedCell()
+        cell.configure(image: image, timeString: timeString, contentMode: contentMode, cellState: cellState)
         return cell
     }
     
