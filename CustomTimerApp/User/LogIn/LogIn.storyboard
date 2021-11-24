@@ -83,6 +83,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="logInButton" destination="kpk-dS-bPf" id="Y2I-8Y-qRM"/>
+                        <outlet property="logInStackView" destination="ALc-dh-7lf" id="xZu-TY-Vh7"/>
                         <outlet property="mailAddressTextField" destination="vNz-9W-nQN" id="1Fh-GW-EUe"/>
                         <outlet property="passwordTextField" destination="VNQ-Ke-IWW" id="3ct-hg-uL1"/>
                     </connections>

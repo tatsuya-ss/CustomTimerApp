@@ -67,6 +67,7 @@
                         <outlet property="mailAddressTextField" destination="lJU-k4-yg0" id="uG5-tE-gF8"/>
                         <outlet property="passwordTextField" destination="rn6-8R-HyC" id="Zb7-ci-uJ5"/>
                         <outlet property="signUpButton" destination="STu-Eu-bGC" id="FsG-fJ-iOS"/>
+                        <outlet property="signUpStackView" destination="8NG-UC-aHc" id="Y37-b0-zbh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
