@@ -67,7 +67,8 @@ final class SettingViewController: UIViewController {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Item>! = nil
     private var userUseCase: UserUseCaseProtocol!
-    
+    private let indicator = Indicator()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
@@ -102,17 +103,17 @@ extension SettingViewController {
     private func showLogOutAlert() {
         let alert = UIAlertController(title: "ログアウトしますか？", message: nil, preferredStyle: .alert)
         let logOutAction = UIAlertAction(title: "ログアウト", style: .destructive) { [weak self] _ in
+            self?.indicator.show(flashType: .progress)
             self?.userUseCase.signOut { result in
                 switch result {
                 case .failure(let error):
-                    print(error)
+                    self?.indicator.flash(flashType: .error) {
+                        print(error)
+                    }
                 case .success:
-                    print("ログアウトしました。")
-                    self?.dismiss(animated: true, completion: nil)
-                    let signUpOrLogInVC = SignUpOrLogInViewController.instantiate()
-                    let navigationController = UINavigationController(rootViewController: signUpOrLogInVC)
-                    navigationController.modalPresentationStyle = .fullScreen
-                    self?.present(navigationController, animated: true, completion: nil)
+                    self?.indicator.flash(flashType: .success) {
+                        self?.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
         }
