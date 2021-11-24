@@ -62,7 +62,6 @@ final class TimerViewController: UIViewController {
         setupLongPressRecognizer()
         setupNavigation()
         setupToolBar()
-        fetchTimers()
     }
     
     @IBAction private func settingButtonDidTapped(_ sender: Any) {
@@ -313,12 +312,14 @@ extension TimerViewController {
         userUseCase.logInStateListener { [weak self] result in
             switch result {
             case .failure:
+                self?.customTimers.removeAll()
+                self?.updateCollectionView()
                 let signUpOrLogInVC = SignUpOrLogInViewController.instantiate()
                 let navigationController = UINavigationController(rootViewController: signUpOrLogInVC)
                 navigationController.modalPresentationStyle = .fullScreen
                 self?.present(navigationController, animated: true, completion: nil)
             case .success:
-                print("ログイン済み")
+                self?.fetchTimers()
             }
         }
     }

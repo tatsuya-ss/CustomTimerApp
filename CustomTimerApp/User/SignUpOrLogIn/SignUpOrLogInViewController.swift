@@ -7,11 +7,17 @@
 
 import UIKit
 
+extension SignUpOrLogInViewController: UIButtonLayoutProtocol { }
+
 final class SignUpOrLogInViewController: UIViewController {
 
+    @IBOutlet private weak var signUpButton: UIButton!
+    @IBOutlet private weak var logInButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupButton(button: signUpButton, layout: SignUpButtonLayout())
+        setupButton(button: logInButton, layout: LogInButtonLayout())
     }
     
     @IBAction private func signUpButtonDidTapped(_ sender: Any) {
@@ -26,6 +32,7 @@ final class SignUpOrLogInViewController: UIViewController {
     
 }
 
+// MARK: - instantiate
 extension SignUpOrLogInViewController {
     
     static func instantiate() -> SignUpOrLogInViewController {
