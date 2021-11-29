@@ -13,10 +13,12 @@ final class TimeManagementTests: XCTestCase {
     func testTimeCount_時間を秒に変換が出来ているか() {
         XCTContext.runActivity(named: "1時間20分30秒の時に4830秒か") { _ in
             let testTime = Time(hour: 1, minute: 20, second: 30)
-            let testTimeInfomations = [TimeInfomation(time: testTime)]
+            let testTimeInfomations = [TimeInfomation(time: testTime,
+                                                      id: UUID().uuidString)]
             let testCustomTimeComponent = CustomTimerComponent(
                 name: "テストタイマー１",
-                timeInfomations: testTimeInfomations
+                timeInfomations: testTimeInfomations,
+                id: UUID().uuidString
             )
             let testTimeManagement = TimeManagement(
                 customTimerConponent: testCustomTimeComponent
@@ -54,24 +56,30 @@ final class TimeBehaviorTests: XCTestCase {
         let testTime = Time(hour: 1, minute: 20, second: 30)
         XCTContext.runActivity(named: "データがない場合") { _ in
             let testTimeInfomationsNilData = [TimeInfomation(time: testTime,
-                                                      photo: nil)]
+                                                             photo: nil,
+                                                             id: UUID().uuidString)]
             let testCustomTimeComponentNil = CustomTimerComponent(
                 name: "テストNil",
-                timeInfomations: testTimeInfomationsNilData
+                timeInfomations: testTimeInfomationsNilData,
+                id: UUID().uuidString
             )
-            let timeBehaviorNilData = TimerBehavior(customTimerComponent: testCustomTimeComponentNil)
+            let timeManagement = TimeManagement(customTimerConponent: testCustomTimeComponentNil)
+            let timeBehaviorNilData = TimerBehavior(timeManagement: timeManagement)
             let data = timeBehaviorNilData.makeInitialPhotoData()
             XCTAssertNil(data)
         }
         
         XCTContext.runActivity(named: "データがある場合") { _ in
             let testTimeInfomationsNotNilData = [TimeInfomation(time: testTime,
-                                                      photo: Data())]
+                                                                photo: Data(),
+                                                                id: UUID().uuidString)]
             let testCustomTimeComponentNotNil = CustomTimerComponent(
                 name: "テストNotNil",
-                timeInfomations: testTimeInfomationsNotNilData
+                timeInfomations: testTimeInfomationsNotNilData,
+                id: UUID().uuidString
             )
-            let timeBehaviorNotNilData = TimerBehavior(customTimerComponent: testCustomTimeComponentNotNil)
+            let timeManagement = TimeManagement(customTimerConponent: testCustomTimeComponentNotNil)
+            let timeBehaviorNotNilData = TimerBehavior(timeManagement: timeManagement)
             let data = timeBehaviorNotNilData.makeInitialPhotoData()
             XCTAssertNotNil(data)
         }
