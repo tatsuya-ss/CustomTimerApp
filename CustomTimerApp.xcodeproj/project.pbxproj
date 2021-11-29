@@ -66,9 +66,9 @@
 		75F6BD57272FC5A0007309B7 /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD56272FC5A0007309B7 /* UserUseCase.swift */; };
 		75F6BD5B27301B46007309B7 /* HUDIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD5A27301B46007309B7 /* HUDIndicator.swift */; };
 		75F6BD5D27301B69007309B7 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD5C27301B69007309B7 /* Indicator.swift */; };
-		8C45804C5121BFB09C0FE74A /* Pods_CustomTimerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F4EEB0689F38E0EBC439E3 /* Pods_CustomTimerApp.framework */; };
-		9D6B91538134A28467AAD991 /* Pods_CustomTimerApp_CustomTimerAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67441E1B1918322E3502EEAA /* Pods_CustomTimerApp_CustomTimerAppUITests.framework */; };
-		DAA72B37F9CA29D2C3523313 /* Pods_CustomTimerAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F71E6E44358F8879FAAC44 /* Pods_CustomTimerAppTests.framework */; };
+		D1E008ECEB695BED00932B24 /* Pods_CustomTimerAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C36CEE29948929D4524383 /* Pods_CustomTimerAppTests.framework */; };
+		E4F3243561649DA2420156D9 /* Pods_CustomTimerApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE24BCC0A7F0DA80F6352657 /* Pods_CustomTimerApp.framework */; };
+		E54D6B2435686CE1D2052676 /* Pods_CustomTimerApp_CustomTimerAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7338DCD9BA22F7CF031C52D /* Pods_CustomTimerApp_CustomTimerAppUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,10 +89,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		16F71E6E44358F8879FAAC44 /* Pods_CustomTimerAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C40BB924059F13533854EFA /* Pods-CustomTimerAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerAppTests.release.xcconfig"; path = "Target Support Files/Pods-CustomTimerAppTests/Pods-CustomTimerAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		67441E1B1918322E3502EEAA /* Pods_CustomTimerApp_CustomTimerAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerApp_CustomTimerAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		72FC40F8A84813AD381EB2F2 /* Pods-CustomTimerAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerAppTests.debug.xcconfig"; path = "Target Support Files/Pods-CustomTimerAppTests/Pods-CustomTimerAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		016CF465ED23A7C819E75581 /* Pods-CustomTimerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp.release.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp.release.xcconfig"; sourceTree = "<group>"; };
+		3A89964EA463B328C79A0BAE /* Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		602A9D0AA72013DD0806B7B3 /* Pods-CustomTimerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp.debug.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		69C36CEE29948929D4524383 /* Pods_CustomTimerAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		72F2E2C0AD34054F36573100 /* Pods-CustomTimerAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerAppTests.release.xcconfig"; path = "Target Support Files/Pods-CustomTimerAppTests/Pods-CustomTimerAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		750031DF271D6EE000971701 /* PerformBatchUpdatesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformBatchUpdatesProtocol.swift; sourceTree = "<group>"; };
 		751A36CF2707229E00715E43 /* TimerBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerBehavior.swift; sourceTree = "<group>"; };
 		754C290B26F035DA0050252E /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
@@ -158,11 +159,10 @@
 		75F6BD56272FC5A0007309B7 /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
 		75F6BD5A27301B46007309B7 /* HUDIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDIndicator.swift; sourceTree = "<group>"; };
 		75F6BD5C27301B69007309B7 /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
-		7EC62C4C776202EF14918D03 /* Pods-CustomTimerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp.debug.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp.debug.xcconfig"; sourceTree = "<group>"; };
-		89F4EEB0689F38E0EBC439E3 /* Pods_CustomTimerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD43A390FD9F0C10007E5091 /* Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig"; sourceTree = "<group>"; };
-		E3862CB0E13FBEE0FDF736D8 /* Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		E5807B70EA47D52C80CA810E /* Pods-CustomTimerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp.release.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp.release.xcconfig"; sourceTree = "<group>"; };
+		8F435046ABE31EBE1AE0B379 /* Pods-CustomTimerAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerAppTests.debug.xcconfig"; path = "Target Support Files/Pods-CustomTimerAppTests/Pods-CustomTimerAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A7338DCD9BA22F7CF031C52D /* Pods_CustomTimerApp_CustomTimerAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerApp_CustomTimerAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE24BCC0A7F0DA80F6352657 /* Pods_CustomTimerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5908DD0CACAE80D4518D47D /* Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C45804C5121BFB09C0FE74A /* Pods_CustomTimerApp.framework in Frameworks */,
+				E4F3243561649DA2420156D9 /* Pods_CustomTimerApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAA72B37F9CA29D2C3523313 /* Pods_CustomTimerAppTests.framework in Frameworks */,
+				D1E008ECEB695BED00932B24 /* Pods_CustomTimerAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D6B91538134A28467AAD991 /* Pods_CustomTimerApp_CustomTimerAppUITests.framework in Frameworks */,
+				E54D6B2435686CE1D2052676 /* Pods_CustomTimerApp_CustomTimerAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,22 +196,22 @@
 		46E556587C68E450679B388D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7EC62C4C776202EF14918D03 /* Pods-CustomTimerApp.debug.xcconfig */,
-				E5807B70EA47D52C80CA810E /* Pods-CustomTimerApp.release.xcconfig */,
-				E3862CB0E13FBEE0FDF736D8 /* Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig */,
-				CD43A390FD9F0C10007E5091 /* Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig */,
-				72FC40F8A84813AD381EB2F2 /* Pods-CustomTimerAppTests.debug.xcconfig */,
-				5C40BB924059F13533854EFA /* Pods-CustomTimerAppTests.release.xcconfig */,
+				602A9D0AA72013DD0806B7B3 /* Pods-CustomTimerApp.debug.xcconfig */,
+				016CF465ED23A7C819E75581 /* Pods-CustomTimerApp.release.xcconfig */,
+				F5908DD0CACAE80D4518D47D /* Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig */,
+				3A89964EA463B328C79A0BAE /* Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig */,
+				8F435046ABE31EBE1AE0B379 /* Pods-CustomTimerAppTests.debug.xcconfig */,
+				72F2E2C0AD34054F36573100 /* Pods-CustomTimerAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		49CBDB1D1669902CA12D96C2 /* Frameworks */ = {
+		501E37F923A50041DED61970 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				89F4EEB0689F38E0EBC439E3 /* Pods_CustomTimerApp.framework */,
-				67441E1B1918322E3502EEAA /* Pods_CustomTimerApp_CustomTimerAppUITests.framework */,
-				16F71E6E44358F8879FAAC44 /* Pods_CustomTimerAppTests.framework */,
+				CE24BCC0A7F0DA80F6352657 /* Pods_CustomTimerApp.framework */,
+				A7338DCD9BA22F7CF031C52D /* Pods_CustomTimerApp_CustomTimerAppUITests.framework */,
+				69C36CEE29948929D4524383 /* Pods_CustomTimerAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -234,7 +234,7 @@
 				7570115E26CCFCCD00716E93 /* CustomTimerAppUITests */,
 				7570113B26CCFCC200716E93 /* Products */,
 				46E556587C68E450679B388D /* Pods */,
-				49CBDB1D1669902CA12D96C2 /* Frameworks */,
+				501E37F923A50041DED61970 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -512,11 +512,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7570116426CCFCCD00716E93 /* Build configuration list for PBXNativeTarget "CustomTimerApp" */;
 			buildPhases = (
-				6B9C0793E1B2D7D965B59D8B /* [CP] Check Pods Manifest.lock */,
+				AF7770148DAFFF0EECD06717 /* [CP] Check Pods Manifest.lock */,
 				7570113626CCFCC200716E93 /* Sources */,
 				7570113726CCFCC200716E93 /* Frameworks */,
 				7570113826CCFCC200716E93 /* Resources */,
-				24AB57491F5993F14706C006 /* [CP] Embed Pods Frameworks */,
+				CEAEC4B5A7F57164D8BF67B6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -531,7 +531,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7570116726CCFCCD00716E93 /* Build configuration list for PBXNativeTarget "CustomTimerAppTests" */;
 			buildPhases = (
-				0322EC03C830914D111932FD /* [CP] Check Pods Manifest.lock */,
+				41F6DD262DDE4105C9B7CC4C /* [CP] Check Pods Manifest.lock */,
 				7570114C26CCFCCD00716E93 /* Sources */,
 				7570114D26CCFCCD00716E93 /* Frameworks */,
 				7570114E26CCFCCD00716E93 /* Resources */,
@@ -550,11 +550,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7570116A26CCFCCD00716E93 /* Build configuration list for PBXNativeTarget "CustomTimerAppUITests" */;
 			buildPhases = (
-				B484165467149D39484DC700 /* [CP] Check Pods Manifest.lock */,
+				A23D6A1BF1D84962EEF230AE /* [CP] Check Pods Manifest.lock */,
 				7570115726CCFCCD00716E93 /* Sources */,
 				7570115826CCFCCD00716E93 /* Frameworks */,
 				7570115926CCFCCD00716E93 /* Resources */,
-				C72347354FFF964432BAC671 /* [CP] Embed Pods Frameworks */,
+				2F37BA3D1176CDDAE5B36D41 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -649,7 +649,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0322EC03C830914D111932FD /* [CP] Check Pods Manifest.lock */ = {
+		2F37BA3D1176CDDAE5B36D41 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		41F6DD262DDE4105C9B7CC4C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -671,46 +688,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		24AB57491F5993F14706C006 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6B9C0793E1B2D7D965B59D8B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CustomTimerApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B484165467149D39484DC700 /* [CP] Check Pods Manifest.lock */ = {
+		A23D6A1BF1D84962EEF230AE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -732,21 +710,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C72347354FFF964432BAC671 /* [CP] Embed Pods Frameworks */ = {
+		AF7770148DAFFF0EECD06717 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CustomTimerApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp-CustomTimerAppUITests/Pods-CustomTimerApp-CustomTimerAppUITests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CEAEC4B5A7F57164D8BF67B6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CustomTimerApp/Pods-CustomTimerApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -880,6 +880,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -941,6 +942,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -961,7 +963,7 @@
 		};
 		7570116526CCFCCD00716E93 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7EC62C4C776202EF14918D03 /* Pods-CustomTimerApp.debug.xcconfig */;
+			baseConfigurationReference = 602A9D0AA72013DD0806B7B3 /* Pods-CustomTimerApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -981,7 +983,7 @@
 		};
 		7570116626CCFCCD00716E93 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5807B70EA47D52C80CA810E /* Pods-CustomTimerApp.release.xcconfig */;
+			baseConfigurationReference = 016CF465ED23A7C819E75581 /* Pods-CustomTimerApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1001,7 +1003,7 @@
 		};
 		7570116826CCFCCD00716E93 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72FC40F8A84813AD381EB2F2 /* Pods-CustomTimerAppTests.debug.xcconfig */;
+			baseConfigurationReference = 8F435046ABE31EBE1AE0B379 /* Pods-CustomTimerAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1024,7 +1026,7 @@
 		};
 		7570116926CCFCCD00716E93 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C40BB924059F13533854EFA /* Pods-CustomTimerAppTests.release.xcconfig */;
+			baseConfigurationReference = 72F2E2C0AD34054F36573100 /* Pods-CustomTimerAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1047,7 +1049,7 @@
 		};
 		7570116B26CCFCCD00716E93 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3862CB0E13FBEE0FDF736D8 /* Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig */;
+			baseConfigurationReference = F5908DD0CACAE80D4518D47D /* Pods-CustomTimerApp-CustomTimerAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1068,7 +1070,7 @@
 		};
 		7570116C26CCFCCD00716E93 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD43A390FD9F0C10007E5091 /* Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig */;
+			baseConfigurationReference = 3A89964EA463B328C79A0BAE /* Pods-CustomTimerApp-CustomTimerAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
