@@ -33,13 +33,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa1" translatesAutoresizingMaskIntoConstraints="NO" id="thz-Mn-T9J">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="thz-Mn-T9J" secondAttribute="bottom" id="CMl-8u-hip"/>
+                            <constraint firstAttribute="bottom" secondItem="thz-Mn-T9J" secondAttribute="bottom" id="CMl-8u-hip"/>
                             <constraint firstItem="thz-Mn-T9J" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Djo-qe-Dhf"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="thz-Mn-T9J" secondAttribute="trailing" id="mPl-vh-G9d"/>
                             <constraint firstItem="thz-Mn-T9J" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="rf7-LF-0wP"/>
@@ -60,7 +60,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa2" translatesAutoresizingMaskIntoConstraints="NO" id="fTg-cl-b5U">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yVX-hP-lXq"/>
@@ -68,7 +68,7 @@
                         <constraints>
                             <constraint firstItem="fTg-cl-b5U" firstAttribute="leading" secondItem="yVX-hP-lXq" secondAttribute="leading" id="Fgw-ak-WUZ"/>
                             <constraint firstItem="fTg-cl-b5U" firstAttribute="top" secondItem="yVX-hP-lXq" secondAttribute="top" id="dPE-Uw-Hbj"/>
-                            <constraint firstItem="yVX-hP-lXq" firstAttribute="bottom" secondItem="fTg-cl-b5U" secondAttribute="bottom" id="hc9-90-kDl"/>
+                            <constraint firstAttribute="bottom" secondItem="fTg-cl-b5U" secondAttribute="bottom" id="hc9-90-kDl"/>
                             <constraint firstItem="yVX-hP-lXq" firstAttribute="trailing" secondItem="fTg-cl-b5U" secondAttribute="trailing" id="oC7-Wm-o0O"/>
                         </constraints>
                     </view>
@@ -87,13 +87,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa3" translatesAutoresizingMaskIntoConstraints="NO" id="r9c-1l-sbX">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Q1M-JW-scE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Q1M-JW-scE" firstAttribute="bottom" secondItem="r9c-1l-sbX" secondAttribute="bottom" id="Bpc-R9-pr0"/>
+                            <constraint firstAttribute="bottom" secondItem="r9c-1l-sbX" secondAttribute="bottom" id="Bpc-R9-pr0"/>
                             <constraint firstItem="r9c-1l-sbX" firstAttribute="top" secondItem="Q1M-JW-scE" secondAttribute="top" id="NIg-6T-Ty8"/>
                             <constraint firstItem="Q1M-JW-scE" firstAttribute="trailing" secondItem="r9c-1l-sbX" secondAttribute="trailing" id="w6G-zx-0K2"/>
                             <constraint firstItem="r9c-1l-sbX" firstAttribute="leading" secondItem="Q1M-JW-scE" secondAttribute="leading" id="zMa-Rx-vQf"/>
@@ -114,13 +114,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa4" translatesAutoresizingMaskIntoConstraints="NO" id="BI0-G7-hyc">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rpS-7h-63l"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="rpS-7h-63l" firstAttribute="bottom" secondItem="BI0-G7-hyc" secondAttribute="bottom" id="5MX-UC-Tjj"/>
+                            <constraint firstAttribute="bottom" secondItem="BI0-G7-hyc" secondAttribute="bottom" id="5MX-UC-Tjj"/>
                             <constraint firstItem="rpS-7h-63l" firstAttribute="trailing" secondItem="BI0-G7-hyc" secondAttribute="trailing" id="BtF-QJ-Yzp"/>
                             <constraint firstItem="BI0-G7-hyc" firstAttribute="leading" secondItem="rpS-7h-63l" secondAttribute="leading" id="MVK-qR-8sb"/>
                             <constraint firstItem="BI0-G7-hyc" firstAttribute="top" secondItem="rpS-7h-63l" secondAttribute="top" id="yje-ga-6pu"/>
