@@ -13,7 +13,11 @@
             <objects>
                 <pageViewController storyboardIdentifier="OperationMethodViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="K2S-SC-goy" customClass="OperationMethodViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="操作方法" id="ohC-vZ-ZjS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="SH8-z5-tDO"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="SH8-z5-tDO">
+                            <connections>
+                                <action selector="didTapStopButton:" destination="K2S-SC-goy" id="E0l-GN-24R"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5SD-Fm-XN1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

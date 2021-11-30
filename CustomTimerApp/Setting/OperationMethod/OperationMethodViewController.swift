@@ -16,6 +16,9 @@ final class OperationMethodViewController: UIPageViewController {
         setupPageViewController()
     }
     
+    @IBAction private func didTapStopButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - UIPageViewControllerDelegate
