@@ -7,23 +7,21 @@
 
 import UIKit
 
-class StartTimerOperationViewController: UIViewController {
+final class StartTimerOperationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+// MARK: - instantiate
+extension StartTimerOperationViewController {
+    
+    static func instantiate() -> StartTimerOperationViewController {
+        guard let startTimerOperationVC = UIStoryboard(name: "OperationMethod", bundle: nil).instantiateViewController(withIdentifier: String(describing: StartTimerOperationViewController.self)) as? StartTimerOperationViewController else { fatalError("StartTimerOperationViewControllerが見つかりません。") }
+        return startTimerOperationVC
     }
-    */
-
+    
 }

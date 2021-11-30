@@ -7,23 +7,21 @@
 
 import UIKit
 
-class CountDownOperationViewController: UIViewController {
+final class CountDownOperationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+// MARK: - instantiate
+extension CountDownOperationViewController {
+    
+    static func instantiate() -> CountDownOperationViewController {
+        guard let countDownOperationVC = UIStoryboard(name: "OperationMethod", bundle: nil).instantiateViewController(withIdentifier: String(describing: CountDownOperationViewController.self)) as? CountDownOperationViewController else { fatalError("CountDownOperationViewControllerが見つかりません。") }
+        return countDownOperationVC
     }
-    */
-
+    
 }

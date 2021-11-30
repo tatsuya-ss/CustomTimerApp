@@ -1,28 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17122"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--操作方法-->
+        <scene sceneID="CX8-SM-Sew">
+            <objects>
+                <pageViewController storyboardIdentifier="OperationMethodViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="K2S-SC-goy" customClass="OperationMethodViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="操作方法" id="ohC-vZ-ZjS">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="SH8-z5-tDO"/>
+                    </navigationItem>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5SD-Fm-XN1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2747.826086956522" y="61.607142857142854"/>
+        </scene>
+        <!--操作方法-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomTimerOperationViewController" id="Y6W-OH-hqX" customClass="CustomTimerOperationViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa1" translatesAutoresizingMaskIntoConstraints="NO" id="thz-Mn-T9J">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="thz-Mn-T9J" secondAttribute="bottom" id="CMl-8u-hip"/>
+                            <constraint firstItem="thz-Mn-T9J" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Djo-qe-Dhf"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="thz-Mn-T9J" secondAttribute="trailing" id="mPl-vh-G9d"/>
+                            <constraint firstItem="thz-Mn-T9J" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="rf7-LF-0wP"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="操作方法" id="pwl-3Y-bGr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="3615.9420289855075" y="61.607142857142854"/>
+        </scene>
+        <!--操作方法-->
+        <scene sceneID="QcT-ju-dIl">
+            <objects>
+                <viewController storyboardIdentifier="StartTimerOperationViewController" id="UTG-Nb-fID" customClass="StartTimerOperationViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JKl-21-ZyW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa2" translatesAutoresizingMaskIntoConstraints="NO" id="fTg-cl-b5U">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yVX-hP-lXq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fTg-cl-b5U" firstAttribute="leading" secondItem="yVX-hP-lXq" secondAttribute="leading" id="Fgw-ak-WUZ"/>
+                            <constraint firstItem="fTg-cl-b5U" firstAttribute="top" secondItem="yVX-hP-lXq" secondAttribute="top" id="dPE-Uw-Hbj"/>
+                            <constraint firstItem="yVX-hP-lXq" firstAttribute="bottom" secondItem="fTg-cl-b5U" secondAttribute="bottom" id="hc9-90-kDl"/>
+                            <constraint firstItem="yVX-hP-lXq" firstAttribute="trailing" secondItem="fTg-cl-b5U" secondAttribute="trailing" id="oC7-Wm-o0O"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="操作方法" id="McG-n8-cun"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r3h-ei-AyF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4413.04347826087" y="61.607142857142854"/>
+        </scene>
+        <!--操作方法-->
+        <scene sceneID="LCP-6O-V4D">
+            <objects>
+                <viewController storyboardIdentifier="CountDownOperationViewController" id="fl8-ua-hPi" customClass="CountDownOperationViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="98W-p7-Cfs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa3" translatesAutoresizingMaskIntoConstraints="NO" id="r9c-1l-sbX">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Q1M-JW-scE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Q1M-JW-scE" firstAttribute="bottom" secondItem="r9c-1l-sbX" secondAttribute="bottom" id="Bpc-R9-pr0"/>
+                            <constraint firstItem="r9c-1l-sbX" firstAttribute="top" secondItem="Q1M-JW-scE" secondAttribute="top" id="NIg-6T-Ty8"/>
+                            <constraint firstItem="Q1M-JW-scE" firstAttribute="trailing" secondItem="r9c-1l-sbX" secondAttribute="trailing" id="w6G-zx-0K2"/>
+                            <constraint firstItem="r9c-1l-sbX" firstAttribute="leading" secondItem="Q1M-JW-scE" secondAttribute="leading" id="zMa-Rx-vQf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="操作方法" id="YNm-Ml-vnM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cew-MK-WQf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5221.739130434783" y="61.607142857142854"/>
+        </scene>
+        <!--操作方法-->
+        <scene sceneID="2MH-Ue-4rX">
+            <objects>
+                <viewController storyboardIdentifier="NotificationOperationViewController" id="fBm-yR-X8h" customClass="NotificationOperationViewController" customModule="CustomTimerApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="awZ-YO-F6p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sosa4" translatesAutoresizingMaskIntoConstraints="NO" id="BI0-G7-hyc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="rpS-7h-63l"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rpS-7h-63l" firstAttribute="bottom" secondItem="BI0-G7-hyc" secondAttribute="bottom" id="5MX-UC-Tjj"/>
+                            <constraint firstItem="rpS-7h-63l" firstAttribute="trailing" secondItem="BI0-G7-hyc" secondAttribute="trailing" id="BtF-QJ-Yzp"/>
+                            <constraint firstItem="BI0-G7-hyc" firstAttribute="leading" secondItem="rpS-7h-63l" secondAttribute="leading" id="MVK-qR-8sb"/>
+                            <constraint firstItem="BI0-G7-hyc" firstAttribute="top" secondItem="rpS-7h-63l" secondAttribute="top" id="yje-ga-6pu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="操作方法" id="wuu-eL-f97"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G8u-Yh-qDH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6021.739130434783" y="61.607142857142854"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Lm7-Kc-uL1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RI6-z8-p9n" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sqg-n8-zUC">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="K2S-SC-goy" kind="relationship" relationship="rootViewController" id="IBN-Ql-XOm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HXb-Rt-LMM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1837.68115942029" y="61.607142857142854"/>
         </scene>
     </scenes>
     <resources>
+        <image name="sosa1" width="1284" height="2778"/>
+        <image name="sosa2" width="1284" height="2778"/>
+        <image name="sosa3" width="1284" height="2778"/>
+        <image name="sosa4" width="1284" height="2778"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

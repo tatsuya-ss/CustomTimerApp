@@ -144,7 +144,9 @@ extension SettingViewController: UICollectionViewDelegate {
 //            }
         case .app:
             switch ApplicationItem.allCases[indexPath.item] {
-            case .operation: break
+            case .operation:
+                let operationMethodVC = OperationMethodViewController.instantiate()
+                navigationController?.pushViewController(operationMethodVC, animated: true)
             case .evaluation: showRequestReviewManually()
             case .inquiry:
                 guard let inquiryURL = makeInquiryURL() else { return }
