@@ -16,6 +16,12 @@
 		7553DD49274C89CE00C61B27 /* CustomTimerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553DD48274C89CE00C61B27 /* CustomTimerProtocol.swift */; };
 		7553DD4B274CE29800C61B27 /* UIButtonLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553DD4A274CE29800C61B27 /* UIButtonLayout.swift */; };
 		7553DD4D274D089100C61B27 /* UIButtonLayoutProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553DD4C274D089100C61B27 /* UIButtonLayoutProtocol.swift */; };
+		7561CE562755F3750052712C /* OperationMethod.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7561CE552755F3750052712C /* OperationMethod.storyboard */; };
+		7561CE582755F3900052712C /* OperationMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561CE572755F3900052712C /* OperationMethodViewController.swift */; };
+		7561CE5A2755FDC60052712C /* CustomTimerOperationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561CE592755FDC60052712C /* CustomTimerOperationViewController.swift */; };
+		7561CE5C2755FEB60052712C /* StartTimerOperationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561CE5B2755FEB60052712C /* StartTimerOperationViewController.swift */; };
+		7561CE5E2755FEE20052712C /* CountDownOperationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561CE5D2755FEE20052712C /* CountDownOperationViewController.swift */; };
+		7561CE602755FF0A0052712C /* NotificationOperationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561CE5F2755FF0A0052712C /* NotificationOperationViewController.swift */; };
 		7570113E26CCFCC200716E93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570113D26CCFCC200716E93 /* AppDelegate.swift */; };
 		7570114026CCFCC200716E93 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7570113F26CCFCC200716E93 /* SceneDelegate.swift */; };
 		7570114726CCFCCC00716E93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7570114626CCFCCC00716E93 /* Assets.xcassets */; };
@@ -100,6 +106,12 @@
 		7553DD48274C89CE00C61B27 /* CustomTimerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerProtocol.swift; sourceTree = "<group>"; };
 		7553DD4A274CE29800C61B27 /* UIButtonLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonLayout.swift; sourceTree = "<group>"; };
 		7553DD4C274D089100C61B27 /* UIButtonLayoutProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonLayoutProtocol.swift; sourceTree = "<group>"; };
+		7561CE552755F3750052712C /* OperationMethod.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = OperationMethod.storyboard; sourceTree = "<group>"; };
+		7561CE572755F3900052712C /* OperationMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMethodViewController.swift; sourceTree = "<group>"; };
+		7561CE592755FDC60052712C /* CustomTimerOperationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerOperationViewController.swift; sourceTree = "<group>"; };
+		7561CE5B2755FEB60052712C /* StartTimerOperationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTimerOperationViewController.swift; sourceTree = "<group>"; };
+		7561CE5D2755FEE20052712C /* CountDownOperationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownOperationViewController.swift; sourceTree = "<group>"; };
+		7561CE5F2755FF0A0052712C /* NotificationOperationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationOperationViewController.swift; sourceTree = "<group>"; };
 		7570113A26CCFCC200716E93 /* CustomTimerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomTimerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7570113D26CCFCC200716E93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7570113F26CCFCC200716E93 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -214,6 +226,19 @@
 				7570591A2746420D000CA4FD /* String+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7561CE4E2755EFBD0052712C /* OperationMethod */ = {
+			isa = PBXGroup;
+			children = (
+				7561CE552755F3750052712C /* OperationMethod.storyboard */,
+				7561CE572755F3900052712C /* OperationMethodViewController.swift */,
+				7561CE592755FDC60052712C /* CustomTimerOperationViewController.swift */,
+				7561CE5B2755FEB60052712C /* StartTimerOperationViewController.swift */,
+				7561CE5D2755FEE20052712C /* CountDownOperationViewController.swift */,
+				7561CE5F2755FF0A0052712C /* NotificationOperationViewController.swift */,
+			);
+			path = OperationMethod;
 			sourceTree = "<group>";
 		};
 		7570113126CCFCC200716E93 = {
@@ -455,6 +480,7 @@
 			children = (
 				75DC7B6326CFDA9900A142BF /* Setting.storyboard */,
 				75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */,
+				7561CE4E2755EFBD0052712C /* OperationMethod */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -617,6 +643,7 @@
 				7570114A26CCFCCC00716E93 /* LaunchScreen.storyboard in Resources */,
 				75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */,
 				75BCC7FF27196912001B5810 /* EditTimerCollectionViewCell.xib in Resources */,
+				7561CE562755F3750052712C /* OperationMethod.storyboard in Resources */,
 				7570114726CCFCCC00716E93 /* Assets.xcassets in Resources */,
 				75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */,
 				7590EA82272CEF77009137CD /* ForgotPassword.storyboard in Resources */,
@@ -759,6 +786,7 @@
 				7590C99D274DA3C000420A37 /* ChangeLayoutProtocol.swift in Sources */,
 				758EE0532741FE080060DF78 /* TimerValidation.swift in Sources */,
 				75EC6617270D803E0001F464 /* TimeManagement.swift in Sources */,
+				7561CE5E2755FEE20052712C /* CountDownOperationViewController.swift in Sources */,
 				754C290C26F035DA0050252E /* UIViewController+Extension.swift in Sources */,
 				7570591927463CAF000CA4FD /* DirectoryManagement.swift in Sources */,
 				75BCC80127196948001B5810 /* EditTimerCollectionViewFlowLayout.swift in Sources */,
@@ -770,9 +798,11 @@
 				7590EA7B272CE336009137CD /* SignUpViewController.swift in Sources */,
 				75D28F4A26F721D3000718DF /* UIImage+Extension.swift in Sources */,
 				75F6BD57272FC5A0007309B7 /* UserUseCase.swift in Sources */,
+				7561CE602755FF0A0052712C /* NotificationOperationViewController.swift in Sources */,
 				7570113E26CCFCC200716E93 /* AppDelegate.swift in Sources */,
 				75D2905A270050FB000718DF /* TimeString.swift in Sources */,
 				75DC7B5E26CFDA4000A142BF /* StartTimerViewController.swift in Sources */,
+				7561CE5C2755FEB60052712C /* StartTimerOperationViewController.swift in Sources */,
 				75F6BD54272FC3FA007309B7 /* UserRepository.swift in Sources */,
 				75F6BD5D27301B69007309B7 /* Indicator.swift in Sources */,
 				7590EA84272CEF85009137CD /* ForgotPasswordViewController.swift in Sources */,
@@ -781,6 +811,7 @@
 				75DBEF5F2733A1A9007589F9 /* TimerRepository.swift in Sources */,
 				75BCC7FE27196912001B5810 /* EditTimerCollectionViewCell.swift in Sources */,
 				75DC7B5A26CFD9D500A142BF /* CustomTimerViewController.swift in Sources */,
+				7561CE5A2755FDC60052712C /* CustomTimerOperationViewController.swift in Sources */,
 				75DBEF5C273123DD007589F9 /* TimerDataStore.swift in Sources */,
 				750031E0271D6EE000971701 /* PerformBatchUpdatesProtocol.swift in Sources */,
 				75888FB626E85C9300F1A545 /* CustomTimerComponent.swift in Sources */,
@@ -793,6 +824,7 @@
 				7553DD4D274D089100C61B27 /* UIButtonLayoutProtocol.swift in Sources */,
 				75D28ED326F3118D000718DF /* CustomTimerCollectionViewFlowLayout.swift in Sources */,
 				75BCC7FA27195DD8001B5810 /* EditTimerViewController.swift in Sources */,
+				7561CE582755F3900052712C /* OperationMethodViewController.swift in Sources */,
 				7590EA7F272CE36C009137CD /* LogInViewController.swift in Sources */,
 				75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */,
 				7570114026CCFCC200716E93 /* SceneDelegate.swift in Sources */,

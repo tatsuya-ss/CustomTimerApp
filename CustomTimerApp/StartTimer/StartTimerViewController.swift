@@ -201,9 +201,13 @@ extension StartTimerViewController {
             content.body = "次は\(nextTime)秒です。"
             makeCopyOfDataTotemporaryDirectory(at: cachesDirectoryPathURL, to: temporaryDirectoryPathURL)
         }
-        content.attachments = [try! UNNotificationAttachment(identifier: UUID().uuidString,
-                                                             url: temporaryDirectoryPathURL,
-                                                             options: nil)]
+        do {
+            content.attachments = [try UNNotificationAttachment(identifier: UUID().uuidString,
+                                                                 url: temporaryDirectoryPathURL,
+                                                                 options: nil)]
+        } catch {
+            print(error)
+        }
         return content
     }
     
