@@ -66,7 +66,7 @@
 		75DC7B6026CFDA4D00A142BF /* StartTimer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */; };
 		75DC7B6226CFDA8B00A142BF /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */; };
 		75DC7B6426CFDA9900A142BF /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75DC7B6326CFDA9900A142BF /* Setting.storyboard */; };
-		75EC10C62755B93700D1E73B /* TimeUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75EC10C52755B93600D1E73B /* TimeUp.mp3 */; };
+		75E4D08A2756DD080065AF99 /* TimeUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75E4D0892756DD080065AF99 /* TimeUp.mp3 */; };
 		75EC6617270D803E0001F464 /* TimeManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EC6616270D803E0001F464 /* TimeManagement.swift */; };
 		75F6BD51272FC056007309B7 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD50272FC056007309B7 /* UserDataStore.swift */; };
 		75F6BD54272FC3FA007309B7 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6BD53272FC3FA007309B7 /* UserRepository.swift */; };
@@ -162,7 +162,7 @@
 		75DC7B5F26CFDA4D00A142BF /* StartTimer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StartTimer.storyboard; sourceTree = "<group>"; };
 		75DC7B6126CFDA8B00A142BF /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		75DC7B6326CFDA9900A142BF /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
-		75EC10C52755B93600D1E73B /* TimeUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = TimeUp.mp3; path = ../../../../../../../../Downloads/TimeUp.mp3; sourceTree = "<group>"; };
+		75E4D0892756DD080065AF99 /* TimeUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = TimeUp.mp3; path = ../../../../../Downloads/TimeUp.mp3; sourceTree = "<group>"; };
 		75EC6616270D803E0001F464 /* TimeManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManagement.swift; sourceTree = "<group>"; };
 		75F6BD50272FC056007309B7 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 		75F6BD53272FC3FA007309B7 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -488,7 +488,7 @@
 		75EC6610270BE93C0001F464 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				75EC10C52755B93600D1E73B /* TimeUp.mp3 */,
+				75E4D0892756DD080065AF99 /* TimeUp.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -652,10 +652,10 @@
 				7590EA75272CE2BE009137CD /* SignUpOrLogIn.storyboard in Resources */,
 				75888FB426E859B900F1A545 /* TimerCollectionViewCell.xib in Resources */,
 				75DC7B5C26CFD9E100A142BF /* CustomTimer.storyboard in Resources */,
-				75EC10C62755B93700D1E73B /* TimeUp.mp3 in Resources */,
 				75BCC7F827195D83001B5810 /* EditTimer.storyboard in Resources */,
 				7590EA7D272CE361009137CD /* LogIn.storyboard in Resources */,
 				754C291126F037000050252E /* CustomTimerCollectionViewCell.xib in Resources */,
+				75E4D08A2756DD080065AF99 /* TimeUp.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
