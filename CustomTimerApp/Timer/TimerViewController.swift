@@ -128,12 +128,13 @@ extension TimerViewController {
     }
     
     private func deleteUnnecessaryStorage() {
+        // アプリ起動時に不要データがあれば削除するだけの処理なので、削除処理が失敗しても成功しても特にやることはない
         timerUseCase.deleteUnnecessaryStorage(customTimer: customTimers) { result in
             switch result {
             case .failure(let error):
                 print(error)
             case .success:
-                print("取得成功")
+                break
             }
         }
     }
