@@ -35,7 +35,10 @@ protocol TimerRepositoryProtocol {
     func save(customTimer: CustomTimerComponent,
               completion: @escaping (Result<Any?, DataBaseError>) -> Void)
     func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void)
-    func delete(customTimer: [CustomTimerComponent], completion: @escaping (Result<Any?, DataBaseError>) -> Void)
+    func delete(customTimer: [CustomTimerComponent],
+                completion: @escaping (Result<Any?, DataBaseError>) -> Void)
+    func deleteUnnecessaryStorage(customTimer: [CustomTimerComponent],
+                                  completion: @escaping StoreResultHandler<Any?>)
 }
 
 final class TimerRepository: TimerRepositoryProtocol {
@@ -101,7 +104,7 @@ final class TimerRepository: TimerRepositoryProtocol {
         let dispatchGroup = DispatchGroup()
         let dispatchQueue = DispatchQueue(label: .fetchPhotosQueueLabel,
                                           attributes: .concurrent)
-
+        
         dispatchGroup.enter()
         dataStore.fetchData() { result in
             defer { dispatchGroup.leave() }
@@ -163,17 +166,16 @@ final class TimerRepository: TimerRepositoryProtocol {
             }
         }
         
-        customTimer.forEach { timer in
-            timer.timeInfomations.forEach { timeInfomation in
-                dispatchGroup.enter()
-                dataStore.deletePhoto(timerId: timer.id, photoId: timeInfomation.id) { result in
-                    defer { dispatchGroup.leave() }
-                    switch result {
-                    case .failure(let error):
-                        dataBaseError = DataBaseError(storage: error)
-                    case .success:
-                        break
-                    }
+        customTimer.forEach {
+            dispatchGroup.enter()
+            dataStore.deletePhoto(timerId: $0.id) { result in
+                defer { dispatchGroup.leave() }
+                switch result {
+                case .failure(let error):
+                    let error = DataBaseError(storage: error)
+                    dataBaseError = error
+                case .success:
+                    break
                 }
             }
         }
@@ -186,6 +188,46 @@ final class TimerRepository: TimerRepositoryProtocol {
             }
         }
     }
+    
+    func deleteUnnecessaryStorage(customTimer: [CustomTimerComponent],
+                                  completion: @escaping StoreResultHandler<Any?>) {
+        dataStore.fetchTimerListAll { [weak self] result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let refs):
+                guard let unnecessasyStorageId = self?.checkUnnecessaryStorageId(customTimer: customTimer,
+                                                                                 references: refs) else {
+                    completion(.failure(DataBaseError.unknown))
+                    return
+                }
+                if unnecessasyStorageId.isEmpty {
+                    completion(.success(nil))
+                } else {
+                    unnecessasyStorageId.forEach {
+                        self?.dataStore.deletePhoto(timerId: $0.name) { result in
+                            switch result {
+                            case .failure(let error):
+                                completion(.failure(error))
+                            case .success:
+                                completion(.success(nil))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func checkUnnecessaryStorageId(customTimer: [CustomTimerComponent],
+                                    references: [StorageReference]) -> [StorageReference] {
+        references.filter { reference in
+            !customTimer.contains { timer in
+                return timer.id == reference.name
+            }
+        }
+    }
+    
 }
 
 // MARK: - extension String
@@ -310,7 +352,7 @@ extension DataBaseError {
         case .permissionDenied: return "権限がありません。"
         case .unauthenticated: return "有効な認証情報がありません。"
         case .unknown: return "予期しないエラーが発生しました。"
-      
+            
         case .objectNotFound: return "オブジェクトが存在しません。"
         case .bucketNotFound: return "設定されているバケットはありません。"
         case .projectNotFound: return "プロジェクトがありません。"

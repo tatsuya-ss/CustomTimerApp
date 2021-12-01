@@ -38,7 +38,8 @@ protocol TimerDataStoreProtocol {
     func fetchData(completion: @escaping StoreResultHandler<[DataBaseCustomTimer]>)
     func fetchPhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>)
     func deleteData(timerId: String, completion: @escaping StoreResultHandler<Any?>)
-    func deletePhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<Any?>)
+    func deletePhoto(timerId: String, completion: @escaping StoreResultHandler<Any?>)
+    func fetchTimerListAll(completion: @escaping StoreResultHandler<[StorageReference]>)
 }
 
 final class TimerDataStore: TimerDataStoreProtocol {
@@ -174,19 +175,50 @@ final class TimerDataStore: TimerDataStoreProtocol {
         }
     }
     
-    func deletePhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<Any?>) {
+    func deletePhoto(timerId: String,
+                     completion: @escaping StoreResultHandler<Any?>) {
         guard let user = user else {
             completion(.failure(DataBaseError.unknown))
             return
         }
-        let fileName = photoId.makeJPGFileName()
-        let photoRef =  storageRef.child("users/\(user.uid)/timers/\(timerId)/\(fileName)")
-        photoRef.delete { error in
+        let timerStorageRef = storageRef.child("users/\(user.uid)/timers/\(timerId)")
+        timerStorageRef.listAll { result, error in
             if let error = error {
                 completion(.failure(error))
-            } else {
+                return
+            }
+            let dispatchGroup = DispatchGroup()
+            let dispatchQueue = DispatchQueue(label: .deleteAllPhotosQueueLabel,
+                                              attributes: .concurrent)
+            dispatchQueue.async(group: dispatchGroup) {
+                result.items.forEach {
+                    $0.delete { error in
+                        if let error = error {
+                            completion(.failure(error))
+                            return
+                        }
+                    }
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main) {
                 completion(.success(nil))
             }
+        }
+    }
+    
+    func fetchTimerListAll(completion: @escaping StoreResultHandler<[StorageReference]>) {
+        guard let user = user else {
+            completion(.failure(DataBaseError.unknown))
+            return
+        }
+        let timersStorageRef = storageRef.child("users/\(user.uid)/timers")
+        timersStorageRef.listAll { result, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            completion(.success(result.prefixes))
         }
     }
     
@@ -196,4 +228,5 @@ final class TimerDataStore: TimerDataStoreProtocol {
 private extension String {
     static let savePhotoQueueLabel = "CustomTimerApp.SavaPhotoQueue"
     static let fetchTimerDataQueueLabel = "CustomTimerApp.FetchTimerDataQueue"
+    static let deleteAllPhotosQueueLabel = "CustomTimerApp.DeleteAllPhotosQueue"
 }

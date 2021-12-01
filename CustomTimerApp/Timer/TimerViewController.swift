@@ -120,8 +120,21 @@ extension TimerViewController {
                     DispatchQueue.main.async {
                         self?.customTimers = self?.sortCreatedDate(customTimers: customTimers) ?? customTimers
                         self?.updateCollectionView()
+                        self?.deleteUnnecessaryStorage()
                     }
                 }
+            }
+        }
+    }
+    
+    private func deleteUnnecessaryStorage() {
+        // アプリ起動時に不要データがあれば削除するだけの処理なので、削除処理が失敗しても成功しても特にやることはない
+        timerUseCase.deleteUnnecessaryStorage(customTimer: customTimers) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success:
+                break
             }
         }
     }
