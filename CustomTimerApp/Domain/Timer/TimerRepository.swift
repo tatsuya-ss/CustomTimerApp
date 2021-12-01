@@ -196,18 +196,16 @@ final class TimerRepository: TimerRepositoryProtocol {
             }
         }
         
-        customTimer.forEach { timer in
-            timer.timeInfomations.forEach { timeInfomation in
-                dispatchGroup.enter()
-                dataStore.deletePhoto(timerId: timer.id, photoId: timeInfomation.id) { result in
-                    defer { dispatchGroup.leave() }
-                    switch result {
-                    case .failure(let error):
-                        let error = DataBaseError(storage: error)
-                        if error != .objectNotFound { dataBaseError = error }
-                    case .success:
-                        break
-                    }
+        customTimer.forEach {
+            dispatchGroup.enter()
+            dataStore.deletePhoto(timerId: $0.id) { result in
+                defer { dispatchGroup.leave() }
+                switch result {
+                case .failure(let error):
+                    let error = DataBaseError(storage: error)
+                    dataBaseError = error
+                case .success:
+                    break
                 }
             }
         }
