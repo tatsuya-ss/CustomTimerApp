@@ -36,6 +36,8 @@ protocol TimerRepositoryProtocol {
               completion: @escaping (Result<Any?, DataBaseError>) -> Void)
     func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void)
     func delete(customTimer: [CustomTimerComponent], completion: @escaping (Result<Any?, DataBaseError>) -> Void)
+    func deleteUnnecessaryStorage(customTimer: [CustomTimerComponent],
+                                  completion: @escaping StoreResultHandler<Any?>)
 }
 
 final class TimerRepository: TimerRepositoryProtocol {
@@ -44,6 +46,37 @@ final class TimerRepository: TimerRepositoryProtocol {
     
     init(dataStore: TimerDataStoreProtocol = TimerDataStore()) {
         self.dataStore = dataStore
+    }
+    
+    func deleteUnnecessaryStorage(customTimer: [CustomTimerComponent],
+                                  completion: @escaping StoreResultHandler<Any?>) {
+        dataStore.fetchListAll { [weak self] result in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let refs):
+                let unnecessasyStorageId = refs.filter { ref in
+                    !customTimer.contains { timer in
+                        return timer.id == ref.name
+                    }
+                }
+                if unnecessasyStorageId.isEmpty { completion(.success(nil)) }
+                else {
+                    print("*******************")
+                    print(unnecessasyStorageId)
+                    unnecessasyStorageId.forEach {
+                        self?.dataStore.deleteAllPhotos(timerId: $0.name) { result in
+                            switch result {
+                            case .failure(let error):
+                                completion(.failure(error))
+                            case .success:
+                                completion(.success(nil))
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func save(customTimer: CustomTimerComponent,

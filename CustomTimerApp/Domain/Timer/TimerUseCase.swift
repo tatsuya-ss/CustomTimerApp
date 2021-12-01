@@ -12,6 +12,8 @@ protocol TimerUseCaseProtocol {
               completion: @escaping (Result<Any?, DataBaseError>) -> Void)
     func fetch(completion: @escaping (Result<[CustomTimerComponent], DataBaseError>) -> Void)
     func delete(customTimer: [CustomTimerComponent], completion: @escaping (Result<Any?, DataBaseError>) -> Void)
+    func deleteUnnecessaryStorage(customTimer: [CustomTimerComponent],
+                                  completion: @escaping StoreResultHandler<Any?>)
 }
 
 final class TimerUseCase: TimerUseCaseProtocol {
@@ -36,4 +38,8 @@ final class TimerUseCase: TimerUseCaseProtocol {
         repository.delete(customTimer: customTimer, completion: completion)
     }
     
+    func deleteUnnecessaryStorage(customTimer: [CustomTimerComponent],
+                                  completion: @escaping StoreResultHandler<Any?>) {
+        repository.deleteUnnecessaryStorage(customTimer: customTimer, completion: completion)
+    }
 }
