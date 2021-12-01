@@ -39,9 +39,7 @@ protocol TimerDataStoreProtocol {
     func fetchPhoto(timerId: String, photoId: String, completion: @escaping StoreResultHandler<URL>)
     func deleteData(timerId: String, completion: @escaping StoreResultHandler<Any?>)
     func deletePhoto(timerId: String, completion: @escaping StoreResultHandler<Any?>)
-    func fetchListAll(completion: @escaping StoreResultHandler<[StorageReference]>)
-    func deleteAllPhotos(timerId: String,
-                         completion: @escaping StoreResultHandler<Any?>)
+    func fetchTimerListAll(completion: @escaping StoreResultHandler<[StorageReference]>)
 }
 
 final class TimerDataStore: TimerDataStoreProtocol {
@@ -209,7 +207,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
         }
     }
     
-    func fetchListAll(completion: @escaping StoreResultHandler<[StorageReference]>) {
+    func fetchTimerListAll(completion: @escaping StoreResultHandler<[StorageReference]>) {
         guard let user = user else {
             completion(.failure(DataBaseError.unknown))
             return
@@ -221,45 +219,6 @@ final class TimerDataStore: TimerDataStoreProtocol {
                 return
             }
             completion(.success(result.prefixes))
-        }
-    }
-    
-    func deleteAllPhotos(timerId: String,
-                         completion: @escaping StoreResultHandler<Any?>) {
-        guard let user = user else {
-            completion(.failure(DataBaseError.unknown))
-            return
-        }
-        let timerStorageRef = storageRef.child("users/\(user.uid)/timers/\(timerId)")
-        timerStorageRef.listAll { result, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            print("+++++++++++++")
-            print(result.items)
-            var dataBaseError: Error?
-            let dispatchGroup = DispatchGroup()
-            let dispatchQueue = DispatchQueue(label: .deleteAllPhotosQueueLabel,
-                                              attributes: .concurrent)
-            dispatchQueue.async(group: dispatchGroup) {
-                result.items.forEach {
-                    $0.delete { error in
-                        if let error = error {
-                            dataBaseError = error
-                        }
-                    }
-                }
-            }
-            
-            dispatchGroup.notify(queue: .main) {
-                if let dataBaseError = dataBaseError {
-                    completion(.failure(dataBaseError))
-                } else {
-                    completion(.success(nil))
-                }
-            }
-            
         }
     }
     
