@@ -371,6 +371,7 @@ extension TimerViewController {
 extension TimerViewController {
     
     @objc private func longPressRecognizer(sender: UILongPressGestureRecognizer) {
+        guard operationState == .timer || operationState == .edit else { return }
         let point = sender.location(in: collectionView)
         let indexPath = collectionView.indexPathForItem(at: point)
         if let indexPath = indexPath {
