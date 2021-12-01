@@ -189,7 +189,12 @@ extension TimerViewController {
     private func makeEditMenu() -> UIMenu {
         let addTimerAction = UIAction(title: "タイマーを作成",
                                       state: .off) { [weak self] _ in
-            self?.presentCustomTimerVC()
+            if let customTimers = self?.customTimers,
+               customTimers.count < 3 {
+                self?.presentCustomTimerVC()
+            } else {
+                self?.showBillingAlert()
+            }
         }
         let editTimerAction = UIAction(title: "タイマーを編集",
                                        state: .off) { [weak self] _ in
@@ -213,6 +218,13 @@ extension TimerViewController {
                                          editTimerAction,
                                          deleteTimerAction])
         return editMenu
+    }
+    
+    private func showBillingAlert() {
+        let alert = UIAlertController(title: "４つ以上のタイマー作成は課金が必要になります。課金機能は今後実装予定です。", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
 }
