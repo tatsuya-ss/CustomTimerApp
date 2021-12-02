@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jig-kq-FxL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jig-kq-FxL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Zdp-rj-HPv">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4hE-qF-HxF">
                                 <rect key="frame" x="50" y="642" width="314" height="120"/>
                                 <subviews>
@@ -63,13 +66,27 @@
                                     <constraint firstItem="ifn-rc-cbq" firstAttribute="height" secondItem="UjY-jP-DJv" secondAttribute="height" id="gsb-Kj-gLJ"/>
                                 </constraints>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconNoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="hND-fQ-os3">
+                                <rect key="frame" x="72.5" y="293" width="269" height="269"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hND-fQ-os3" secondAttribute="height" multiplier="1:1" id="M7b-aa-zrx"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="4hE-qF-HxF" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="4pT-5T-pJr"/>
+                            <constraint firstItem="Zdp-rj-HPv" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="50z-fq-CMh"/>
                             <constraint firstItem="4hE-qF-HxF" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="IQf-qq-jQK"/>
+                            <constraint firstItem="Zdp-rj-HPv" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="LW8-7W-8sT"/>
+                            <constraint firstItem="hND-fQ-os3" firstAttribute="centerX" secondItem="Zdp-rj-HPv" secondAttribute="centerX" id="NXV-ge-d6t"/>
+                            <constraint firstItem="Zdp-rj-HPv" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="SIW-E9-w9d"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="4hE-qF-HxF" secondAttribute="bottom" constant="100" id="UgE-ie-Z6A"/>
+                            <constraint firstItem="hND-fQ-os3" firstAttribute="centerY" secondItem="Zdp-rj-HPv" secondAttribute="centerY" priority="900" id="hpx-ZH-0GO"/>
+                            <constraint firstItem="hND-fQ-os3" firstAttribute="height" secondItem="Zdp-rj-HPv" secondAttribute="height" multiplier="0.3" id="lpJ-WN-EyV"/>
+                            <constraint firstItem="4hE-qF-HxF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hND-fQ-os3" secondAttribute="bottom" constant="80" id="p4Q-dM-xtN"/>
+                            <constraint firstItem="Zdp-rj-HPv" firstAttribute="bottom" secondItem="5EZ-qb-Rvc" secondAttribute="bottom" id="r4h-gD-nz4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ようこそ" id="ads-T7-Bcv"/>
@@ -102,6 +119,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background" width="1264" height="2778"/>
+        <image name="iconNoBackground" width="1024" height="1024"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
