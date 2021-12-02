@@ -293,7 +293,6 @@ extension TimerViewController {
     private func configureHierarchy() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = true
         collectionView.register(TimerCollectionViewCell.nib,
@@ -359,6 +358,8 @@ extension TimerViewController {
     
     private func setupNavigation() {
         navigationItem.rightBarButtonItem = editBarButton
+        navigationItem.rightBarButtonItem?.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     private func setupToolBar() {

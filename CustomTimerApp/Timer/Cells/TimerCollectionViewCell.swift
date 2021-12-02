@@ -20,7 +20,7 @@ final class TimerCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         layer.cornerRadius = 10
         contentsImageView.layer.cornerRadius = 10
-        backgroundColor = .systemGray
+        backgroundColor = .white
     }
     
     func configure(timerName: String,

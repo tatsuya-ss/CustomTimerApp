@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pd2-ea-3Ah">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pd2-ea-3Ah">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -17,15 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="UmI-CZ-bUn">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QGA-zg-Fy6">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="t4b-H5-Qfb">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <imageView key="backgroundView" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="DYJ-dr-xdH">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="WoW-2i-oYk">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
@@ -52,17 +58,22 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="UmI-CZ-bUn" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="0Kv-0e-1Sd"/>
                             <constraint firstItem="QGA-zg-Fy6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1tX-iU-W22"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="tbm-j9-52K" secondAttribute="bottom" id="2Tb-tx-E5k"/>
                             <constraint firstAttribute="trailing" secondItem="tbm-j9-52K" secondAttribute="trailing" id="4M2-Dd-Fr6"/>
                             <constraint firstItem="tbm-j9-52K" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Wdo-gx-ZIq"/>
+                            <constraint firstAttribute="bottom" secondItem="UmI-CZ-bUn" secondAttribute="bottom" id="c8q-Vo-1hb"/>
                             <constraint firstItem="QGA-zg-Fy6" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="dEE-pU-H5U"/>
                             <constraint firstItem="QGA-zg-Fy6" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="fZ1-PI-3nx"/>
+                            <constraint firstAttribute="trailing" secondItem="UmI-CZ-bUn" secondAttribute="trailing" id="ppI-gD-fzL"/>
                             <constraint firstAttribute="trailing" secondItem="QGA-zg-Fy6" secondAttribute="trailing" id="s2S-4B-av5"/>
+                            <constraint firstItem="UmI-CZ-bUn" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="zIV-fp-0AQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="タイマー" id="a2k-lG-oHV">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="gearshape" catalog="system" id="LKE-5D-Oxe">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="settingButtonDidTapped:" destination="Y6W-OH-hqX" id="uV4-Uv-q7Q"/>
                             </connections>
@@ -87,6 +98,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="954-zF-nSw">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -99,6 +111,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background" width="1264" height="2778"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
