@@ -100,6 +100,7 @@
 		5BDAE6C28E4D6DFF49878D1C /* Pods_CustomTimerApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomTimerApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		750031DF271D6EE000971701 /* PerformBatchUpdatesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformBatchUpdatesProtocol.swift; sourceTree = "<group>"; };
 		751A36CF2707229E00715E43 /* TimerBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerBehavior.swift; sourceTree = "<group>"; };
+		753314EF275A16E1008201FC /* CustomTimerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CustomTimerApp.entitlements; sourceTree = "<group>"; };
 		754C290B26F035DA0050252E /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		754C290E26F037000050252E /* CustomTimerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimerCollectionViewCell.swift; sourceTree = "<group>"; };
 		754C290F26F037000050252E /* CustomTimerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTimerCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -266,6 +267,7 @@
 		7570113C26CCFCC200716E93 /* CustomTimerApp */ = {
 			isa = PBXGroup;
 			children = (
+				753314EF275A16E1008201FC /* CustomTimerApp.entitlements */,
 				75F6BD4E272FC018007309B7 /* Domain */,
 				75EC6610270BE93C0001F464 /* Sounds */,
 				75D28FE926F9D736000718DF /* Utilities */,
@@ -999,8 +1001,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CustomTimerApp/CustomTimerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = N53995CJPD;
 				INFOPLIST_FILE = CustomTimerApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1021,8 +1024,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CustomTimerApp/CustomTimerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_TEAM = N53995CJPD;
 				INFOPLIST_FILE = CustomTimerApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
