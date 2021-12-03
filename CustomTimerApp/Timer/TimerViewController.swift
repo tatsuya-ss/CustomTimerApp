@@ -200,6 +200,7 @@ extension TimerViewController {
                                        state: .off) { [weak self] _ in
             self?.navigationItem.title = "タイマーを編集"
             self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
+            self?.navigationItem.rightBarButtonItem?.tintColor = .white
             self?.settingButton.isEnabled = false
             self?.operationState.changeState(state: .edit)
         }
@@ -207,6 +208,7 @@ extension TimerViewController {
                                          state: .off) { [weak self] _ in
             self?.navigationItem.title = "削除するタイマーを選択"
             self?.navigationItem.rightBarButtonItem = self?.cancelBarButton
+            self?.navigationItem.rightBarButtonItem?.tintColor = .white
             self?.settingButton.isEnabled = false
             self?.toolBar.isHidden = false
             self?.deleteButton.isEnabled = false
@@ -386,6 +388,7 @@ extension TimerViewController {
     
     @objc private func cancelBarButtonDidTapped() {
         navigationItem.rightBarButtonItem = editBarButton
+        navigationItem.rightBarButtonItem?.tintColor = .white
         settingButton.isEnabled = true
         navigationItem.title = "タイマー"
         toolBar.isHidden = true
