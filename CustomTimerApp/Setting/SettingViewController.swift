@@ -83,10 +83,11 @@ final class SettingViewController: UIViewController {
 
 // MARK: - func
 extension SettingViewController {
-    
+    // https://itunes.apple.com/jp/app/id1598228289?mt=8
+    // https://apps.apple.com/jp/app/movie-reviews-%E6%98%A0%E7%94%BB%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E7%AE%A1%E7%90%86/id1578614989
     private func showActivityVC() {
         // TODO: このアプリのURLに変更
-        guard let shareUrl = URL(string: "https://apps.apple.com/jp/app/movie-reviews-%E6%98%A0%E7%94%BB%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E7%AE%A1%E7%90%86/id1578614989")
+        guard let shareUrl = URL(string: "https://itunes.apple.com/jp/app/id1598228289?mt=8")
         else { return }
         let activityVC = UIActivityViewController(activityItems: [shareUrl],
                                                   applicationActivities: nil)
@@ -95,7 +96,7 @@ extension SettingViewController {
     
     private func showRequestReviewManually() {
         // TODO: このアプリのURLに変更
-        guard let writeReviewURL = URL(string: "https://apps.apple.com/jp/app/movie-reviews-%E6%98%A0%E7%94%BB%E3%83%AC%E3%83%93%E3%83%A5%E3%83%BC%E7%AE%A1%E7%90%86/id1578614989?action=write-review")
+        guard let writeReviewURL = URL(string: "https://itunes.apple.com/jp/app/id1598228289?mt=8?action=write-review")
         else { fatalError("Expected a valid URL") }
         UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
     }

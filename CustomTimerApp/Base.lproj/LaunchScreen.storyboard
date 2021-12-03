@@ -16,8 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="PMT-ad-KTP">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="PMT-ad-KTP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconNoBackground" translatesAutoresizingMaskIntoConstraints="NO" id="6SY-Di-i0c">
+                                <rect key="frame" x="28" y="269" width="358" height="358"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6SY-Di-i0c" secondAttribute="height" multiplier="1:1" id="162-sV-gmX"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -25,8 +31,11 @@
                         <constraints>
                             <constraint firstItem="PMT-ad-KTP" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Keg-6Q-svK"/>
                             <constraint firstAttribute="bottom" secondItem="PMT-ad-KTP" secondAttribute="bottom" id="Ndr-WY-Zdq"/>
+                            <constraint firstItem="6SY-Di-i0c" firstAttribute="centerY" secondItem="PMT-ad-KTP" secondAttribute="centerY" id="Paa-2z-OGs"/>
                             <constraint firstItem="PMT-ad-KTP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bDo-PD-Xat"/>
+                            <constraint firstItem="6SY-Di-i0c" firstAttribute="height" secondItem="PMT-ad-KTP" secondAttribute="height" multiplier="0.4" id="m1c-Br-f6e"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PMT-ad-KTP" secondAttribute="trailing" id="vjB-4M-XOb"/>
+                            <constraint firstItem="6SY-Di-i0c" firstAttribute="centerX" secondItem="PMT-ad-KTP" secondAttribute="centerX" id="z1H-Pe-Uo2"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,7 +45,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreenImage" width="1264" height="2778"/>
+        <image name="background" width="1264" height="2778"/>
+        <image name="iconNoBackground" width="1024" height="1024"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

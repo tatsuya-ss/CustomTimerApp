@@ -16,8 +16,8 @@ final class SignUpOrLogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupButton(button: signUpButton, layout: SignUpButtonLayout())
-        setupButton(button: logInButton, layout: LogInButtonLayout())
+        setupButton(button: signUpButton, layout: SignUpButtonLayoutForSignInOrLogIn())
+        setupButton(button: logInButton, layout: LogInButtonLayoutForSignInOrLogIn())
     }
     
     @IBAction private func signUpButtonDidTapped(_ sender: Any) {

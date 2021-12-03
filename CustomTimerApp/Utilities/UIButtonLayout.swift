@@ -13,16 +13,28 @@ protocol UIButtonLayout {
     var borderColor: CGColor { get }
 }
 
+struct SignUpButtonLayoutForSignInOrLogIn: UIButtonLayout {
+    var cornerRadius: CGFloat = 10
+    var borderWidth: CGFloat = 0
+    var borderColor: CGColor = UIColor.white.cgColor
+}
+
+struct LogInButtonLayoutForSignInOrLogIn: UIButtonLayout {
+    var cornerRadius: CGFloat = 10
+    var borderWidth: CGFloat = 0
+    var borderColor: CGColor = UIColor.black.cgColor
+}
+
 struct SignUpButtonLayout: UIButtonLayout {
     var cornerRadius: CGFloat = 10
-    var borderWidth: CGFloat = 0.5
+    var borderWidth: CGFloat = 0
     var borderColor: CGColor = UIColor.white.cgColor
 }
 
 struct LogInButtonLayout: UIButtonLayout {
     var cornerRadius: CGFloat = 10
     var borderWidth: CGFloat = 0.5
-    var borderColor: CGColor = UIColor.black.cgColor
+    var borderColor: CGColor = UIColor.systemBlue.cgColor
 }
 
 struct SendButtonLayout: UIButtonLayout {

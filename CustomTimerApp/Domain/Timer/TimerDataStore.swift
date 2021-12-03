@@ -55,7 +55,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
             return
         }
         do {
-            try db.collection("user").document(user.uid).collection("timer").document(customTimer.id).setData(from: customTimer)
+            try db.collection("users").document(user.uid).collection("timers").document(customTimer.id).setData(from: customTimer)
             completion(.success(nil))
         } catch {
             completion(.failure(error))
@@ -76,7 +76,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
         customTimer.timeInfomations.forEach {
             if let photoData =  $0.photo {
                 let fileName = $0.id.makeJPGFileName()
-                let photoRef =  storageRef.child("users/\(user.uid)/timers/\(customTimer.id)/\(fileName)")
+                let photoRef =  storageRef.child("users/\(user.uid)/timers/\(customTimer.id)/photos/\(fileName)")
                 dispatchQueue.async(group: dispatchGroup) {
                     photoRef.putData(photoData, metadata: nil) { metadata, error in
                         if let error = error {
@@ -100,7 +100,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
             return
         }
         
-        let timerCollectionRef = db.collection("user").document(user.uid).collection("timer")
+        let timerCollectionRef = db.collection("users").document(user.uid).collection("timers")
         timerCollectionRef.getDocuments() { querySnapshot, error in
             if let error = error {
                 completion(.failure(error))
@@ -149,7 +149,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
             return
         }
         let fileName = photoId.makeJPGFileName()
-        let photoRef =  Storage.storage().reference().child("users/\(user.uid)/timers/\(timerId)/\(fileName)")
+        let photoRef =  Storage.storage().reference().child("users/\(user.uid)/timers/\(timerId)/photos/\(fileName)")
         let cachesDirectoryPathURL = DirectoryManagement().makeCacheDirectoryPathURL(fileName: fileName)
         let downloadTask = photoRef.write(toFile: cachesDirectoryPathURL) { url, error in
             if let error = error {
@@ -166,7 +166,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
             completion(.failure(DataBaseError.unknown))
             return
         }
-        db.collection("user").document(user.uid).collection("timer").document(timerId).delete { error in
+        db.collection("users").document(user.uid).collection("timers").document(timerId).delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -181,7 +181,7 @@ final class TimerDataStore: TimerDataStoreProtocol {
             completion(.failure(DataBaseError.unknown))
             return
         }
-        let timerStorageRef = storageRef.child("users/\(user.uid)/timers/\(timerId)")
+        let timerStorageRef = storageRef.child("users/\(user.uid)/timers/\(timerId)/photos")
         timerStorageRef.listAll { result, error in
             if let error = error {
                 completion(.failure(error))

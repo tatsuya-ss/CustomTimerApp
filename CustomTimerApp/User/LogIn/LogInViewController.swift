@@ -20,11 +20,14 @@ final class LogInViewController: UIViewController {
     
     private var userUseCase: UserUseCaseProtocol!
     private let indicator = Indicator()
-    
+    private let secureButton = UIButton()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButton(button: logInButton, layout: LogInButtonLayout())
         setupNotification()
+        setuppasswordTextField()
+        setupSecureButton()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -83,6 +86,27 @@ extension LogInViewController {
     
     @objc private func keyboardWillHide(notification: Notification) {
         undoOriginalViewFrame(notification: notification)
+    }
+    
+    private func setuppasswordTextField() {
+        passwordTextField.rightView = secureButton
+        passwordTextField.rightViewMode = .always
+    }
+    
+    private func setupSecureButton() {
+        secureButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+        secureButton.addTarget(self,
+                               action: #selector(secureButtonDidTapped),
+                               for: .touchUpInside)
+    }
+    
+    @objc private func secureButtonDidTapped() {
+        if passwordTextField.isSecureTextEntry {
+            secureButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
+        } else {
+            secureButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+        }
+        passwordTextField.isSecureTextEntry.toggle()
     }
 
 }
